@@ -12,33 +12,27 @@ local hurttime = 0
 
 if not canLoadGhostWare then return end
 
---local config = {
---	Buttons = {},
---	Toggles = {},
---	Options = {},
---	Keybinds = {}
---}
+local config = {
+	Buttons = {},
+	Toggles = {},
+	Options = {},
+	Keybinds = {}
+}
 
+local function saveConfig()
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Polaris/config.json") then delfile("Polaris/config.json"); end
+	writefile("Polaris/config.json",encrypt)
+end
 
---local function saveConfig()
---	local encrypt = game:GetService("HttpService"):JSONEncode(config)
+local function loadConfig()
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Polaris/config.json"))
+	config = decrypt
+end
 
---	if isfile("Ghostware/config") then
-	--	delfile("Ghostware/config")
-	--end
-
-    --	writefile("Ghostware/config",encrypt)
---end
-
---local function loadConfig()
---	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
-	--config = decrypt
---end
-
---if not isfile("Ghostware/config") then
---	makefolder("GhostWare")
---	saveConfig()
---end
+if not isfile("Polaris/config.json") then
+	makefolder("Polaris")
+	saveConfig()
+end
 
 task.wait(0.1)
 loadConfig()
