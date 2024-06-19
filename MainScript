@@ -12,6 +12,16 @@ local hurttime = 0
 
 if not canLoadGhostWare then return end
 
+function newChat(msg)
+	local args = {
+		[1] = msg,
+		[2] = "All"
+	}
+	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+end
+
+
+
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
@@ -27,7 +37,6 @@ Camera = workspace.Camera
 CurrentCamera = workspace.CurrentCamera
 RunService = game["Run Service"]
 TweenService = game.TweenService
-
 local inventory = workspace[LocalPlayer.Name].InventoryFolder.Value
 
 local config = {
@@ -45,28 +54,28 @@ function newChat(msg)
 	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
 end
 
---local function saveConfig()
---	local encrypt = game:GetService("HttpService"):JSONEncode(config)
+local function saveConfig()
+	local encrypt = game:GetService("HttpService"):JSONEncode(config)
 
-	--if isfile("Ghostware/config") then
-	--	delfile("Ghostware/config")
-	--end
+	if isfile("Ghostware/config") then
+		delfile("Ghostware/config")
+	end
 
-  --  	writefile("Ghostware/config",encrypt)
---end
+    	writefile("Ghostware/config",encrypt)
+end
 
---local function loadConfig()
---	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
---	config = decrypt
---end
+local function loadConfig()
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
+	config = decrypt
+end
 
---if not isfile("Ghostware/config") then
---	makefolder("GhostWare")
---	saveConfig()
---end
+if not isfile("Ghostware/config") then
+	makefolder("GhostWare")
+	saveConfig()
+end
 
 task.wait(0.1)
---loadConfig()
+loadConfig()
 task.wait(0.1)
 
 local function raycast(start,dir)
