@@ -1,27 +1,15 @@
 repeat task.wait() until game:IsLoaded()
-task.wait(0.5)
 
 local library = {}
 local spawnConnections = {}
 local utils = {}
 
 
-local canLoadGhostWare = true
+local canLoadGhostWare = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local user = "Developer"
 local hurttime = 0
 
 if not canLoadGhostWare then return end
-
-function newChat(msg)
-	local args = {
-		[1] = msg,
-		[2] = "All"
-	}
-	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-end
-
-
-
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
