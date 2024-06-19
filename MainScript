@@ -54,23 +54,25 @@ function newChat(msg)
 	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
 end
 
+local config = {
+	Buttons = {},
+	Toggles = {},
+	Options = {},
+	Keybinds = {}
+}
+
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config)
-
-	if isfile("Ghostware/config") then
-		delfile("Ghostware/config")
-	end
-
-    	writefile("Ghostware/config",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Polaris/config.json") then delfile("Polaris/config.json"); end
+	writefile("Polaris/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Polaris/config.json"))
 	config = decrypt
 end
 
-if not isfile("Ghostware/config") then
-	makefolder("GhostWare")
+if not isfile("Polaris/config.json") then
+	makefolder("Polaris")
 	saveConfig()
 end
 
