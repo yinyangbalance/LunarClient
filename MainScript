@@ -13,31 +13,29 @@ local hurttime = 0
 if not canLoadGhostWare then return end
 
 
---local config = {
---	Buttons = {},
---	Toggles = {},
---	Options = {},
---	Keybinds = {}
---}
+local function saveConfig()
+	local encrypt = game:GetService("HttpService"):JSONEncode(config)
 
---local function saveConfig()
---	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Ghostware/config.json") then delfile("Ghostware/config.json"); end
---	writefile("Ghostware/config.json",encrypt)
---end
+	if isfile("Ghostware/config") then
+		delfile("Ghostware/config")
+	end
 
---local function loadConfig()
---	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config.json"))
---	config = decrypt
---end
+    	writefile("Ghostware/config",encrypt)
+end
 
---if not isfile("Ghostware/config.json") then
---	makefolder("Ghostware/config.json")
---	saveConfig()
---end
+local function loadConfig()
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
+	config = decrypt
+end
 
---task.wait(0.1)
---loadConfig()
---task.wait(0.1)
+if not isfile("Ghostware/config") then
+	makefolder("GhostWare")
+	saveConfig()
+end
+
+task.wait(0.1)
+loadConfig()
+task.wait(0.1)
 
 
 
