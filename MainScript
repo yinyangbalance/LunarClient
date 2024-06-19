@@ -12,6 +12,13 @@ local hurttime = 0
 
 if not canLoadGhostWare then return end
 
+local config = {
+	Buttons = {},
+	Toggles = {},
+	Options = {},
+	Keybinds = {}
+}
+
 
 local function saveConfig()
 	local encrypt = game:GetService("HttpService"):JSONEncode(config)
