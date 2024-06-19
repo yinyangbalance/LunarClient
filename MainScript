@@ -12,46 +12,6 @@ local hurttime = 0
 
 if not canLoadGhostWare then return end
 
-local config = {
-	Buttons = {},
-	Toggles = {},
-	Options = {},
-	Keybinds = {}
-}
-
-function newChat(msg)
-	local args = {
-		[1] = msg,
-		[2] = "All"
-	}
-	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-end
-
-local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config)
-
-	if isfile("Ghostware/config") then
-		delfile("Ghostware/config")
-	end
-
-    	writefile("Ghostware/config",encrypt)
-end
-
-local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config"))
-	config = decrypt
-end
-
-if not isfile("Ghostware/config") then
-	makefolder("GhostWare")
-	saveConfig()
-end
-
-task.wait(0.1)
-loadConfig()
-task.wait(0.1)
-
-
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
