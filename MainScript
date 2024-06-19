@@ -41,6 +41,14 @@ local config = {
 	Keybinds = {}
 }
 
+function newChat(msg)
+	local args = {
+		[1] = msg,
+		[2] = "All"
+	}
+	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
+end
+
 local function saveConfig()
 	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Ghostware/config.json") then delfile("Ghostware/config.json"); end
 	writefile("Ghostware/config.json",encrypt)
