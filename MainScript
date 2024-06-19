@@ -1624,7 +1624,7 @@ Chatspammer = Misc.NewButton({
 	Function = function(callback)
 		if callback then
 			repeat
-				newChat(".gg/HdqjAfBq | Ghostware")
+				newChat(".gg/HdqjAfBq")
 				task.wait(10)
 			until not Chatspammer.Enabled
 		end
