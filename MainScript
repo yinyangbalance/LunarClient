@@ -34,14 +34,6 @@ local config = {
 	Keybinds = {}
 }
 
-function newChat(msg)
-	local args = {
-		[1] = msg,
-		[2] = "All"
-	}
-	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(unpack(args))
-end
-
 local config = {
 	Buttons = {},
 	Toggles = {},
