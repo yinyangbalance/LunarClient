@@ -118,13 +118,13 @@ library.WindowCount = 0
 library.Array = {}
 library.Array.Background = true
 library.Array.SortMode = "TextLength"
-library.Array.BlurEnabled = false
-library.Array.Bold = false
+library.Array.BlurEnabled = true
+library.Array.Bold = true
 library.Array.BackgroundTransparency = 0.6
 library.Array.TextTransparency = 0
-library.Array.Rounded = false
+library.Array.Rounded = true
 library.Array.BackgroundColor3 = Color3.fromRGB(70,80,90)
-library.Array.Font = 23
+library.Array.Font = 25
 
 library.Color = Color3.fromRGB(170, 105, 195)
 library.KeyBind = Enum.KeyCode.RightShift
@@ -164,18 +164,18 @@ local arraylist = {
 		item.Text = o
 		item.BackgroundTransparency = 0.3
 		item.BorderSizePixel = 0
-		item.BackgroundColor3 = Color3.fromRGB(0,0,0)
+		item.BackgroundColor3 = Color3.fromRGB(40,10,85)
 		item.Size = UDim2.new(0,0,0,0)
 		item.TextScaled = true
 		item.TextColor3 = Color3.fromRGB(255,255,255)
-        item.Font = 17
+        item.Font = 19
 		
 		if library.Array.Rounded then
 			local round = Instance.new("UICorner",item)
 		end
 
-		local size = UDim2.new(0,game.TextService:GetTextSize(o,28,Enum.Font.SourceSans,Vector2.new(0,0)).X,0.033,0)
-		TweenService:Create(item,TweenInfo.new(1),{
+		local size = UDim2.new(0,game.TextService:GetTextSize(o,28,Enum.Font.FredokaOne,Vector2.new(0,0)).X,0.033,0)
+		TweenService:Create(item,TweenInfo.new(0.6),{
 			Size = size,
 		}):Play()
 
@@ -263,11 +263,12 @@ library.NewWindow = function(name)
 	textlabel.Position = UDim2.fromScale(0.1 + (library.WindowCount / 8), 0.1)
 	textlabel.Size = UDim2.fromScale(0.1, 0.0425)
 	textlabel.Text = name
+    textlabel.TextScaled = true
 	textlabel.Name = name
 	textlabel.BorderSizePixel = 0
-	textlabel.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	textlabel.BackgroundColor3 = Color3.fromRGB(85,135,35)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
-    textlabel.Font = 15
+    textlabel.Font = 11
 
 	local modules = Instance.new("Frame", textlabel)
 	modules.Size = UDim2.fromScale(1, 5)
@@ -314,11 +315,12 @@ library.NewWindow = function(name)
 		local textbutton = Instance.new("TextButton", modules)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
-		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
+		textbutton.BackgroundColor3 = Color3.fromRGB(60,200,70)
 		textbutton.BorderSizePixel = 0
 		textbutton.Text = Table.Name
+        textbutton.TextScaled = true
 		textbutton.Name = Table.Name
-        textbutton.Font = 14
+        textbutton.Font = 17
 		textbutton.TextColor3 = Color3.fromRGB(255,255,255)
 
 		local dropdown = Instance.new("Frame", textbutton)
@@ -351,7 +353,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(60,60,60) and library.Color or Color3.fromRGB(60,60,60))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(130,90,60) and library.Color or Color3.fromRGB(60,60,60))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
@@ -366,12 +368,12 @@ library.NewWindow = function(name)
 			local textbutton2 = Instance.new("TextButton", dropdown)
 			textbutton2.Size = UDim2.fromScale(1, 0.15)
 			textbutton2.Position = UDim2.fromScale(0,0)
-			textbutton2.BackgroundColor3 = Color3.fromRGB(60,60,60)
+			textbutton2.BackgroundColor3 = Color3.fromRGB(80,210,20)
 			textbutton2.BorderSizePixel = 0
 			textbutton2.Text = v.Name
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 14
+            textbutton2.Font = 4
 
 			local v2 = {}
 			v2.Enabled = Enabled
@@ -412,12 +414,12 @@ library.NewWindow = function(name)
 			local textbutton2 = Instance.new("TextButton", dropdown)
 			textbutton2.Size = UDim2.fromScale(1, 0.15)
 			textbutton2.Position = UDim2.fromScale(0,0)
-			textbutton2.BackgroundColor3 = Color3.fromRGB(60,60,60)
+			textbutton2.BackgroundColor3 = Color3.fromRGB(10,60,5)
 			textbutton2.BorderSizePixel = 0
 			textbutton2.Text = v.Name.." - "..v.Options[1]
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 15
+            textbutton2.Font = 2
 
 			local v2 = {
 				Option = v.Options[1]
@@ -507,7 +509,7 @@ if onMobile then
 	tglbtn.BackgroundColor3 = library.Color
 	tglbtn.Name = "ToggleUi"
 	tglbtn.Text = "ToggleUi"
-    tglbtn.Font = 14
+    tglbtn.Font = 23
 	
 
 	local corner = Instance.new("UICorner", tglbtn)
