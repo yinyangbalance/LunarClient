@@ -50,17 +50,17 @@ local config = {
 }
 
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Polaris/config.json") then delfile("Polaris/config.json"); end
-	writefile("Polaris/config.json",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Ghostware/config.json") then delfile("Ghostware/config.json"); end
+	writefile("Ghostware/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Polaris/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config.json"))
 	config = decrypt
 end
 
-if not isfile("Polaris/config.json") then
-	makefolder("Polaris")
+if not isfile("Ghostware/config.json") then
+	makefolder("Ghostware")
 	saveConfig()
 end
 
