@@ -355,7 +355,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(60,60,60) and library.Color or Color3.fromRGB(80,20,200))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(60,60,60) and library.Color or Color3.fromRGB(60,60,60))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
