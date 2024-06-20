@@ -128,6 +128,7 @@ library.Array.Rounded = true
 library.Array.BackgroundColor3 = Color3.fromRGB(70,80,90)
 library.Array.Font = 25
 
+
 library.Color = Color3.fromRGB(170, 105, 195)
 library.KeyBind = Enum.KeyCode.RightShift
 
@@ -163,12 +164,14 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	label.Text = Key
 	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	label.BorderSizePixel = 0
-	label.TextColor3 = Color3.fromRGB(255,255,255)
+	label.TextColor3 = Color3.fromRGB(855,139,145)
 	label.BackgroundTransparency = 1
-	label.Size = UDim2.fromScale(0.095,0.045)
-	label.Position = UDim2.fromScale(0,03)
+	label.Size = UDim2.fromScale(0.305,0.105)
+	label.Position = UDim2.fromScale(-0.005,0.01)
 	label.TextScaled = true
 	label.Name = "Mark"
+    label.ZIndex = 0
+    local stroke = Instance.new("UIStroke",label)
 
 local arrayItems = {}
 
@@ -189,7 +192,7 @@ local arraylist = {
 		end
 
 		local size = UDim2.new(0,game.TextService:GetTextSize(o,28,Enum.Font.FredokaOne,Vector2.new(0,0)).X,0.033,0)
-		TweenService:Create(item,TweenInfo.new(0.8),{
+		TweenService:Create(item,TweenInfo.new(0.4),{
 			Size = size,
 		}):Play()
 
