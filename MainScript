@@ -316,7 +316,7 @@ library.NewWindow = function(name)
 		local textbutton = Instance.new("TextButton", modules)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
-		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
+		textbutton.BackgroundColor3 = Color3.fromRGB(90,90,90)
 		textbutton.BorderSizePixel = 3
 
 		textbutton.Text = Table.Name
@@ -355,7 +355,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(60,60,60) and library.Color or Color3.fromRGB(160,140,90))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(90,90,90) and library.Color or Color3.fromRGB(90,90,90))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
