@@ -269,6 +269,7 @@ library.NewWindow = function(name)
 	textlabel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
     textlabel.Font = 2
+	textlabel.ZIndex = 2
 
 	local modules = Instance.new("Frame", textlabel)
 	modules.Size = UDim2.fromScale(1, 5)
@@ -354,7 +355,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(180,20,200) and library.Color or Color3.fromRGB(180,20,200))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(180,20,200) and library.Color or Color3.fromRGB(60,60,60))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
