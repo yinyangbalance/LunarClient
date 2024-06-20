@@ -266,7 +266,7 @@ library.NewWindow = function(name)
     textlabel.TextScaled = true
 	textlabel.Name = name
 	textlabel.BorderSizePixel = 0
-	textlabel.BackgroundColor3 = Color3.fromRGB(85,135,35)
+	textlabel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
     textlabel.Font = 11
 
@@ -315,7 +315,7 @@ library.NewWindow = function(name)
 		local textbutton = Instance.new("TextButton", modules)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
-		textbutton.BackgroundColor3 = Color3.fromRGB(60,200,70)
+		textbutton.BackgroundColor3 = Color3.fromRGB(90,10,70)
 		textbutton.BorderSizePixel = 0
 		textbutton.Text = Table.Name
         textbutton.TextScaled = true
@@ -353,7 +353,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(130,90,60) and library.Color or Color3.fromRGB(60,60,60))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(90,10,70) and library.Color or Color3.fromRGB(60,60,60))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
