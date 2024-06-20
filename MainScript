@@ -115,6 +115,8 @@ end
 
 library.WindowCount = 0
 
+local Key = "Ghostware | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
+
 library.Array = {}
 library.Array.Background = true
 library.Array.SortMode = "TextLength"
@@ -155,6 +157,18 @@ arrayListFrame.Name = "ArrayList"
 local sort = Instance.new("UIListLayout",arrayListFrame)
 sort.SortOrder = Enum.SortOrder.LayoutOrder
 sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
+
+	
+	label = Instance.new("TextLabel",ScreenGui)
+	label.Text = Key
+	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	label.BorderSizePixel = 0
+	label.TextColor3 = Color3.fromRGB(255,255,255)
+	label.BackgroundTransparency = 1
+	label.Size = UDim2.fromScale(0.095,0.045)
+	label.Position = UDim2.fromScale(0,03)
+	label.TextScaled = true
+	label.Name = "Mark"
 
 local arrayItems = {}
 
@@ -316,7 +330,7 @@ library.NewWindow = function(name)
 		local textbutton = Instance.new("TextButton", modules)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
-		textbutton.BackgroundColor3 = Color3.fromRGB(10,10,20)
+		textbutton.BackgroundColor3 = Color3.fromRGB(40,10,20)
 		textbutton.BorderSizePixel = 3
 
 		textbutton.Text = Table.Name
@@ -355,7 +369,7 @@ library.NewWindow = function(name)
 				Table.Function(enabled)
 			end)
 
-			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(10,10,20) and library.Color or Color3.fromRGB(10,10,20))
+			textbutton.BackgroundColor3 = (textbutton.BackgroundColor3 == Color3.fromRGB(40,10,20) and library.Color or Color3.fromRGB(40,10,20))
 			config.Buttons[Table.Name].Enabled = enabled
 			saveConfig()
 		end
