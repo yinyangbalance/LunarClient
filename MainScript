@@ -268,7 +268,7 @@ library.NewWindow = function(name)
 	textlabel.BorderSizePixel = 0
 	textlabel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
-    textlabel.Font = 12
+    textlabel.Font = 2
 
 	local modules = Instance.new("Frame", textlabel)
 	modules.Size = UDim2.fromScale(1, 5)
@@ -315,7 +315,7 @@ library.NewWindow = function(name)
 		local textbutton = Instance.new("TextButton", modules)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
-		textbutton.BackgroundColor3 = Color3.fromRGB(40,10,70)
+		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
 		textbutton.BorderSizePixel = 0
 		textbutton.Text = Table.Name
         textbutton.TextScaled = true
