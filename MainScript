@@ -316,12 +316,12 @@ library.NewWindow = function(name)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
 		textbutton.BackgroundColor3 = Color3.fromRGB(180,20,200)
-		textbutton.BorderSizePixel = 2
+		textbutton.BorderSizePixel = 3
 
 		textbutton.Text = Table.Name
         textbutton.TextScaled = true
 		textbutton.Name = Table.Name
-        textbutton.Font = 17
+        textbutton.Font = 6
 		textbutton.TextColor3 = Color3.fromRGB(255,255,255)
 
 		local dropdown = Instance.new("Frame", textbutton)
