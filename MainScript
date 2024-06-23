@@ -1659,21 +1659,14 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local number = 1
-local oldnumber = 1
-local msgs = {"gg/HdqjAfBq Get Ghostware Now!😎","Even without ghostware i wouldve still won💀","Ghostware On Top⭐","Tired of losing? gg/HdqjAfBq🗿","Imagine being legit in 2024💀"}
+local msgs = {"gg/HdqjAfBq Get Ghostware Now!","Even without ghostware i wouldve still won.","Ghostware On Top⭐","Imagine being legit in 2024"}
 Chatspammer = Misc.NewButton({
 	Name = "Chatspammer",
 	Function = function(callback)
 		if callback then
 			repeat
-				newChat(msg[number])
-				oldnumber = number
-				number = math.random(1,6)
-				if number == oldnumber then
-				repeat number = math.random(1,6) until number ~= oldnumber
-				end
-				task.wait(4)
+				newChat(msgs[math.random(1,5)])
+				task.wait(3)
 			until not Chatspammer.Enabled
 		end
 	end,
@@ -2574,7 +2567,7 @@ BridgeWin = Exploit.NewButton({
 	Function = function(callback)
 		if callback then
             repeat
-            task.wait(1)
+            task.wait(.5)
 			for i,v in workspace:GetDescendants() do 
     if v:IsA('TouchTransmitter') then 
         firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, v.Parent, 1)
