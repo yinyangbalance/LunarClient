@@ -1671,7 +1671,7 @@ Chatspammer = Misc.NewButton({
 				oldnumber = number
 				number = math.random(1,6)
 				if number == oldnumber then
-				repeat number = math.random(1,6) untill number ~= oldnumber
+				repeat number = math.random(1,6) until number ~= oldnumber
 				end
 				task.wait(4)
 			until not Chatspammer.Enabled
@@ -2565,4 +2565,22 @@ LongJump = Motion.NewButton({
 LongJumpMethod = LongJump.NewPicker({
 	Name = "Mode",
 	Options = {"Boost", "Gravity"}
+})
+
+
+BridgeWin = Exploit.NewButton({
+	Name = "BridgeInstaWin",
+	Keybind = Enum.KeyCode.B,
+	Function = function(callback)
+		if callback then
+            repeat
+            task.wait(1)
+			for i,v in workspace:GetDescendants() do 
+    if v:IsA('TouchTransmitter') then 
+        firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, v.Parent, 1)
+    end 
+end
+until not BridgeWin.Enabled
+		end
+	end,
 })
