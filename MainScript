@@ -1,5 +1,3 @@
---loadstring(game:HttpGet("https://raw.githubusercontent.com/CakScripts/GhostWare/main/MainScript"))()
-
 repeat task.wait() until game:IsLoaded()
 
 local library = {}
@@ -178,7 +176,7 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	label.BorderSizePixel = 0
 	label.TextColor3 = Color3.fromRGB(855,139,145)
 	label.BackgroundTransparency = 1
-	label.Size = UDim2.fromScale(0.305,0.105)
+	label.Size = UDim2.fromScale(0.335,0.105)
 	label.Position = UDim2.fromScale(-0.005,0.01)
 	label.TextScaled = true
 	label.Name = "Mark"
@@ -1674,21 +1672,6 @@ Chatspammer = Misc.NewButton({
 	end,
 })
 
---local knockbackHandler = debug.getupvalue(require(game:GetService("ReplicatedStorage").TS.damage["knockback-util"]).KnockbackUtil.calculateKnockbackVelocity, 1)
---local oldKb = knockbackHandler.kbUpwardStrength
---Velocity = Combat.NewButton({
---	Name = "Velocity",
---	Function = function(callback)
-	--	if callback then
-	--		knockbackHandler.kbUpwardStrength = 0
-	--		knockbackHandler.kbDirectionStrength = 0
-	--	else
-	--		knockbackHandler.kbUpwardStrength = oldKb
-	--		knockbackHandler.kbDirectionStrength = oldKb
-	--	end
-	--end,
---})
-
 
 local oldskybox = {
 	SkyboxBk = Lighting.Sky.SkyboxBk,
@@ -1906,16 +1889,16 @@ AntiHit = Motion.NewButton({
 			local lastHit = tick()
 			repeat
 				
-				local nearest = getNearestPlayer(12)
+				local nearest = getNearestPlayer(14)
 				
 				if (hurttime <= 50) and nearest then
 					
 					if (AntiHitSafe and tick() - lastHit > 0.4) then
-						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6 + Vector3.new(0,3,0)
+						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -8+ Vector3.new(0,3,0)
 
 						lastHit = tick()
 					else
-						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6 + Vector3.new(0,3,0)
+						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -8 + Vector3.new(0,3,0)
 					end
 					
 				end
@@ -1957,6 +1940,40 @@ AutoDip = Misc.NewButton({
 	end,
 })
 
+local AltDetectorcon
+AltDetector = Player.NewButton({
+	Name = "AltDetector",
+	Function = function(callback)
+		if callback then
+			AltDetectorcon = game.Players.PlayerAdded:Connect(function(plr)
+				if plr.AccountAge < 16 then
+                    	label = Instance.new("TextLabel",ScreenGui)
+
+	label.Text = plr.Name .. " is an alt account."
+	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	label.BorderSizePixel = 0
+	label.TextColor3 = Color3.fromRGB(155,39,45)
+	label.BackgroundTransparency = 1
+	label.Size = UDim2.fromScale(0.335,0.105)
+	label.Position = UDim2.fromScale(-0.005,0.04)
+	label.TextScaled = true
+	label.Name = "Alt"
+    label.ZIndex = 0
+    local stroke = Instance.new("UIStroke",label)
+
+					print(plr.Name .. " is an alt account.")
+                    task.wait(3)
+                    label:Destroy()
+				end
+			end)
+		else
+			pcall(function()
+				AltDetectorcon:Disconnect()
+			end)
+		end
+	end,
+})
+
 local function getGroupRank(plr:Player)
 	return plr:GetRankInGroup(5774246)
 end
@@ -1973,11 +1990,6 @@ StaffDetector = Player.NewButton({
 				if getGroupRank(plr) > 10 then
 					writefile("Staff_Detection_GroupID", plr.Name)
 					newChat("/lobby")
-				end
-
-				if plr.AccountAge < 93 then -- under 3 months old + sus join (probably staff)
-					newChat("/lobby")
-					writefile("Staff_Detection_AccountAge", plr.Name)
 				end
 			end)
 		else
@@ -1997,12 +2009,15 @@ RemoteTrollage = Exploit.NewButton({
               TrollageConnection = RunService.Heartbeat:Connect(function()
                     task.wait()
                     if DragonSound.Enabled then
-                       game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer(" ")
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
+                       game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
                 end
                     if PartyPopper.Enabled then
                         game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
+                        game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
                     end
                     if YuziDash.Enabled then
+                                                game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
                         game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
                     end
                 end)
