@@ -14,6 +14,7 @@ if not canLoadGhostWare then return end
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
+local CollectionService = game:GetService("CollectionService")
 ReplicatedStorage = game:GetService("ReplicatedStorage")
 UserInputService = game:GetService("UserInputService")
 LocalPlayer = Players.LocalPlayer
@@ -74,9 +75,7 @@ if not isfile("Ghostware/config.json") then
 	saveConfig()
 end
 
-task.wait(0.1)
 loadConfig()
-task.wait(0.1)
 
 local function raycast(start,dir)
 	local p = RaycastParams.new()
@@ -89,7 +88,7 @@ local function raycast(start,dir)
 end
 
 LocalPlayer.CharacterAdded:Connect(function(char)
-	repeat task.wait(0.2) until char ~= nil
+	repeat task.wait(0.1) until char ~= nil
 
 	Character = char
 	Humanoid = char.Humanoid
@@ -1043,7 +1042,7 @@ TargetInfo = Visuals.NewButton({
 							end)	
 						end
 						
-						if TargetIntoStyle.Option == "Aeolus" then
+						if TargetIntoStyle.Option == "Ghostware" then
 							pcall(function()
 								targetInfo.Size = UDim2.fromScale(.12, .05)
 								targetInfo.BackgroundColor3 = Color3.fromRGB(85,95,115)
@@ -1084,7 +1083,7 @@ TargetInfo = Visuals.NewButton({
 })
 TargetIntoStyle = TargetInfo.NewPicker({
 	Name = "Style",
-	Options = {"Simple", "Aeolus"}
+	Options = {"Simple", "Ghostware"}
 })
 
 local ViewmodelConnection
@@ -2101,7 +2100,7 @@ Stealer = Player.NewButton({
 							end
 						end
 					end)
-				until (not Stealer.Enabled)
+				until not Stealer.Enabled
 			end)
 		end
 	end,
