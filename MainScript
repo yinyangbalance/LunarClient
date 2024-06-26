@@ -1774,6 +1774,7 @@ scaffoldBlockInst.Color = library.Color
 local scaffoldRun
 Scaffold = Misc.NewButton({
 	["Name"] = "Scaffold",
+	Keybind = Enum.KeyCode.X,
 	["Function"] = function(callback)
 		if callback then
 			task.spawn(function()
