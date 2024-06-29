@@ -1,5 +1,3 @@
-repeat task.wait() until game:IsLoaded()
-
 local library = {}
 local spawnConnections = {}
 local utils = {}
@@ -29,6 +27,7 @@ RunService = game["Run Service"]
 TweenService = game.TweenService
 local inventory = workspace[LocalPlayer.Name].InventoryFolder.Value
 local CollectionService = game:GetService("CollectionService")
+local PurchaseItemRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem")
 local ResetCharacterRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("ResetCharacter")
 
 
@@ -197,7 +196,7 @@ local arraylist = {
 		item.Size = UDim2.new(0,0,0,0)
 		item.TextScaled = true
 		item.TextColor3 = Color3.fromRGB(255,255,255)
-        item.Font = 19
+        item.Font = 11
 		
 		if library.Array.Rounded then
 			local round = Instance.new("UICorner",item)
@@ -297,7 +296,7 @@ library.NewWindow = function(name)
 	textlabel.BorderSizePixel = 5
 	textlabel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
-    textlabel.Font = 2
+    textlabel.Font = 11
 	textlabel.ZIndex = 2
 
 	local modules = Instance.new("Frame", textlabel)
@@ -351,7 +350,7 @@ library.NewWindow = function(name)
 		textbutton.Text = Table.Name
         textbutton.TextScaled = true
 		textbutton.Name = Table.Name
-        textbutton.Font = 6
+        textbutton.Font = 11
 		textbutton.TextColor3 = Color3.fromRGB(255,255,255)
 
 		local dropdown = Instance.new("Frame", textbutton)
@@ -404,7 +403,7 @@ library.NewWindow = function(name)
 			textbutton2.Text = v.Name
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 4
+            textbutton2.Font = 11
 
 			local v2 = {}
 			v2.Enabled = Enabled
@@ -450,7 +449,7 @@ library.NewWindow = function(name)
 			textbutton2.Text = v.Name.." - "..v.Options[1]
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 2
+            textbutton2.Font = 11
 
 			local v2 = {
 				Option = v.Options[1]
@@ -537,6 +536,7 @@ if onMobile then
 	tglbtn.Position = UDim2.fromScale(.47, .7)
 	tglbtn.Size = UDim2.fromScale(0.05, 0.03)
 	tglbtn.BorderSizePixel = 0
+    tglbtn.TextScaled = true
 	tglbtn.BackgroundColor3 = library.Color
 	tglbtn.Name = "ToggleUi"
 	tglbtn.Text = "ToggleUi"
@@ -1329,10 +1329,10 @@ Fly = Motion.NewButton({
 				PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
 				if UserInputService:IsKeyDown("Space") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, 44, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, 50, velo.Z)
 				end
 				if UserInputService:IsKeyDown("LeftShift") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, -44, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, -50, velo.Z)
 				end
 			end)
 		else
@@ -2184,7 +2184,7 @@ Camera = Visuals.NewButton({
 				CurrentCamera.FieldOfView = 120
 			end)
             if CameraZoom.Enabled then
-                game.Players.LocalPlayer.CameraMaxZoomDistance = 9e9
+                game.Players.LocalPlayer.CameraMaxZoomDistance = CameraZoom.Value
             else
                 game.Players.LocalPlayer.CameraMaxZoomDistance = 13
             end
@@ -2763,13 +2763,12 @@ RecallTp = Combat.NewButton({
 	Name = "RecallPlrTP",
 	Function = function(callback)
 		if callback then
+            RecallTp.ToggleButton(false)
 RecallPlayer()
 		end
 	end,
 })
 	
-
-
 local humanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 FastFall = Misc.NewButton({
 	Name = "FastFall",
@@ -2778,6 +2777,7 @@ FastFall = Misc.NewButton({
             if callback then
                 if FallMode.Option == "Velocity" then
                     humanoidRootPart.Velocity = Vector3.new(0, -999, 0)
+                    FastFall.ToggleButton(false)
                 elseif FallMode.Option == "Gravity" then
                     workspace.Gravity = -999
                 end
@@ -2804,4 +2804,25 @@ end)
 FallMode = FastFall.NewPicker({
     Name = "Mode",
     Options = {"Velocity", "Gravity"}
+})
+
+
+local canjump = true
+AntiDeath = Misc.NewButton({
+	Name = "AntiDeath",
+	Function = function(callback)
+		if callback then
+			local lastHit = tick()
+			local wasDisabled = false
+			repeat task.wait()
+				local nearest = getNearestPlayer(9e9)
+				if Humanoid.Health > 0 and Humanoid.Health < 30 and nearest.Character.Humanoid.Health > Humanoid.Health and canjump == true then
+					LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 550, 0)
+                    canjump = false
+                    task.wait(8)
+                    canjump = true
+				end
+			until not AntiDeath.Enabled
+		end
+	end,
 })
