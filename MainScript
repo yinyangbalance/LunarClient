@@ -1316,7 +1316,6 @@ ArrayTextTransparency = HUD.NewPicker({
 	Options = {"0", "0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9"}
 })--]]
 local timeRemaining = 2.3
-local flying = false
 local flycon
 Fly = Motion.NewButton({
 	Name = "Fly",
@@ -1324,7 +1323,6 @@ Fly = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			flycon = RunService.Heartbeat:Connect(function()
-            flying = true
 				local velo = PrimaryPart.Velocity
 				PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
@@ -1337,7 +1335,6 @@ Fly = Motion.NewButton({
 			end)
 		else
 			pcall(function()
-            flying = false
 				flycon:Disconnect()
 			end)
 		end
