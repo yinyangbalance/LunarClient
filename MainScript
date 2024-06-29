@@ -2184,7 +2184,7 @@ Camera = Visuals.NewButton({
 				CurrentCamera.FieldOfView = 120
 			end)
             if CameraZoom.Enabled then
-                game.Players.LocalPlayer.CameraMaxZoomDistance = CameraZoom.Value
+                game.Players.LocalPlayer.CameraMaxZoomDistance = 9e9
             else
                 game.Players.LocalPlayer.CameraMaxZoomDistance = 13
             end
