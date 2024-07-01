@@ -3062,3 +3062,22 @@ Volume = Music.NewPicker({
     Name = "Volume",
     Options = {"Low","Mid","High"}
 })
+
+
+Godmode = Combat.NewButton({
+	Name = "MelodyGodMode",
+	Function = function(callback)
+		if callback then
+            repeat
+            task.wait(.1)
+local args = {
+    [1] = {
+        ["healTarget"] = game.Players.LocalPlayer
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
+until not Godmode.Enabled
+		end
+	end,
+})
