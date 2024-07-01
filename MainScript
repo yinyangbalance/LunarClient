@@ -136,7 +136,8 @@ library.Array.Bold = true
 library.Array.BackgroundTransparency = 0.6
 library.Array.TextTransparency = 0
 library.Array.Rounded = true
-library.Array.Font = 25
+
+library.Array.Font = 14
 
 
 library.Color = Color3.fromRGB(188, 106, 255)
@@ -178,10 +179,12 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.fromScale(0.335,0.105)
 	label.Position = UDim2.fromScale(-0.005,0.01)
-	label.TextScaled = true
 	label.Name = "Mark"
+    label.Font = 15
     label.ZIndex = 0
+    label.TextScaled = true
     local stroke = Instance.new("UIStroke",label)
+    stroke.Thickness = 2
 
 local arrayItems = {}
 
@@ -193,9 +196,8 @@ local arraylist = {
 		item.BorderSizePixel = 0
 		item.BackgroundColor3 = Color3.fromRGB(0,0,0)
 		item.Size = UDim2.new(0,0,0,0)
-		item.TextScaled = true
 		item.TextColor3 = Color3.fromRGB(255,255,255)
-        item.Font = 11
+        item.Font = 14
 		
 		if library.Array.Rounded then
 			local round = Instance.new("UICorner",item)
@@ -290,7 +292,6 @@ library.NewWindow = function(name)
 	textlabel.Position = UDim2.fromScale(0.1 + (library.WindowCount / 8), 0.1)
 	textlabel.Size = UDim2.fromScale(0.1, 0.0425)
 	textlabel.Text = name
-    textlabel.TextScaled = true
 	textlabel.Name = name
 	textlabel.BorderSizePixel = 5
 	textlabel.BackgroundColor3 = Color3.fromRGB(35,35,35)
@@ -347,7 +348,6 @@ library.NewWindow = function(name)
 		textbutton.BorderSizePixel = 3
 
 		textbutton.Text = Table.Name
-        textbutton.TextScaled = true
 		textbutton.Name = Table.Name
         textbutton.Font = 11
 		textbutton.TextColor3 = Color3.fromRGB(255,255,255)
@@ -1186,7 +1186,6 @@ HUDS[1] = function()
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.fromScale(0.075,0.035)
 	label.Position = UDim2.fromScale(0,0)
-	label.TextScaled = true
 	label.Name = "Logo"
 	local glow = Instance.new("ImageLabel",label)
 	glow.Size = UDim2.fromScale(1.8,1.5)
@@ -1485,7 +1484,7 @@ Spider = Motion.NewButton({
 				local velo = PrimaryPart.Velocity
 
 				if raycastxd and not UserInputService:IsKeyDown("S") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, 44, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, 55, velo.Z)
 				end
 
 				task.wait()
@@ -2487,6 +2486,19 @@ local AnimPacks = Player.NewButton({
 	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
 	plr.Character.Humanoid:ChangeState(3)
 	Animate.Disabled = false
+    elseif Animation.Option == "Elderly" then
+	local Animate = plr.Character.Animate
+	Animate.Disabled = true
+	StopAnim()
+	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
+	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
+	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
+	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
+	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
+	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
+	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
+	plr.Character.Humanoid:ChangeState(3)
+	Animate.Disabled = false
                                 end
                             end
                     
@@ -2497,7 +2509,7 @@ local AnimPacks = Player.NewButton({
 })
 Animation = AnimPacks.NewPicker({
     Name = "Animation",
-    Options = {"Vampire","Toy","Levitation","Ninja","Mage","Pirate"}
+    Options = {"Vampire","Toy","Levitation","Ninja","Mage","Pirate","Elderly"}
 })
 
 local animtab = {
@@ -2796,17 +2808,15 @@ RecallPlayer()
 	end,
 })
 	
-local humanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 FastFall = Misc.NewButton({
 	Name = "FastFall",
 	Function = function(callback)
-		if Character and humanoidRootPart then
+		if Character and PrimaryPart then
             if callback then
                 if FallMode.Option == "Velocity" then
-                    humanoidRootPart.Velocity = Vector3.new(0, -999, 0)
-                    FastFall.ToggleButton(false)
+                    PrimaryPart.Velocity = Vector3.new(0, -999, 0)
                 elseif FallMode.Option == "Gravity" then
-                    workspace.Gravity = -999
+                    workspace.Gravity = 999
                 end
             else
                 workspace.Gravity = 196.2
@@ -2816,7 +2826,7 @@ FastFall = Misc.NewButton({
 })
 LocalPlayer.CharacterAdded:Connect(function(newCharacter)
     Character = newCharacter
-    humanoidRootPart = newCharacter:WaitForChild("HumanoidRootPart")
+    PrimaryPart = newCharacter:WaitForChild("PrimaryPart")
     if not FastFall.Enabled then
         workspace.Gravity = 196.2
     end
@@ -2824,7 +2834,7 @@ end)
 
 LocalPlayer.CharacterRemoving:Connect(function()
     Character = nil
-    humanoidRootPart = nil
+    PrimaryPart = nil
     workspace.Gravity = 196.2
 end)
 
@@ -2846,7 +2856,7 @@ AntiDeath = Misc.NewButton({
 				if Humanoid.Health > 0 and Humanoid.Health < 30 and nearest.Character.Humanoid.Health > Humanoid.Health and canjump == true then
 					LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 300, 0)
                     canjump = false
-                    task.wait(8)
+                    task.wait(6)
                     canjump = true
 				end
 			until not AntiDeath.Enabled
@@ -2980,3 +2990,75 @@ if toxic == true then
 		newChat(msgs[math.random(1,5)])
     end
 end)
+
+
+
+
+God = Combat.NewButton({
+	Name = "GodMode",
+	Function = function(callback)
+		if callback then
+repeat
+task.wait()
+local args = {
+[1] = {
+["healTarget"] = game.Players.LocalPlayer
+}
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
+until not God.Enabled
+		end
+	end,
+})
+
+local sound = Instance.new("Sound")
+sound.Volume = 0
+sound.Looped = true
+
+
+Music = Player.NewButton({
+	Name = "MusicPlayer",
+	Function = function(callback)
+		if callback then
+                local Music = sound:Clone()
+                Music.Parent = LocalPlayer.Character.Head
+                Music.Name = "Music"
+
+                if Song.Option == "Simulator" then
+                    Music.SoundId = "rbxassetid://1841647093"
+                    Music:Play()
+                    elseif Song.Option == "Beat" then
+                    Music.SoundId = "rbxassetid://1836965951"
+                    Music:Play()
+                                        elseif Song.Option == "Beat2" then
+                                            Music:Play()
+                                                  Music.SoundId = "rbxassetid://1840843086"              
+                                                                elseif Song.Option == "Goofy" then
+                                                                    Music:Play()
+                                                            Music.SoundId = "rbxassetid://1846332554"
+                                        elseif Song.Option == "CrabRave" then
+                                            Music:Play()
+                    Music.SoundId = "rbxassetid://5410086218"
+                end
+                
+                                if Volume.Option == "Low" then 
+                    Music.Volume = 0.5
+                    elseif Volume.Option == "Mid" then 
+                   Music.Volume = 1.5
+                    elseif Volume.Option == "High" then 
+                    Music.Volume = 5
+                end
+            else
+            LocalPlayer.Character.Head.Music:Destroy()
+		end
+	end,
+})
+Song = Music.NewPicker({
+    Name = "Song",
+    Options = {"Simulator","Beat","Beat2","Goofy","CrabRave"}
+})
+Volume = Music.NewPicker({
+    Name = "Volume",
+    Options = {"Low","Mid","High"}
+})
