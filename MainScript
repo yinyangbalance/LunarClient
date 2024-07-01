@@ -2992,26 +2992,6 @@ if toxic == true then
 end)
 
 
-
-
-God = Combat.NewButton({
-	Name = "GodMode",
-	Function = function(callback)
-		if callback then
-repeat
-task.wait()
-local args = {
-[1] = {
-["healTarget"] = game.Players.LocalPlayer
-}
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
-until not God.Enabled
-		end
-	end,
-})
-
 local sound = Instance.new("Sound")
 sound.Volume = 0
 sound.Looped = true
