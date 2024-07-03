@@ -4,11 +4,11 @@ local spawnConnections = {}
 local utils = {}
 
 
-local canLoadGhostWare = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
+local canLoadAether = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
 local user = "Developer"
 local hurttime = 0
 
-if not canLoadGhostWare then return end
+if not canLoadAether then return end
 
 Players = game:GetService("Players")
 Lighting = game:GetService("Lighting")
@@ -63,17 +63,17 @@ function newChat(msg)
 end
 
 local function saveConfig()
-	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Ghostware/config.json") then delfile("Ghostware/config.json"); end
-	writefile("Ghostware/config.json",encrypt)
+	local encrypt = game:GetService("HttpService"):JSONEncode(config); if isfile("Aether/config.json") then delfile("Aether/config.json"); end
+	writefile("Aether/config.json",encrypt)
 end
 
 local function loadConfig()
-	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Ghostware/config.json"))
+	local decrypt = game:GetService("HttpService"):JSONDecode(readfile("Aether/config.json"))
 	config = decrypt
 end
 
-if not isfile("Ghostware/config.json") then
-	makefolder("Ghostware")
+if not isfile("Aether/config.json") then
+	makefolder("Aether")
 	saveConfig()
 end
 
@@ -126,7 +126,7 @@ end
 
 library.WindowCount = 0
 
-local Key = "Ghostware | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
+local Key = "AetherClient | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
 
 library.Array = {}
 library.Array.Background = true
@@ -140,7 +140,7 @@ library.Array.Rounded = true
 library.Array.Font = 14
 
 
-library.Color = Color3.fromRGB(188, 106, 255)
+library.Color = Color3.fromRGB(158, 146, 175)
 library.KeyBind = Enum.KeyCode.RightShift
 
 library.Modules = {}
@@ -163,7 +163,7 @@ local id = "http://www.roblox.com/asset/?id=7498352732"
 
 local arrayListFrame = Instance.new("Frame",ScreenGui)
 arrayListFrame.Size = UDim2.fromScale(0.2,1)
-arrayListFrame.Position = UDim2.fromScale(0.795,0.03)
+arrayListFrame.Position = UDim2.fromScale(0.780,0.03)
 arrayListFrame.BackgroundTransparency = 1
 arrayListFrame.Name = "ArrayList"
 local sort = Instance.new("UIListLayout",arrayListFrame)
@@ -175,7 +175,7 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	label.Text = Key
 	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	label.BorderSizePixel = 0
-	label.TextColor3 = Color3.fromRGB(855,139,145)
+	label.TextColor3 = Color3.fromRGB(155,190,105)
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.fromScale(0.335,0.105)
 	label.Position = UDim2.fromScale(-0.005,0.01)
@@ -1056,7 +1056,7 @@ TargetInfo = Visuals.NewButton({
 							end)	
 						end
 						
-						if TargetIntoStyle.Option == "Ghostware" then
+						if TargetIntoStyle.Option == "Aether" then
 							pcall(function()
 								targetInfo.Size = UDim2.fromScale(.12, .05)
 								targetInfo.BackgroundColor3 = Color3.fromRGB(85,95,115)
@@ -1097,7 +1097,7 @@ TargetInfo = Visuals.NewButton({
 })
 TargetIntoStyle = TargetInfo.NewPicker({
 	Name = "Style",
-	Options = {"Simple", "Ghostware"}
+	Options = {"Simple", "Aether"}
 })
 
 local ViewmodelConnection
@@ -1175,7 +1175,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "GhostWare V1.5"
+	local text = "Aether V1.0"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	label = Instance.new("TextLabel",HUDScreen)
@@ -1197,7 +1197,7 @@ HUDS[1] = function()
 	glow.ZIndex = -10
 end
 HUDS[2] = function()
-	local text = "GhostWare"
+	local text = "Aether"
 
 	frame = Instance.new("TextLabel",HUDScreen)
 	frame.Size = UDim2.fromScale(0.17,0.04)
@@ -1223,9 +1223,9 @@ HUD = Visuals.NewButton({
 				task.wait(0.5)
 				HUDScreen = Instance.new("ScreenGui",PlayerGui)
 				HUDScreen.ResetOnSpawn = false
-				if HUDStyle.Option == "GhostWare 1" then
+				if HUDStyle.Option == "Aether 1" then
 					HUDS[1]()
-				elseif HUDStyle.Option == "GhostWare 2" then
+				elseif HUDStyle.Option == "Aether 2" then
 					HUDS[2]()
 				end
 				library.Array.SortMode = ArraySortStyle.Option
@@ -1242,7 +1242,7 @@ HUD = Visuals.NewButton({
 })
 HUDStyle = HUD.NewPicker({
 	Name = "Logo Style",
-	Options = {"GhostWare 1", "GhostWare 2"}
+	Options = {"Aether 1", "Aether 2"}
 })
 ArrayStyle = HUD.NewPicker({
 	Name = "Array Style",
@@ -1674,7 +1674,7 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local msgs = {"gg/HdqjAfBq Get Ghostware Now!","Even without ghostware i wouldve still won.","Ghostware On Top⭐","Imagine being legit in 2024","Get ghostware to win lol!"}
+local msgs = {"gg.HdqjAfBq Get Aether Now!","Even without Aether i wouldve still won.","Aether On Top⭐","Imagine being legit in 2024","Get Aether to win lol!"}
 Chatspammer = Misc.NewButton({
 	Name = "Chatspammer",
 	Function = function(callback)
@@ -2986,7 +2986,7 @@ Toxic = Misc.NewButton({
 
 LocalPlayer.leaderstats.Kills.Changed:Connect(function()
 if toxic == true then
-    local msgs = {"Dying in a BLOCK game is sad","Why bother when ghostware exists","LOL HOW DO YOU LOSE IN A BED GAME","GHOSTWARE IS JUST BETTER","IVE NEVER LOST WITH GHOSTWARE LOL"}
+    local msgs = {"Dying in a BLOCK game is sad","Why bother when Aether exists","LOL HOW DO YOU LOSE IN A BED GAME","Aether IS JUST BETTER","IVE NEVER LOST WITH Aether LOL"}
 		newChat(msgs[math.random(1,5)])
     end
 end)
