@@ -3256,7 +3256,7 @@ AutoBuy = Player.NewButton({
 	Function = function(callback)
 		if callback then
 			task.spawn(function()
-				repeat task.wait(0.2)
+				repeat task.wait(0.1)
 					if hasItem("wood_sword") then
 						Buystonesword()
 					end
