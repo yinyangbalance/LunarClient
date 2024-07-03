@@ -175,16 +175,18 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 	label.Text = Key
 	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	label.BorderSizePixel = 0
-	label.TextColor3 = Color3.fromRGB(155,190,105)
+	label.TextColor3 = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.fromScale(0.335,0.105)
-	label.Position = UDim2.fromScale(-0.005,0.01)
+	label.Position = UDim2.fromScale(-0.008,0.01)
 	label.Name = "Mark"
-    label.Font = 15
+    label.Font = 25
     label.ZIndex = 0
     label.TextScaled = true
     local stroke = Instance.new("UIStroke",label)
     stroke.Thickness = 2
+
+    local rgb = true
 
 local arrayItems = {}
 
@@ -1484,7 +1486,7 @@ Spider = Motion.NewButton({
 				local velo = PrimaryPart.Velocity
 
 				if raycastxd and not UserInputService:IsKeyDown("S") then
-					PrimaryPart.Velocity = Vector3.new(velo.X, 55, velo.Z)
+					PrimaryPart.Velocity = Vector3.new(velo.X, 58, velo.Z)
 				end
 
 				task.wait()
@@ -1619,37 +1621,6 @@ local function getAllBows()
 	end
 	return bows
 end
-
-Projectileaura = Combat.NewButton({
-	Name = "Projectileaura",
-	Function = function(callback)
-		if callback then
-			task.spawn(function()
-				repeat
-					local target = getNearestPlayer(9e9)
-					local rangeCheck = getNearestPlayer(22)
-					local entity = target
-					if target and rangeCheck == nil then
-						local bows = getAllBows()
-						for i,v in pairs(bows) do
-							spoofHand(v.Name)
-							task.wait(.01)
-							if v.Name == "fireball" or v.Name == "snowball" then
-								if not AllProjectiles.Enabled then continue end
-							end
-							shoot(v,target.Character.PrimaryPart.Position)
-						end
-					end
-					task.wait()
-				until (not Projectileaura.Enabled)
-			end)
-		end
-	end,
-})
-AllProjectiles = Projectileaura.NewToggle({
-	Name = "AllProjectiles",
-	Function = function() end
-})
 
 local ConsumeRemote = getRemote("ConsumeItem")
 AutoPot = Player.NewButton({
@@ -3058,6 +3029,251 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
 until not Godmode.Enabled
+		end
+	end,
+})
+
+
+
+Projectileaura = Combat.NewButton({
+	Name = "Projectileaura",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()
+				repeat task.wait()
+					local target = getNearestPlayer(9e9)
+					if target then
+						local bows = getAllBows()
+						for i,v in pairs(bows) do
+							spoofHand(v.Name)
+							task.wait()
+							if v.Name == "fireball" or v.Name == "snowball" or v.Name == "lasso" then
+								if not AllProjectiles.Enabled then continue end
+							end
+							shoot(v,target.Character.PrimaryPart.Position)
+						end
+					end
+				until not Projectileaura.Enabled
+			end)
+		else
+
+		end
+	end,
+})
+
+AllProjectiles = Projectileaura.NewToggle({
+	Name = "AllProjectiles",
+	Function = function() end
+})
+
+local function Buystonesword()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["ignoredByKit"] = {
+                    [1] = "barbarian",
+                    [2] = "dasher",
+                    [3] = "frost_hammer_kit",
+                    [4] = "tinker"
+                },
+                ["itemType"] = "stone_sword",
+                ["price"] = 70,
+                ["superiorItems"] = {
+                    [1] = "iron_sword",
+                },
+                ["currency"] = "iron",
+                ["amount"] = 1,
+                ["lockAfterPurchase"] = true,
+                ["category"] = "Combat",
+                ["disabledInQueue"] = {
+                    [1] = "tnt_wars"
+                }
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+local function Buyironsword()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["ignoredByKit"] = {
+                    [1] = "barbarian",
+                    [2] = "dasher",
+                    [3] = "frost_hammer_kit",
+                    [4] = "tinker"
+                },
+                ["itemType"] = "iron_sword",
+                ["price"] = 70,
+                ["superiorItems"] = {
+                    [1] = "diamond_sword",
+                },
+                ["currency"] = "iron",
+                ["amount"] = 1,
+                ["lockAfterPurchase"] = true,
+                ["category"] = "Combat",
+                ["disabledInQueue"] = {
+                    [1] = "tnt_wars"
+                }
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+local function BuyDiamondsword()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["ignoredByKit"] = {
+                    [1] = "barbarian",
+                    [2] = "dasher",
+                    [3] = "frost_hammer_kit",
+                    [4] = "tinker"
+                },
+                ["itemType"] = "diamond_sword",
+                ["price"] = 70,
+                ["superiorItems"] = {
+                    [1] = "emerald_sword",
+                },
+                ["currency"] = "emerald",
+                ["amount"] = 1,
+                ["lockAfterPurchase"] = true,
+                ["category"] = "Combat",
+                ["disabledInQueue"] = {
+                    [1] = "tnt_wars"
+                }
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+local function BuyleatherArmor()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["lockAfterPurchase"] = true,
+                ["itemType"] = "leather_chestplate",
+                ["price"] = 50,
+                ["customDisplayName"] = "Leather Armor",
+                ["superiorItems"] = {
+                    [1] = "iron_chestplate"
+                },
+                ["currency"] = "iron",
+                ["amount"] = 1,
+                ["category"] = "Combat",
+                ["ignoredByKit"] = {
+                    [1] = "bigman",
+                    [2] = "tinker"
+                },
+                ["spawnWithItems"] = {
+                    [1] = "leather_helmet",
+                    [2] = "leather_chestplate",
+                    [3] = "leather_boots"
+                },
+                ["nextTier"] = "iron_chestplate"
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+local function BuyIronArmor()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["lockAfterPurchase"] = true,
+                ["itemType"] = "iron_chestplate",
+                ["price"] = 120,
+                ["prevTier"] = "leather_chestplate",
+                ["customDisplayName"] = "Iron Armor",
+                ["currency"] = "iron",
+                ["ignoredByKit"] = {
+                    [1] = "bigman",
+                    [2] = "tinker"
+                },
+                ["category"] = "Combat",
+                ["tiered"] = true,
+                ["nextTier"] = "diamond_chestplate",
+                ["spawnWithItems"] = {
+                    [1] = "iron_helmet",
+                    [2] = "iron_chestplate",
+                    [3] = "iron_boots"
+                },
+                ["amount"] = 1
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+local function BuyDiamondArmor()
+    local args = {
+        [1] = {
+            ["shopItem"] = {
+                ["lockAfterPurchase"] = true,
+                ["itemType"] = "Diamond_chestplate",
+                ["price"] = 8,
+                ["customDisplayName"] = "Diamond Armor",
+                ["superiorItems"] = {
+                    [1] = "iron_chestplate"
+                },
+                ["currency"] = "iron",
+                ["amount"] = 1,
+                ["category"] = "Combat",
+                ["ignoredByKit"] = {
+                    [1] = "bigman",
+                    [2] = "tinker"
+                },
+                ["spawnWithItems"] = {
+                    [1] = "diamond_helmet",
+                    [2] = "diamond_chestplate",
+                    [3] = "diamond_boots"
+                },
+                ["nextTier"] = "diamond_chestplate"
+            },
+            ["shopId"] = "1_item_shop"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+end
+
+AutoBuy = Player.NewButton({
+	Name = "AutoBuy",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()
+				repeat task.wait(0.2)
+					if hasItem("wood_sword") then
+						Buystonesword()
+					end
+                    if hasItem("stone_sword") and not hasItem("iron_chestplate") and not hasItem("diamond_chestplate") and not hasItem("emerald_chestplate") then
+                        BuyleatherArmor()
+                    end
+                    if hasItem("leather_chestplate") then
+				        BuyIronArmor()
+			        end
+                    if hasItem("iron_sword") or hasItem("stone_sword") or hasItem("wood_sword") then
+				        BuyDiamondsword()
+			        end
+                    if hasItem("iron_chestplate") then
+				        BuyDiamondArmor()
+			        end
+				until not AutoBuy.Enabled
+			end)
 		end
 	end,
 })
