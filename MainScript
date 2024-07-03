@@ -126,7 +126,7 @@ end
 
 library.WindowCount = 0
 
-local Key = "AetherClient | .gg/Nacjmwhe34" --DONT CHANGE OR SCRIPT WILL BREAK
+local Key = "AetherClient | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
 
 library.Array = {}
 library.Array.Background = true
@@ -1645,7 +1645,7 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local msgs = {".gg/Nacjmwhe34 Get AetherClient Now!","Even without AetherClient i wouldve still won.","AetherClient On Top⭐","Imagine being legit in 2024","Get AetherClient to win lol!"}
+local msgs = {"gg.HdqjAfBq Get AetherClient Now!","Even without AetherClient i wouldve still won.","AetherClient On Top⭐","Imagine being legit in 2024","Get AetherClient to win lol!"}
 Chatspammer = Misc.NewButton({
 	Name = "Chatspammer",
 	Function = function(callback)
