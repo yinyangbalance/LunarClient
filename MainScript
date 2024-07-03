@@ -2589,23 +2589,18 @@ LongJumpMethod = LongJump.NewPicker({
 })
 
 
-local BridgeInstantConnection
 BridgeInstant = Exploit.NewButton({
     Name = "BridgeInstaWin",
     Function = function(callback)
         if callback then
-            BridgeInstantConnection = RunService.Heartbeat:Connect(function()
-                task.wait()
+            repeat
+                task.wait(.1)
                 for i,v in workspace:GetDescendants() do
                     if v:IsA('TouchTransmitter') then
                         firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, v.Parent, 1)
                     end
                 end
-            end)
-        else
-            pcall(function()
-               BridgeInstantConnection:Disconnect()
-            end)
+                until not BridgeInstant.Enabled
         end
     end,
 })
