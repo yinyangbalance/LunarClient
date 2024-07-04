@@ -3495,7 +3495,6 @@ Fortune = Exploit.NewButton({
         task.wait(.1)
 
 local cloneref = cloneref or function(data: userdata) return data end;
-local dupetoggled = true;
 local getservice = function(service: string)
     return cloneref(game:FindService(service));
 end;
@@ -3505,14 +3504,10 @@ local getrandomvalue = function(tab: table)
 end;
 
 local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut');
-
         remote:FireServer({
             statusEffectType = 'fortune_1',
-            fortuneStacks = getrandomvalue({700, 9e9})
+            fortuneStacks = getrandomvalue({999999, 9e9})
         })
-
-
-
     until not Fortune.Enabled
 		end
 	end,
