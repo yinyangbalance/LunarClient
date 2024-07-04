@@ -126,7 +126,7 @@ end
 
 library.WindowCount = 0
 
-local Key = "AetherClient | .gg/B2Cs54jH" --DONT CHANGE OR SCRIPT WILL BREAK
+local Key = "AetherClient | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
 
 library.Array = {}
 library.Array.Background = true
@@ -2768,7 +2768,6 @@ RecallTp = Combat.NewButton({
 	Name = "RecallPlrTP",
 	Function = function(callback)
 		if callback then
-            RecallTp.ToggleButton(false)
 RecallPlayer()
 		end
 	end,
@@ -2952,7 +2951,7 @@ Toxic = Misc.NewButton({
 
 LocalPlayer.leaderstats.Kills.Changed:Connect(function()
 if toxic == true then
-    local msgs = {"Dying in a BLOCK game is sad","Why bother when Aether exists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient IS JUST BETTER","IVE NEVER LOST WITH AetherClient LOL"}
+    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClient Private exists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient PRIVATE IS JUST BETTER","IVE NEVER LOST WITH AetherClient PRIVATE LOL"}
 		newChat(msgs[math.random(1,5)])
     end
 end)
@@ -3449,4 +3448,72 @@ ScytheDisabler = Exploit.NewButton({
 Bypassmode = ScytheDisabler.NewPicker({
 	Name = "Mode",
 	Options = {"Heatseeker", "CFrame"}
+})
+
+
+Enchants = Exploit.NewButton({
+	Name = "EnchantExploit",
+	Function = function(callback)
+		if callback then
+            repeat
+   local cloneref = cloneref or function(data: userdata) return data end;
+local enchanttoggled  = false;
+local getservice = function(service: string)
+    return cloneref(game:FindService(service));
+end;
+
+local getrandomvalue = function(tab: table)
+    return #tab > 0 and tab[math.random(1, #tab)] or ''
+end;
+
+local replicatedstorage = getservice('ReplicatedStorage');
+local lplr = getservice('Players').LocalPlayer;
+local inputservice = getservice('UserInputService');
+local remote = replicatedstorage:WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneDoubleDown');
+local effects = {
+    'fire_3', 'forest_3', 'cloud_3', 'void_3', 'static_3', 'updraft_2', 
+    'shield_gen_3', 'anti_knockback_2', 'rapid_regen_3', 'execute_3', 
+    'wind_3', 'plunder_2', 'critical_strike_3', 'volley_3', 
+    'grounded_3', 'clingy_3', 'life_steal_3', 'fortune_1'
+}
+        for i,v in effects do 
+            remote:FireServer({statusEffectType = v})
+        end
+        task.wait(0.8)
+        until not Enchants.Enabled
+		end
+	end,
+})
+
+
+Fortune = Exploit.NewButton({
+	Name = "FortuneExploit",
+	Function = function(callback)
+		if callback then
+    repeat
+    
+        task.wait(.1)
+
+local cloneref = cloneref or function(data: userdata) return data end;
+local dupetoggled = true;
+local getservice = function(service: string)
+    return cloneref(game:FindService(service));
+end;
+
+local getrandomvalue = function(tab: table)
+    return #tab > 0 and tab[math.random(1, #tab)] or ''
+end;
+
+local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut');
+
+        remote:FireServer({
+            statusEffectType = 'fortune_1',
+            fortuneStacks = getrandomvalue({700, 9e9})
+        })
+
+
+
+    until not Fortune.Enabled
+		end
+	end,
 })
