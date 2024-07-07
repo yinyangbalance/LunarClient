@@ -304,7 +304,8 @@ library.NewWindow = function(name)
 	textlabel.Size = UDim2.fromScale(0.1, 0.0425)
 	textlabel.Text = name
 	textlabel.Name = name
-	textlabel.BorderSizePixel = 5
+	textlabel.BorderSizePixel = 2
+    textlabel.TextSize = 15
 	textlabel.BackgroundColor3 = Color3.fromRGB(35,35,35)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
     textlabel.Font = 11
@@ -356,8 +357,8 @@ library.NewWindow = function(name)
 		textbutton.Size = UDim2.fromScale(1, 0.2)
 		textbutton.Position = UDim2.fromScale(0,0)
 		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
-		textbutton.BorderSizePixel = 3
-
+		textbutton.BorderSizePixel = 1
+        textbutton.TextSize = 14
 		textbutton.Text = Table.Name
 		textbutton.Name = Table.Name
         textbutton.Font = 11
@@ -2258,17 +2259,19 @@ EffectsStyle = Playereffects.NewPicker({
 })
 
 HighJump = Motion.NewButton({
-    Name = "HighJump",
-    Function = function(callback)
-        if callback then
-            repeat
-                PrimaryPart.Velocity += Vector3.new(0, 6, 0)
-                task.wait(0.007)
-            until not HighJump.Enabled
-        else
-            PrimaryPart.Velocity = Vector3.new(0, 50, 0)
-        end
-    end,
+	Name = "HighJump",
+	Function = function(callback)
+		if callback then
+			for i = 1, 44 do
+				if not HighJump.Enabled then return end
+				PrimaryPart.Velocity += Vector3.new(0, 45, 0)
+				task.wait(0.2)
+			end
+			HighJump.ToggleButton(false)
+		else
+			PrimaryPart.Velocity = Vector3.new(0, 50, 0)
+		end
+	end,
 })
 
 local CameraModificationCon
@@ -3936,4 +3939,63 @@ AutoReset = Legit.NewButton({
 Speed = AutoReset.NewPicker({
 	Name = "Speed",
 	Options = {"Fast", "Delayed"}
+})
+
+HnhExploit = Exploit.NewButton({
+    Name = "HannahExploit",
+    Function = function(callback)
+        if callback then
+            repeat wait()
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+                local HannahPromptTrigger = game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("NetManaged"):WaitForChild("HannahPromptTrigger")
+
+                for player in pairs(Players:GetPlayers()) do
+                    if player ~= LocalPlayer and (player.Character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= 20 then
+                        local args = {
+                            [1] = {
+                                ["user"] = LocalPlayer,
+                                ["victimEntity"] = player.Character
+                            }
+                        }
+                        HannahPromptTrigger:InvokeServer(unpack(args))
+                    end
+                end
+            until not HnHExploit.Enabled
+        end
+    end
+})
+
+function setCameraToPlayer(target)
+    local player = game.Players.LocalPlayer
+    local camera = game.Workspace.CurrentCamera
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local targetPosition = target.Character.HumanoidRootPart.Position
+        camera.CFrame = CFrame.new(camera.CFrame.Position, targetPosition)
+    end
+end
+
+AimAssist = Combat.NewButton({
+	Name = "AimAssist",
+	Function = function(callback)
+		if callback then
+            task.spawn(function()
+                repeat task.wait(0)
+                    local Entity = getNearestPlayer(20)
+                    if Entity then
+                        if not LegitAssist.Enabled then
+                        setCameraToPlayer(Entity)
+                        else
+                        task.wait(.1)
+                        setCameraToPlayer(Entity)
+                        end
+                    end
+                until (not AimAssist.Enabled)
+            end)
+        end
+    end,
+})
+LegitAssist = AimAssist.NewToggle({
+	Name = "LegitAimAssist",
+	Function = function() end
 })
