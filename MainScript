@@ -188,6 +188,7 @@ sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 
     local rgb = true
 
+local imageId = "http://www.roblox.com/asset/?id=5857213084"
 local arrayItems = {}
 
 local arraylist = {
@@ -200,6 +201,14 @@ local arraylist = {
 		item.Size = UDim2.new(0,0,0,0)
 		item.TextColor3 = Color3.fromRGB(255,255,255)
         item.Font = 14
+		local glow = Instance.new("ImageLabel",item)
+		glow.Size = UDim2.fromScale(4,4)
+		glow.BackgroundTransparency = 1
+		glow.Image = imageId
+		glow.ImageTransparency = 0.3
+		glow.Position = UDim2.fromScale(-1,-1.5)
+		glow.ZIndex = -10
+
 		
 		if library.Array.Rounded then
 			local round = Instance.new("UICorner",item)
