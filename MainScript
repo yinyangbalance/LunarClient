@@ -2579,6 +2579,29 @@ LongJump = Motion.NewButton({
 					Humanoid:ChangeState(3)
 				end)
 			end
+
+			if LongJumpMethod.Option == "Test" then
+				workspace.Gravity = 16
+				if utils.onGround() then
+					Humanoid:ChangeState(3)
+					for i = 1, 50 do
+						PrimaryPart.CFrame = PrimaryPart.CFrame + PrimaryPart.CFrame.LookVector * 0.3
+						task.wait()
+					end
+				end
+			end
+
+			if LongJumpMethod.Option == "Kit" then
+				ReplicatedStorage:FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
+				workspace.Gravity = 0
+				if utils.onGround() then
+					for i = 1, 120 do
+						PrimaryPart.CFrame += PrimaryPart.CFrame.LookVector * 2
+						task.wait()
+					end
+					workspace.Gravity = 196.2
+				end
+			end
 		else
 			workspace.Gravity = 196.2
 			task.delay(0.1, function()
@@ -2589,7 +2612,7 @@ LongJump = Motion.NewButton({
 })
 LongJumpMethod = LongJump.NewPicker({
 	Name = "Mode",
-	Options = {"Boost", "Gravity"}
+	Options = {"Boost", "Gravity", "Kit", "Test"}
 })
 
 
