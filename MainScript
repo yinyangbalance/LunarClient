@@ -1,4 +1,3 @@
-task.wait(.5)
 local library = {}
 local spawnConnections = {}
 local utils = {}
@@ -27,6 +26,7 @@ RunService = game["Run Service"]
 TweenService = game.TweenService
 local inventory = workspace[LocalPlayer.Name].InventoryFolder.Value
 local CollectionService = game:GetService("CollectionService")
+local netmanaged = ReplicatedStorage.rbxts_include.node_modules["@rbxts"].net.out._NetManaged
 local PurchaseItemRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem")
 local ResetCharacterRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("ResetCharacter")
 
@@ -295,7 +295,6 @@ library.NewWindow = function(name)
 	textlabel.Size = UDim2.fromScale(0.1, 0.0425)
 	textlabel.Text = name
 	textlabel.Name = name
-    textlabel.TextSize = 15
 	textlabel.BorderSizePixel = 5
 	textlabel.BackgroundColor3 = Color3.fromRGB(35,35,35)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
@@ -349,7 +348,7 @@ library.NewWindow = function(name)
 		textbutton.Position = UDim2.fromScale(0,0)
 		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
 		textbutton.BorderSizePixel = 3
-        textbutton.TextSize = 16
+
 		textbutton.Text = Table.Name
 		textbutton.Name = Table.Name
         textbutton.Font = 11
@@ -357,6 +356,7 @@ library.NewWindow = function(name)
 
 		local dropdown = Instance.new("Frame", textbutton)
 		dropdown.Position = UDim2.fromScale(0,1)
+        dropdown.Name = "DropDown"
 		dropdown.Size = UDim2.fromScale(1,5)
 		dropdown.BackgroundTransparency = 1
 		dropdown.Visible = false
@@ -493,6 +493,67 @@ library.NewWindow = function(name)
 
 			return v2
 		end
+
+        lib2.NewToggle = function(v)
+			local Enabled = false
+
+			if config.Toggles[v.Name.."_"..Table.Name] == nil then 
+				config.Toggles[v.Name.."_"..Table.Name] = {Enabled = false}
+			end
+
+			local textbutton2 = Instance.new("TextButton", dropdown)
+			textbutton2.Size = UDim2.fromScale(1, 0.15)
+			textbutton2.Position = UDim2.fromScale(0,0)
+			textbutton2.BackgroundColor3 = Color3.fromRGB(60,60,60)
+			textbutton2.BorderSizePixel = 0
+			textbutton2.Text = v.Name
+			textbutton2.Name = v.Name
+			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
+            textbutton2.Font = 11
+
+			local v2 = {}
+			v2.Enabled = Enabled
+
+			v2.ToggleButton = function(v3)
+				if v3 then
+					Enabled = v3
+				else
+					Enabled = not Enabled
+				end
+				v2.Enabled = Enabled
+				task.spawn(function()
+					v["Function"](Enabled)
+				end)
+				textbutton2.BackgroundColor3 = (textbutton2.BackgroundColor3 == Color3.fromRGB(60,60,60) and library.Color or Color3.fromRGB(60,60,60))
+				config.Toggles[v.Name.."_"..Table.Name].Enabled = Enabled
+				saveConfig()
+			end
+
+			textbutton2.MouseButton1Down:Connect(function()	
+				v2.ToggleButton()
+			end)
+
+			if config.Toggles[v.Name.."_"..Table.Name].Enabled then
+				v2.ToggleButton()
+			end
+
+			return v2
+		end
+
+
+			local Box = Instance.new("TextBox", dropdown)
+			Box.Size = UDim2.fromScale(1, 0.15)
+			Box.Position = UDim2.fromScale(0,0)
+			Box.BackgroundColor3 = Color3.fromRGB(110,80,180)
+			Box.BorderSizePixel = 0
+			Box.Text = ""
+            Box.PlaceholderText = "Keybind"
+            Box.Visible = false
+			Box.Name = "KeybindBox"
+			Box.TextColor3 = Color3.fromRGB(255,255,255)
+           Box.Font = 11
+		
+
 
 		textbutton.MouseButton1Down:Connect(function()
 			lib2.ToggleButton()
@@ -738,49 +799,47 @@ local auraConnection
 local targetInfo = Instance.new("TextLabel",ScreenGui)
 Killaura = Combat.NewButton({
 	Name = "Killaura",
-	Keybind = Enum.KeyCode.X,
 	Function = function(callback)
 		if callback then
-            auraConnection = RunService.Heartbeat:Connect(function()
-                local nearest = getNearestPlayer(22)
+			auraConnection = RunService.Heartbeat:Connect(function()
+				local nearest = getNearestPlayer(22)
 
-                if nearest ~= nil then
-                    local nearestCharacter = nearest.Character
-                    local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
-                    local selfPrimaryPartPosition = PrimaryPart.Position
-                    local weapon = getBestWeapon()
-                    
-                    if ToolCheck.Enabled then
-                        print('enabled 🤑')
-                    else
-                        spoofHand(weapon.Name)
-                    end
+				if nearest ~= nil then
+					if DragonAnimation.Enabled then
+						netmanaged.DragonBreath:FireServer()
+					end
+					local nearestCharacter = nearest.Character
+					local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
+					local selfPrimaryPartPosition = PrimaryPart.Position
+					local weapon = getBestWeapon()
 
-                    task.spawn(function()
-                        for i = 1, 1 do
-                            AuraRemote:FireServer({
-                                chargedAttack = {
-                                    chargeRatio = 0
-                                },
-                                entityInstance = nearestCharacter,
-                                validate = {
-                                    raycast = {
-                                        cameraPosition = CurrentCamera,
-                                        cursorDirection = CFrame.LookVector
-                                    },
-                                    targetPosition = {
-                                        value = nearestPrimaryPartPosition
-                                    },
-                                    selfPosition = {
-                                        value = selfPrimaryPartPosition
-                                    },
-                                },
-                                weapon = weapon
-                            })
-                        end
-                    end)
-                end
-            end)
+					if not ToolCheck.Enabled then
+						spoofHand(weapon.Name)
+					end
+
+					task.spawn(function()
+						AuraRemote:FireServer({
+							chargedAttack = {
+								chargeRatio = 0
+							},
+							entityInstance = nearestCharacter,
+							validate = {
+								raycast = {
+									cameraPosition = CurrentCamera,
+									cursorDirection = CFrame.LookVector
+								},
+								targetPosition = {
+									value = nearestPrimaryPartPosition
+								},
+								selfPosition = {
+									value = selfPrimaryPartPosition
+								},
+							},
+							weapon = weapon
+						})
+					end)
+				end
+			end)
 
 			task.spawn(function()
 				repeat task.wait(0)
@@ -835,7 +894,7 @@ Killaura = Combat.NewButton({
 								hp.Position = UDim2.fromScale(0, .9)
 								hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 								hp.BorderSizePixel = 0
-								
+
 								TweenService:Create(hp,TweenInfo.new(1),{
 									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
 								}):Play()
@@ -853,7 +912,7 @@ Killaura = Combat.NewButton({
 								targetInfo.Position = UDim2.fromScale(0.6,0.5)
 								targetInfo.TextColor3 = Color3.fromRGB(255,255,255)
 								targetInfo.Text = "  "..nearest.DisplayName
-								--targetInfo.TextScaled = true
+								targetInfo.TextScaled = true
 								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
 							end)	
 						end
@@ -869,9 +928,6 @@ Killaura = Combat.NewButton({
 				until (not Killaura.Enabled)
 			end)
 		else
-			pcall(function()
-				swingAnim:Destroy()
-			end)
 			pcall(function()
 				auraConnection:Disconnect()
 			end)
@@ -898,6 +954,26 @@ ToolCheck = Killaura.NewToggle({
 	Name = "ToolCheck",
 	Function = function() end
 })
+DragonAnimation = Killaura.NewToggle({
+ Name = "DragonAnimation", 
+Function = function() end
+})
+local box5 = ScreenGui.Combat.Frame.Killaura.DropDown.KeybindBox
+box5.Visible = true
+box5.Text = config.Keybinds.Killaura
+box5.Changed:Connect(function()
+if box5.Text ~= nil then
+    local uptext = box5.Text:upper()
+    box5.Text = uptext
+  library.Modules.Killaura.Keybind = Enum.KeyCode[box5.Text]
+end
+end)
+
+
+table.insert(spawnConnections,function(char)
+	task.wait(1)
+	viewmodel = workspace.Camera.Viewmodel.RightHand.RightWrist
+end)
 
 table.insert(spawnConnections,function(char)
 	task.wait(1)
@@ -1021,6 +1097,16 @@ RootPartShow = InfiniteFly.NewToggle({
 	Name = "ShowRoot",
 	Function = function() end
 })
+local box2 = ScreenGui.Motion.Frame.InfiniteFly.DropDown.KeybindBox
+box2.Visible = true
+box2.Text = config.Keybinds.InfiniteFly
+box2.Changed:Connect(function()
+if box2.Text ~= nil then
+    local uptext = box2.Text:upper()
+    box2.Text = uptext
+  library.Modules.InfiniteFly.Keybind = Enum.KeyCode[box2.Text]
+end
+end)
 
 
 local targetInfo = Instance.new("TextLabel",ScreenGui)
@@ -1342,14 +1428,27 @@ Fly = Motion.NewButton({
 					PrimaryPart.Velocity = Vector3.new(velo.X, -50, velo.Z)
 				end
 			end)
+
 		else
 			pcall(function()
             flying = false
 				flycon:Disconnect()
 			end)
+
 		end
 	end,
 })
+local box = ScreenGui.Motion.Frame.Fly.DropDown.KeybindBox
+box.Visible = true
+box.Text = config.Keybinds.Fly
+box.Changed:Connect(function()
+if box.Text ~= nil then
+    local uptext = box.Text:upper()
+    box.Text = uptext
+  library.Modules.Fly.Keybind = Enum.KeyCode[box.Text]
+end
+end)
+
 
 local strafecon
 Strafe = Motion.NewButton({
@@ -1434,9 +1533,9 @@ NoSlowDown = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			repeat task.wait()
-                if not Speed.Enabled then
+            if not Speed.Enabled then
 				Humanoid.WalkSpeed = 23
-                end
+            end
 			until not NoSlowDown.Enabled
 		end
 	end,
@@ -1626,6 +1725,7 @@ local function getAllBows()
 	return bows
 end
 
+
 local ConsumeRemote = getRemote("ConsumeItem")
 AutoPot = Player.NewButton({
 	["Name"] = "AutoPot",
@@ -1762,9 +1862,9 @@ scaffoldBlockInst.Color = library.Color
 
 local scaffoldRun
 Scaffold = Misc.NewButton({
-	["Name"] = "Scaffold",
+	Name = "Scaffold",
 	Keybind = Enum.KeyCode.G,
-	["Function"] = function(callback)
+	Function = function(callback)
 		if callback then
 			task.spawn(function()
 				scaffoldRun = game["Run Service"].RenderStepped:Connect(function()
@@ -1835,6 +1935,16 @@ TowerExpand = Scaffold.NewToggle({
 	Name = "Tower Expand",
 	Function = function() end
 })
+local box4 = ScreenGui.Misc.Frame.Scaffold.DropDown.KeybindBox
+box4.Visible = true
+box4.Text = config.Keybinds.Scaffold
+box4.Changed:Connect(function()
+if box4.Text ~= nil then
+    local uptext = box4.Text:upper()
+    box4.Text = uptext
+  library.Modules.Scaffold.Keybind = Enum.KeyCode[box4.Text]
+end
+end)
 
 
 local theanimmethod
@@ -2614,6 +2724,17 @@ LongJumpMethod = LongJump.NewPicker({
 	Name = "Mode",
 	Options = {"Boost", "Gravity", "Kit", "Test"}
 })
+local box3 = ScreenGui.Motion.Frame.LongJump.DropDown.KeybindBox
+box3.Visible = true
+box3.Text = config.Keybinds.LongJump
+box3.Changed:Connect(function()
+if box3.Text ~= nil then
+    local uptext = box3.Text:upper()
+    box3.Text = uptext
+  library.Modules.LongJump.Keybind = Enum.KeyCode[box3.Text]
+end
+end)
+
 
 
 BridgeInstant = Exploit.NewButton({
@@ -2774,8 +2895,8 @@ local function RecallPlayerTweenToNearestPlayer()
 		local NearestPlayer = FindNearestPlayer()
 
 		if NearestPlayer then
-			local TweenInformation = TweenInfo.new(0.3, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)	
-			local PlayerTpTween = TweenService:Create(LocalPlayer.Character.PrimaryPart, TweenInformation, {CFrame = NearestPlayer.Character.PrimaryPart.CFrame + Vector3.new(0, 2, 0)})
+			local TweenInformation = TweenInfo.new(0.4, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)	
+			local PlayerTpTween = TweenService:Create(LocalPlayer.Character.PrimaryPart, TweenInformation, {CFrame = NearestPlayer.Character.PrimaryPart.CFrame + Vector3.new(0, 5, 0)})
 
 			PlayerTpTween:Play()
 		end
@@ -2993,48 +3114,70 @@ Music = Player.NewButton({
 	Name = "MusicPlayer",
 	Function = function(callback)
 		if callback then
-                local Music = sound:Clone()
-                Music.Parent = LocalPlayer.Character.Head
-                Music.Name = "Music"
-
-                if Song.Option == "Simulator" then
-                    Music.SoundId = "rbxassetid://1841647093"
-                    Music:Play()
-                    elseif Song.Option == "Beat" then
-                    Music.SoundId = "rbxassetid://1836965951"
-                    Music:Play()
-                                        elseif Song.Option == "Beat2" then
-                                            Music:Play()
-                                                  Music.SoundId = "rbxassetid://1840843086"              
-                                                                elseif Song.Option == "Goofy" then
-                                                                    Music:Play()
-                                                            Music.SoundId = "rbxassetid://1846332554"
-                                        elseif Song.Option == "CrabRave" then
-                                            Music:Play()
-                    Music.SoundId = "rbxassetid://5410086218"
-                end
-                
-                                if Volume.Option == "Low" then 
-                    Music.Volume = 0.5
-                    elseif Volume.Option == "Mid" then 
-                   Music.Volume = 1.5
-                    elseif Volume.Option == "High" then 
-                    Music.Volume = 5
-                end
+            local sound = Instance.new("Sound")
+            sound.Volume = 0
+            if Loop.Enabled then
+                sound.Looped = true
             else
-            LocalPlayer.Character.Head.Music:Destroy()
-		end
+                sound.Looped = false
+            end
+            local Music = sound:Clone()
+            Music.Parent = game.Workspace
+            Music.Name = "Music"
+
+            if Song.Option == "Simulator" then
+                Music.SoundId = "rbxassetid://1841647093"
+                Music:Play()
+            elseif Song.Option == "Beat" then
+                Music.SoundId = "rbxassetid://1836965951"
+                Music:Play()
+            elseif Song.Option == "Beat2" then
+                Music.SoundId = "rbxassetid://1840843086"      
+                Music:Play()        
+            elseif Song.Option == "Goofy" then
+                Music.SoundId = "rbxassetid://1846332554"
+                Music:Play()
+            elseif Song.Option == "CrabRave" then
+                Music.SoundId = "rbxassetid://5410086218"
+                Music:Play()
+            elseif Song.Option == "SkibidiRizz" then
+                Music.SoundId = "rbxassetid://16190757458"
+                Music:Play()
+            elseif Song.Option == "Uptown" then
+                Music.SoundId = "rbxassetid://1845554017"
+                Music:Play()
+            elseif Song.Option == "PLAY" then
+                Music.SoundId = "rbxassetid://5410085763"
+                Music:Play()
+            elseif Song.Option == "RainingTacos" then
+                Music.SoundId = "rbxassetid://142376088"
+                Music:Play()
+            end
+                
+            if Volume.Option == "Low" then 
+                Music.Volume = 0.5
+            elseif Volume.Option == "Mid" then 
+                    Music.Volume = 1.5
+            elseif Volume.Option == "High" then 
+                Music.Volume = 5
+            end
+        else
+            game.Workspace.Music:Destroy()
+        end
 	end,
 })
 Song = Music.NewPicker({
     Name = "Song",
-    Options = {"Simulator","Beat","Beat2","Goofy","CrabRave"}
+    Options = {"Simulator","Beat","Beat2","Goofy","CrabRave", "SkibidiRizz", "Uptown", "PLAY", "RainingTacos"}
 })
 Volume = Music.NewPicker({
     Name = "Volume",
     Options = {"Low","Mid","High"}
 })
-
+Loop = Music.NewToggle({
+	Name = "LoopMusic",
+	Function = function() end
+})
 
 Godmode = Combat.NewButton({
 	Name = "MelodyGodMode",
@@ -3414,34 +3557,188 @@ AutoUpgradeEra = Player.NewButton({
 	end,
 })
 
+
+
+ScytheDisabler = Exploit.NewButton({
+    Name = "ScytheDisabler",
+    Function = function(callback)
+        if callback then
+            local Bypassmode = Bypassmode.Value
+            task.spawn(function()
+                repeat task.wait()
+                    if Bypassmode == "Heatseeker" then
+                        local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
+
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.15)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18.5
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                        
+                        task.wait(0.175)
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                    elseif Bypassmode == "CFrame" then
+                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 28
+                        local args = {
+                            [1] = {
+                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+                            }
+                        }
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                    end
+                until not ScytheDisabler.Enabled
+                resetSpeed()
+            end)
+        end
+    end,
+})
+Bypassmode = ScytheDisabler.NewPicker({
+	Name = "Mode",
+	Options = {"Heatseeker", "CFrame"}
+})
+
+
+
 Fortune = Exploit.NewButton({
-	Name = "FortuneExploit",
+    Name = "FortuneExploit",
+    Function = function(callback)
+        if callback then
+            enchanttoggled = callback
+            task.spawn(function()
+                repeat
+                    task.wait(0.1)
+                    
+                    local cloneref = cloneref or function(data)
+                        return data
+                    end
+                    
+                    local getservice = function(service)
+                        return cloneref(game:FindService(service))
+                    end
+                    
+                    local getrandomvalue = function(tab)
+                        return #tab > 0 and tab[math.random(1, #tab)] or ''
+                    end
+                    
+                    local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut')
+                    remote:FireServer({
+                        statusEffectType = 'fortune_1',
+                        fortuneStacks = getrandomvalue({999999, 9e9})
+                    })
+                until not Fortune.Enabled
+            end)
+        else
+        end
+    end,
+})
+
+jellyfishExploit = Exploit.NewButton({
+	Name = "jellyfishExploit",
 	Function = function(callback)
 		if callback then
-    repeat
-    
-        task.wait(.1)
-
-local cloneref = cloneref or function(data: userdata) return data end;
-local getservice = function(service: string)
-    return cloneref(game:FindService(service));
-end;
-
-local getrandomvalue = function(tab: table)
-    return #tab > 0 and tab[math.random(1, #tab)] or ''
-end;
-
-local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut');
-        remote:FireServer({
-            statusEffectType = 'fortune_1',
-            fortuneStacks = getrandomvalue({999999, 9e9})
-        })
-    until not Fortune.Enabled
+			task.spawn(function()
+				
+				repeat task.wait(0.2)
+					local args = {
+                        [1] = "electrify_jellyfish"
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"):WaitForChild("useAbility"):FireServer(unpack(args))
+				until (not jellyfishExploit.Enabled)
+			end)
 		end
 	end,
 })
 
+local function teleportToRandomPlayer()
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    wait(0.2)
 
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    local lplr = Players.LocalPlayer
+
+    local function checkHealth()
+        repeat
+            wait()
+        until lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health >= 100
+
+        local availablePlayers = {}
+
+        for _, player in pairs(Players:GetPlayers()) do
+            if player.TeamColor ~= lplr.TeamColor then
+                table.insert(availablePlayers, player)
+            end
+        end
+
+        if #availablePlayers > 0 then
+            local selectedPlayer = availablePlayers[math.random(1, #availablePlayers)]
+            local part = selectedPlayer.Character.PrimaryPart
+            local duration = 0.4 
+
+            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+            local tween = TweenService:Create(lplr.Character.PrimaryPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
+            tween:Play()
+            tween.Completed:Wait()
+        else
+        end
+    end
+
+    checkHealth()
+end
+
+
+DeathPlayerTp = Combat.NewButton({
+    Name = "DeathPlayerTp",
+    Function = function(callback)
+        if callback then
+            
+            task.spawn(function()
+                    task.wait()
+
+                    teleportToRandomPlayer()
+            end)
+        else   
+        end
+    end,
+})
+
+BlockingAnimation = Visuals.NewButton({
+	Name = "BlockingAnimation",
+	Function = function(callback)
+		if callback then
+			LocalPlayer:GetMouse().Button2Down:Connect(function()
+				viewmodel.C0 = oldweld * CFrame.new(0.7, -0.4, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-50))
+			end)
+			LocalPlayer:GetMouse().Button2Up:Connect(function()
+				viewmodel.C0 = oldweld
+			end)
+		end
+	end,
+})
 
 local swingAnim2
 local auraConnection2
@@ -3615,11 +3912,11 @@ AutoReset = Legit.NewButton({
             repeat
             task.wait()
             if Speed.Option == "Fast" then
-                if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= 10 then 
+                if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= 0 then 
                     game.Players.LocalPlayer.Character.Humanoid.Health = 0    
                 end
                 elseif Speed.Option == "Delayed" then 
-                    if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= -62 then 
+                    if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= -35 then 
                     game.Players.LocalPlayer.Character.Humanoid.Health = 0    
                 end   
                 end
