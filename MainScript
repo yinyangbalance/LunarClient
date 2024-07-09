@@ -1,3 +1,5 @@
+repeat task.wait() until game:IsLoaded()
+
 local library = {}
 local spawnConnections = {}
 local utils = {}
@@ -90,7 +92,7 @@ local function raycast(start,dir)
 end
 
 LocalPlayer.CharacterAdded:Connect(function(char)
-	repeat task.wait(0.1) until char ~= nil
+	repeat task.wait() until char ~= nil
 
 	Character = char
 	Humanoid = char.Humanoid
@@ -607,13 +609,14 @@ Legit = library.NewWindow("Legit")
 
 if onMobile then
 	local tglbtn = Instance.new("TextButton", ScreenGui)
-	tglbtn.Position = UDim2.fromScale(.47, .7)
+	tglbtn.Position = UDim2.fromScale(0, 0.99)
 	tglbtn.Size = UDim2.fromScale(0.05, 0.03)
 	tglbtn.BorderSizePixel = 0
     tglbtn.TextScaled = true
 	tglbtn.BackgroundColor3 = library.Color
 	tglbtn.Name = "ToggleUi"
-	tglbtn.Text = "ToggleUi"
+    tglbtn.Dragabble = true
+	tglbtn.Text = "Aether"
     tglbtn.Font = 23
 	
 
@@ -816,7 +819,7 @@ Killaura = Combat.NewButton({
 
 				if nearest ~= nil then
 					if DragonAnimation.Enabled then
-						netmanaged.DragonBreath:FireServer()
+				 game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
 					end
 					local nearestCharacter = nearest.Character
 					local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
@@ -852,7 +855,7 @@ Killaura = Combat.NewButton({
 			end)
 
 			task.spawn(function()
-				repeat task.wait(0)
+				repeat task.wait()
 					if getNearestPlayer(22) ~= nil then
 						pcall(function()
 							local animation = auraAnimations[auraAnimation.Option]
@@ -964,10 +967,9 @@ ToolCheck = Killaura.NewToggle({
 	Name = "ToolCheck",
 	Function = function() end
 })
-DragonAnimation = Killaura.NewToggle({
- Name = "DragonAnimation", 
-Function = function() end
-})
+DragonAnimation = Killaura.NewToggle({Name = "DragonAnimation", Function = function() end})
+
+
 local box5 = ScreenGui.Combat.Frame.Killaura.DropDown.KeybindBox
 box5.Visible = true
 box5.Text = config.Keybinds.Killaura
@@ -1674,7 +1676,7 @@ Nofall = Misc.NewButton({
 local ProjectileFire = getRemote("ProjectileFire")
 local function shoot(bow, pos)
 	local args = {}
-	local shootFormulaStart = pos + Vector3.new(0,2,0)
+	local shootFormulaStart = pos + Vector3.new(0,1,0)
 	local shootFormulaDirection = Vector3.new(0,-100,0)
 	if bow.Name == "fireball" then
 		args = {
@@ -1683,13 +1685,13 @@ local function shoot(bow, pos)
 			[3] = "fireball",
 			[4] = pos,
 			[5] = shootFormulaStart,
-			[6] = Vector3.new(0,-5,0),
+			[6] = Vector3.new(0,-2,0),
 			[7] = tostring(game:GetService("HttpService"):GenerateGUID(true)),
 			[8] = {
 				["drawDurationSeconds"] = 1,
 				["shotId"] = tostring(game:GetService("HttpService"):GenerateGUID(false))
 			},
-			[9] =  workspace:GetServerTimeNow() - 0.045
+			[9] =  workspace:GetServerTimeNow() - 0.04
 		}
 	elseif bow.Name == "snowball" then
 		args = {
@@ -2121,14 +2123,11 @@ RemoteTrollage = Exploit.NewButton({
                     task.wait()
                     if DragonSound.Enabled then
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
-                       game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
                 end
                     if PartyPopper.Enabled then
                         game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
-                        game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
                     end
                     if YuziDash.Enabled then
-                                                game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
                         game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
                     end
                 end)
@@ -2446,6 +2445,10 @@ local RunService = game:GetService("RunService")
 
 local humanoid = lplr.Character and lplr.Character:FindFirstChildOfClass("Humanoid")
 lplr.CharacterAdded:Connect(function(character)
+task.wait(.2)
+Character = character
+    PrimaryPart = character.PrimaryPart
+    Humanoid =  character:FindFirstChildOfClass("Humanoid")
     humanoid = character:FindFirstChildOfClass("Humanoid")
     character.ChildAdded:Connect(function(child)
         if child:IsA("Humanoid") then
@@ -2842,7 +2845,7 @@ local function Nuker(NearestBed)
 
 					if not RaycastResult.Instance then
 						TargetBlock = NearestBed
-					end				
+					end
 
 					DamageBlockRemote:InvokeServer({
 						blockRef = {
@@ -2868,18 +2871,17 @@ Nuke = Exploit.NewButton({
 	Name = "BedNuker",
 	Function = function(callback)
          task.spawn(function()
-repeat
+            repeat
 				task.wait(0.1)
 
 				if IsAlive(LocalPlayer) then
-					local NearestBed = FindNearestBed(30) or nil
-
+					local NearestBed = FindNearestBed(35) or nil
 						if NearestBed then
 							Nuker(NearestBed)
 						end
 				end
-until not Nuke.Enabled
-        end)
+            until not Nuke.Enabled
+    end)
 end
 })
 
@@ -2918,7 +2920,7 @@ end
 function RecallPlayer()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
     
-    wait(6.301)     
+    task.wait(6.3)     
     
     RecallPlayerTweenToNearestPlayer()
 end
@@ -3109,9 +3111,9 @@ Toxic = Misc.NewButton({
 	end,
 })
 
-LocalPlayer.leaderstats.Kills.Changed:Connect(function()
+LocalPlayer.leaderstats:FindFirstChild("Kills").Changed:Connect(function()
 if toxic == true then
-    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClientexists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient IS JUST BETTER","IVE NEVER LOST WITH AetherClient LOL"}
+    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClient exists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient IS JUST BETTER","IVE NEVER LOST WITH AetherClient LOL"}
 		newChat(msgs[math.random(1,5)])
     end
 end)
@@ -3202,7 +3204,6 @@ local args = {
         ["healTarget"] = game.Players.LocalPlayer
     }
 }
-
 game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
 until not Godmode.Enabled
 		end
@@ -3760,7 +3761,7 @@ SemiAura = Legit.NewButton({
 	Function = function(callback)
 		if callback then
             auraConnection2 = RunService.Heartbeat:Connect(function()
-                local nearest = getNearestPlayer(22)
+                local nearest = getNearestPlayer(12)
 
                 if nearest ~= nil then
                     local nearestCharacter = nearest.Character
@@ -3801,8 +3802,8 @@ SemiAura = Legit.NewButton({
             end)
 
 			task.spawn(function()
-				repeat task.wait(.15)
-					if getNearestPlayer(22) ~= nil then
+				repeat task.wait(.5)
+					if getNearestPlayer(12) ~= nil then
 						pcall(function()
 							local animation = auraAnimations[auraAnimation.Option]
 							local allTime = 0
@@ -3827,7 +3828,7 @@ SemiAura = Legit.NewButton({
 
 			task.spawn(function()
 				repeat
-					local nearest = getNearestPlayer(10)
+					local nearest = getNearestPlayer(12)
 
 					if nearest ~= nil then
 						local isWinning = function()
@@ -3941,14 +3942,14 @@ Speed = AutoReset.NewPicker({
 	Options = {"Fast", "Delayed"}
 })
 
+local Players = game:GetService("Players")
+local HannahPromptTrigger = game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("NetManaged"):WaitForChild("HannahPromptTrigger")
 HnhExploit = Exploit.NewButton({
     Name = "HannahExploit",
     Function = function(callback)
         if callback then
             repeat wait()
-                local Players = game:GetService("Players")
-                local LocalPlayer = Players.LocalPlayer
-                local HannahPromptTrigger = game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("NetManaged"):WaitForChild("HannahPromptTrigger")
+               
 
                 for player in pairs(Players:GetPlayers()) do
                     if player ~= LocalPlayer and (player.Character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= 20 then
@@ -3979,9 +3980,10 @@ AimAssist = Combat.NewButton({
 	Name = "AimAssist",
 	Function = function(callback)
 		if callback then
+            local Entity = getNearestPlayer(20)
             task.spawn(function()
-                repeat task.wait(0)
-                    local Entity = getNearestPlayer(20)
+                repeat task.wait()
+                Entity = getNearestPlayer(20)
                     if Entity then
                         if not LegitAssist.Enabled then
                         setCameraToPlayer(Entity)
@@ -3998,4 +4000,41 @@ AimAssist = Combat.NewButton({
 LegitAssist = AimAssist.NewToggle({
 	Name = "LegitAimAssist",
 	Function = function() end
+})
+local box6 = ScreenGui.Combat.Frame.AimAssist.DropDown.KeybindBox
+box6.Visible = true
+box6.Text = config.Keybinds.AimAssist
+box6.Changed:Connect(function()
+if box6.Text ~= nil then
+    local uptext = box6.Text:upper()
+    box6.Text = uptext
+  library.Modules.AimAssist.Keybind = Enum.KeyCode[box6.Text]
+end
+end)
+
+
+Gravity = Player.NewButton({
+	Name = "Gravity",
+	Function = function(callback)
+		if callback then
+            repeat 
+            task.wait(2)
+            if GravMode.Option == "1" then 
+                workspace.Gravity = 120
+                elseif GravMode.Option == "2" then 
+                workspace.Gravity = 90
+                elseif GravMode.Option == "3" then 
+                workspace.Gravity = 40
+                elseif GravMode.Option == "4" then 
+                workspace.Gravity = 250
+            end
+            until not Gravity.Enabled
+            else
+            workspace.Gravity = 196.2
+        end
+    end,
+})
+GravMode = Gravity.NewPicker({
+	Name = "Mode",
+	Options = {"1", "2","3","4"}
 })
