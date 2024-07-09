@@ -3942,30 +3942,6 @@ Speed = AutoReset.NewPicker({
 	Options = {"Fast", "Delayed"}
 })
 
-local Players = game:GetService("Players")
-local HannahPromptTrigger = game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("NetManaged"):WaitForChild("HannahPromptTrigger")
-HnhExploit = Exploit.NewButton({
-    Name = "HannahExploit",
-    Function = function(callback)
-        if callback then
-            repeat wait()
-               
-
-                for player in pairs(Players:GetPlayers()) do
-                    if player ~= LocalPlayer and (player.Character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= 20 then
-                        local args = {
-                            [1] = {
-                                ["user"] = LocalPlayer,
-                                ["victimEntity"] = player.Character
-                            }
-                        }
-                        HannahPromptTrigger:InvokeServer(unpack(args))
-                    end
-                end
-            until not HnHExploit.Enabled
-        end
-    end
-})
 
 function setCameraToPlayer(target)
     local player = game.Players.LocalPlayer
