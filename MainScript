@@ -2678,7 +2678,7 @@ lastPosOnGround = PrimaryPart.CFrame
 
 spawn(function()
 	repeat
-		if Utilities.onGround() then
+		if utils.onGround() then
 			lastPosOnGround = PrimaryPart.CFrame
 		end
 		task.wait()
@@ -3978,6 +3978,7 @@ end
 
 AimAssist = Combat.NewButton({
 	Name = "AimAssist",
+    Keybind = Enum.KeyCode.B,
 	Function = function(callback)
 		if callback then
             task.spawn(function()
