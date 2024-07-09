@@ -1,4 +1,4 @@
-repeat task.wait() until game:IsLoaded()
+=repeat task.wait() until game:IsLoaded()
 
 local library = {}
 local spawnConnections = {}
@@ -3984,7 +3984,7 @@ AimAssist = Combat.NewButton({
             local Entity = getNearestPlayer(20)
             task.spawn(function()
                 repeat task.wait()
-                Entity = getNearestPlayer(20)
+                local Entity = getNearestPlayer(20)
                     if Entity then
                         if not LegitAssist.Enabled then
                         setCameraToPlayer(Entity)
