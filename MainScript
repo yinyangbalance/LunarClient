@@ -1759,13 +1759,13 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local msgs = {"gg.HdqjAfBq Get AetherClient Now!","Even without AetherClient i wouldve still won.","AetherClient On Top⭐","Imagine being legit in 2024","Get AetherClient to win lol!"}
+local msgs = {".gg/aetherclient Get AetherClient Now!","Even without AetherClient i wouldve still won.","AetherClient On Top⭐","Imagine being legit in 2024","Get AetherClient to win lol!",".gg/aetherclient to become good"}
 Chatspammer = Misc.NewButton({
 	Name = "Chatspammer",
 	Function = function(callback)
 		if callback then
 			repeat
-				newChat(msgs[math.random(1,5)])
+				newChat(msgs[math.random(1,6)])
 				task.wait(3)
 			until not Chatspammer.Enabled
 		end
@@ -3111,7 +3111,7 @@ Toxic = Misc.NewButton({
 
 LocalPlayer.leaderstats.Kills.Changed:Connect(function()
 if toxic == true then
-    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClient Private exists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient PRIVATE IS JUST BETTER","IVE NEVER LOST WITH AetherClient PRIVATE LOL"}
+    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClientexists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient IS JUST BETTER","IVE NEVER LOST WITH AetherClient LOL"}
 		newChat(msgs[math.random(1,5)])
     end
 end)
