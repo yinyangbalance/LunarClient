@@ -126,7 +126,7 @@ end
 
 library.WindowCount = 0
 
-local Key = "AetherClient | .gg/HdqjAfBq" --DONT CHANGE OR SCRIPT WILL BREAK
+local Key = "AetherClient | .gg/aetherclient" --DONT CHANGE OR SCRIPT WILL BREAK
 
 library.Array = {}
 library.Array.Background = true
