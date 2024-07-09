@@ -3978,28 +3978,18 @@ end
 
 AimAssist = Combat.NewButton({
 	Name = "AimAssist",
-    Keybind = Enum.KeyCode.B,
 	Function = function(callback)
 		if callback then
             task.spawn(function()
-                repeat task.wait()
-                local Entity = getNearestPlayer(20)
+                repeat task.wait(0)
+                    local Entity = getNearestPlayer(20)
                     if Entity then
-                        if not LegitAssist.Enabled then
                         setCameraToPlayer(Entity)
-                        else
-                        task.wait(.1)
-                        setCameraToPlayer(Entity)
-                        end
                     end
                 until (not AimAssist.Enabled)
             end)
         end
     end,
-})
-LegitAssist = AimAssist.NewToggle({
-	Name = "LegitAimAssist",
-	Function = function() end
 })
 local box6 = ScreenGui.Combat.Frame.AimAssist.DropDown.KeybindBox
 box6.Visible = true
