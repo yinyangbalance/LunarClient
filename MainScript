@@ -79,7 +79,10 @@ if not isfile("Aether/config.json") then
 	saveConfig()
 end
 
+task.wait(0.001)
 loadConfig()
+task.wait(0.001)
+
 
 local function raycast(start,dir)
 	local p = RaycastParams.new()
@@ -92,14 +95,14 @@ local function raycast(start,dir)
 end
 
 LocalPlayer.CharacterAdded:Connect(function(char)
-	repeat task.wait() until char ~= nil
+	repeat task.wait(1) until char ~= nil
 
 	Character = char
 	Humanoid = char.Humanoid
 	PrimaryPart = char.PrimaryPart
 	Camera = workspace.Camera
 	CurrentCamera = workspace.CurrentCamera
-	
+
 	Character.Archivable = true
 
 	for i,v in next, spawnConnections do
@@ -615,7 +618,7 @@ if onMobile then
     tglbtn.TextScaled = true
 	tglbtn.BackgroundColor3 = library.Color
 	tglbtn.Name = "ToggleUi"
-    tglbtn.Dragabble = true
+    tglbtn.Draggable = true
 	tglbtn.Text = "Aether"
     tglbtn.Font = 23
 	
@@ -696,6 +699,33 @@ local function getNearestPlayer(range)
 		end)
 	end
 	return nearest
+end
+
+local function getNearestWallPlayer(range)
+    local nearest
+    local nearestDist = 9e9
+    for i,v in pairs(game.Players:GetPlayers()) do
+        pcall(function()
+            if v == LocalPlayer or v.Team == LocalPlayer.Team then return end
+            local character = v.Character
+            if character and character.Humanoid.health > 0 then
+                local direction = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Unit
+                local raycastResult = workspace:Raycast(LocalPlayer.Character.PrimaryPart.Position, direction * range, {IgnoreType = Enum.IgnoreType.Part})
+                if raycastResult and raycastResult.Instance then
+                    local hitPart = raycastResult.Instance
+                    if hitPart:IsA("BasePart") and hitPart.CanCollide then
+                        -- If the raycast hits a solid object, ignore this player
+                        return
+                    end
+                end
+                if (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude < nearestDist and (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= range then
+                    nearest = v
+                    nearestDist = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+                end
+            end
+        end)
+    end
+    return nearest
 end
 
 local function getRemote(name)
@@ -967,19 +997,10 @@ ToolCheck = Killaura.NewToggle({
 	Name = "ToolCheck",
 	Function = function() end
 })
-DragonAnimation = Killaura.NewToggle({Name = "DragonAnimation", Function = function() end})
-
-
-local box5 = ScreenGui.Combat.Frame.Killaura.DropDown.KeybindBox
-box5.Visible = true
-box5.Text = config.Keybinds.Killaura
-box5.Changed:Connect(function()
-if box5.Text ~= nil then
-    local uptext = box5.Text:upper()
-    box5.Text = uptext
-  library.Modules.Killaura.Keybind = Enum.KeyCode[box5.Text]
-end
-end)
+DragonAnimation = Killaura.NewToggle({
+Name = "DragonAnimation", 
+Function = function() end
+})
 
 
 table.insert(spawnConnections,function(char)
@@ -1494,7 +1515,6 @@ Speed = Motion.NewButton({
 		if callback then
 			speedcon = RunService.Heartbeat:Connect(function()
 				tickxd += 1
-				local dir = Humanoid.MoveDirection
 				local speed = 0.3
 
 				if SpeedMode.Option == "Vanilla" then
@@ -1524,9 +1544,6 @@ Speed = Motion.NewButton({
 					end
 				end
 
-				if SpeedMode.Option ~= "HeatseekerTeleport" then
-					PrimaryPart.CFrame += dir * speed
-				end
 			end)
 		else
 			pcall(function()
@@ -1537,7 +1554,7 @@ Speed = Motion.NewButton({
 })
 SpeedMode = Speed.NewPicker({
 	Name = "Mode",
-	Options = {"Heatseeker", "Vanilla", "HeatseekerBoost", "HeatseekerTeleport"}
+	Options = {"Heatseeker", "Vanilla", "HeatseekerBoost"}
 })
 
 NoSlowDown = Motion.NewButton({
@@ -2264,7 +2281,7 @@ HighJump = Motion.NewButton({
 			for i = 1, 44 do
 				if not HighJump.Enabled then return end
 				PrimaryPart.Velocity += Vector3.new(0, 45, 0)
-				task.wait(0.2)
+				task.wait(0.1)
 			end
 			HighJump.ToggleButton(false)
 		else
@@ -2283,9 +2300,7 @@ Camera = Visuals.NewButton({
 				CurrentCamera.FieldOfView = 120
 			end)
             if CameraZoom.Enabled then
-                game.Players.LocalPlayer.CameraMaxZoomDistance = CameraZoom.Value
-            else
-                game.Players.LocalPlayer.CameraMaxZoomDistance = 13
+                game.Players.LocalPlayer.CameraMaxZoomDistance = 15
             end
 		else
 			CameraModificationCon:Disconnect()
@@ -2445,17 +2460,52 @@ local RunService = game:GetService("RunService")
 
 local humanoid = lplr.Character and lplr.Character:FindFirstChildOfClass("Humanoid")
 lplr.CharacterAdded:Connect(function(character)
-task.wait(.2)
+task.wait(.5)
 Character = character
     PrimaryPart = character.PrimaryPart
-    Humanoid =  character:FindFirstChildOfClass("Humanoid")
-    humanoid = character:FindFirstChildOfClass("Humanoid")
-    character.ChildAdded:Connect(function(child)
-        if child:IsA("Humanoid") then
-            humanoid = child
-        end
-    end)
+    Humanoid =  character:FindFirstChild("Humanoid")
+    humanoid = character:FindFirstChild("Humanoid")
 end)
+
+AutoForge = Misc.NewButton({
+	Name = "AutoForge",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()
+				local function sendForgeRequest(forgeUpgrade)
+					local args = {
+						[1] = {
+							["forgeUpgrade"] = forgeUpgrade
+						}
+					}
+					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SetForgeSelectMechanic"):FireServer(unpack(args))
+				end
+				
+				repeat
+					task.wait(1)
+					local weapon = weaponmode.Option
+					
+					if weapon == "Swords" then
+						sendForgeRequest(0)
+					elseif weapon == "Daggers" then
+						sendForgeRequest(1)
+					elseif weapon == "Scythes" then
+						sendForgeRequest(2)
+					elseif weapon == "GreatHammers" then
+						sendForgeRequest(3)
+					elseif weapon == "Gauntlets" then
+						sendForgeRequest(4)
+					end
+				until not AutoForge.Enabled
+			end)
+		end
+	end,
+})
+
+weaponmode = AutoForge.NewPicker({
+	Name = "Weapon",
+    Options = {"Swords", "Daggers", "Scythes", "GreatHammers", "Gauntlets"}
+})
 
 Disabler = Exploit.NewButton({
     Name = "Disabler",
@@ -3634,11 +3684,49 @@ Bypassmode = ScytheDisabler.NewPicker({
 })
 
 
+local cloneref = cloneref or function(data: userdata) return data end;
+local enchanttoggled  = false;
+local getservice = function(service: string)
+    return cloneref(game:FindService(service));
+end;
 
-Fortune = Exploit.NewButton({
-    Name = "FortuneExploit",
-    Function = function(callback)
-        if callback then
+local getrandomvalue = function(tab: table)
+    return #tab > 0 and tab[math.random(1, #tab)] or ''
+end;
+
+local replicatedstorage = getservice('ReplicatedStorage');
+local lplr = getservice('Players').LocalPlayer;
+local inputservice = getservice('UserInputService');
+local remote = replicatedstorage:WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneDoubleDown');
+local effects = {
+    'fire_3', 'forest_3', 'cloud_3', 'void_3', 'static_3', 'updraft_2', 
+    'shield_gen_3', 'anti_knockback_2', 'rapid_regen_3', 'execute_3', 
+    'wind_3', 'plunder_2', 'critical_strike_3', 'volley_3', 
+    'grounded_3', 'clingy_3', 'life_steal_3', 'fortune_1'
+}
+
+if renderexploit then 
+    pcall(task.cancel, renderexploit)
+end;
+
+renderexploit = task.spawn(function()
+    repeat 
+        task.wait()
+        if not enchanttoggled then 
+            continue
+        end;
+        for i,v in effects do 
+            remote:FireServer({statusEffectType = v})
+        end
+        task.wait(0.8)
+    until false;
+end);
+
+DupeExploit = Exploit.NewButton({
+	Name = "FortuneExploit",
+	Function = function(callback)
+		if callback then
+            DupeExploit.Enabled = true
             enchanttoggled = callback
             task.spawn(function()
                 repeat
@@ -3661,7 +3749,7 @@ Fortune = Exploit.NewButton({
                         statusEffectType = 'fortune_1',
                         fortuneStacks = getrandomvalue({999999, 9e9})
                     })
-                until not Fortune.Enabled
+                until not DupeExploit.Enabled
             end)
         else
         end
@@ -3761,7 +3849,7 @@ SemiAura = Legit.NewButton({
 	Function = function(callback)
 		if callback then
             auraConnection2 = RunService.Heartbeat:Connect(function()
-                local nearest = getNearestPlayer(12)
+                local nearest = getNearestWallPlayer(10)
 
                 if nearest ~= nil then
                     local nearestCharacter = nearest.Character
@@ -3770,7 +3858,7 @@ SemiAura = Legit.NewButton({
                     local weapon = getBestWeapon()
                     
                     if ToolCheck.Enabled then
-                        print('enabled 🤑')
+
                     else
                         spoofHand(weapon.Name)
                     end
@@ -3802,8 +3890,8 @@ SemiAura = Legit.NewButton({
             end)
 
 			task.spawn(function()
-				repeat task.wait(.5)
-					if getNearestPlayer(12) ~= nil then
+				repeat task.wait(.8)
+					if getNearestWallPlayer(10) ~= nil then
 						pcall(function()
 							local animation = auraAnimations[auraAnimation.Option]
 							local allTime = 0
@@ -3828,7 +3916,7 @@ SemiAura = Legit.NewButton({
 
 			task.spawn(function()
 				repeat
-					local nearest = getNearestPlayer(12)
+					local nearest = getNearestWallPlayer(10)
 
 					if nearest ~= nil then
 						local isWinning = function()
@@ -4004,4 +4092,105 @@ Gravity = Player.NewButton({
 GravMode = Gravity.NewPicker({
 	Name = "Mode",
 	Options = {"1", "2","3","4"}
+})
+
+
+
+AntiGodmode = Combat.NewButton({
+	Name = "AirHit",
+	Function = function(callback)
+		if callback then
+            repeat
+		PrimaryPart.Velocity += Vector3.new(0, 150, 0)
+        task.wait(.4)
+        PrimaryPart.Velocity += Vector3.new(0, -250, 0)
+        task.wait(.2)
+        until not AntiGodmode.Enabled
+		end
+	end,
+})
+
+AntiSuffocate = Motion.NewButton({
+	Name = "AntiSuffocate",
+	Function = function(callback)
+		if callback then
+			repeat
+
+				local ray = Utilities.newRaycast(PrimaryPart.Position,Humanoid.MoveDirection * 2)
+
+				if ray and hurttime < 50 then
+					PrimaryPart.CFrame += Vector3.new(0,5,0)
+				end
+
+				task.wait()
+			until not AntiSuffocate.Enabled
+		end
+	end,
+})
+
+local CustomHotbarPart
+CustomHotbar = Visuals.NewButton({
+	Name = "CustomHotbar",
+	Function = function(callback)
+		if callback then
+			CustomHotbarPart = Instance.new("Frame",ScreenGui)
+			CustomHotbarPart.Position = UDim2.fromScale(0.288,0.99)
+			CustomHotbarPart.AnchorPoint = Vector2.new(0,1)
+			CustomHotbarPart.Size = UDim2.fromScale(0.425,0.078)
+
+			local stroke = Instance.new("UIStroke",CustomHotbarPart)
+			stroke.Thickness = 7
+            if theme.Option == "Retro" then 
+                CustomHotbarPart.BackgroundColor3 = Color3.fromRGB(80,220,70)
+                elseif theme.Option == "Modern" then 
+                			stroke.Thickness = 5
+                CustomHotbarPart.BackgroundColor3 = Color3.new(0.243137, 0.098039, 0.639216)
+                elseif theme.Option == "Ocean" then 
+			stroke.Thickness = 8
+            CustomHotbarPart.BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000)
+            end
+		else
+			pcall(function()
+				CustomHotbarPart:Destroy()
+			end)
+		end
+	end,
+})
+theme = CustomHotbar.NewPicker({
+	Name = "Themes", 
+	Options = {"Retro","Ocean","Modern"},
+	Default = "Ocean"
+})
+
+LagbackChecker = Player.NewButton({
+	Name = "LagbackChecker",
+	Function = function(callback)
+		local lagbackcon
+		if callback then
+			lagbackcon = PrimaryPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+				if Fly.Enabled then
+					Fly.ToggleButton(false)
+				end
+				if HighJump.Enabled then
+					HighJump.ToggleButton(false)
+				end
+			end)
+		end
+	end,
+})
+
+FakeLag = Legit.NewButton({
+	Name = "FakeLag",
+	Function = function(callback)
+		if callback then
+			repeat
+				if hurttime < 50 then
+					Humanoid.WalkSpeed = 5
+					PrimaryPart.CFrame -= Vector3.new(4, 0, 4)
+					task.wait(.3)
+				end
+				task.wait()
+			until not FakeLag.Enabled
+		end
+	end,
 })
