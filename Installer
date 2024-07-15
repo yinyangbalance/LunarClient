@@ -1,0 +1,536 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local ImageLabel = Instance.new("ImageLabel")
+local UICorner = Instance.new("UICorner")
+local Frame_2 = Instance.new("Frame")
+local ImageLabel_2 = Instance.new("ImageLabel")
+local TextButton = Instance.new("TextButton")
+local loadingbar = Instance.new("Frame")
+local UICorner_2 = Instance.new("UICorner")
+local followbar = Instance.new("Frame")
+local UICorner_3 = Instance.new("UICorner")
+local TextButton_2 = Instance.new("TextButton")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(243, 243, 243)
+Frame.BackgroundTransparency = 0.850
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.236209333, 0, 0.34017095, 0)
+Frame.Size = UDim2.new(0, 373, 0, 30)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.0370843373, 0, 0.182235718, 0)
+TextLabel.Size = UDim2.new(0, 167, 0, 19)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "LunarClient - Roblox Studio"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+
+ImageLabel.Parent = Frame
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageLabel.BorderSizePixel = 0
+ImageLabel.Position = UDim2.new(-0.00265957019, 0, 0.136781827, 0)
+ImageLabel.Size = UDim2.new(0, 30, 0, 20)
+ImageLabel.Image = "rbxassetid://11569282129"
+ImageLabel.ScaleType = Enum.ScaleType.Fit
+
+UICorner.CornerRadius = UDim.new(0.100000001, 0)
+UICorner.Parent = Frame
+
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+Frame_2.BackgroundTransparency = 0.450
+Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderSizePixel = 0
+Frame_2.Position = UDim2.new(0.00268096523, 0, 1, 0)
+Frame_2.Size = UDim2.new(0, 372, 0, 240)
+
+ImageLabel_2.Parent = Frame_2
+ImageLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel_2.BackgroundTransparency = 1.000
+ImageLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageLabel_2.BorderSizePixel = 0
+ImageLabel_2.Position = UDim2.new(0, 0, 0.0326151513, 0)
+ImageLabel_2.Size = UDim2.new(0, 372, 0, 119)
+ImageLabel_2.Image = "rbxassetid://15156615928"
+ImageLabel_2.ScaleType = Enum.ScaleType.Fit
+
+TextButton.Parent = Frame_2
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BackgroundTransparency = 1.000
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.360215068, 0, 0.554166675, 0)
+TextButton.Size = UDim2.new(0, 104, 0, 50)
+TextButton.Font = Enum.Font.Unknown
+TextButton.Text = "Install"
+TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+loadingbar.Name = "loadingbar"
+loadingbar.Parent = Frame_2
+loadingbar.Active = true
+loadingbar.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+loadingbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+loadingbar.BorderSizePixel = 0
+loadingbar.Position = UDim2.new(0.236559138, 0, 0.625, 0)
+loadingbar.Size = UDim2.new(0, 194, 0, 15)
+loadingbar.Visible = false
+
+UICorner_2.Parent = loadingbar
+
+followbar.Name = "followbar"
+followbar.Parent = loadingbar
+followbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+followbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+followbar.BorderSizePixel = 0
+followbar.Position = UDim2.new(-0.0026881441, 0, 0.0619114451, 0)
+followbar.Size = UDim2.new(0, 0, 0, 12)
+
+UICorner_3.Parent = followbar
+
+TextButton_2.Parent = Frame
+TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_2.BackgroundTransparency = 1.000
+TextButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.BorderSizePixel = 0
+TextButton_2.Position = UDim2.new(0.924932957, 0, 0.233333334, 0)
+TextButton_2.Size = UDim2.new(0, 22, 0, 17)
+TextButton_2.Font = Enum.Font.SourceSans
+TextButton_2.Text = "🔴"
+TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.TextScaled = true
+TextButton_2.TextSize = 14.000
+TextButton_2.TextWrapped = true
+
+-- Scripts:
+
+local function LUZWY_fake_script() -- TextButton.LocalScript 
+	local script = Instance.new('LocalScript', TextButton)
+
+	-- Tweening
+	local TweenService = game:GetService("TweenService")
+	local button = script.Parent
+	
+	button.MouseButton1Click:Connect(function()
+		-- Create tween for button size change
+		local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut)
+		local tween = TweenService:Create(button, tweenInfo, {Size = UDim2.new(0, 0, 0, 50)})
+		tween:Play()
+	
+		-- Loading bar animation after a delay
+		wait(0.5)
+		local loadingBar = script.Parent.Parent.loadingbar
+		loadingBar.Visible = true
+	
+		-- Tween the follow bar's size
+		local followBar = loadingBar.followbar
+		followBar:TweenSize(UDim2.new(0, 194, 0, 12), Enum.EasingDirection.InOut, Enum.EasingStyle.Quint, 5, true)
+		wait(5)
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/yinyangbalance/LunarClient/main/MainScript"))()
+		wait(0.4)
+		script.Parent.Parent.Parent.Parent:Destroy()
+		
+	end)
+	
+end
+coroutine.wrap(LUZWY_fake_script)()
+local function UTTO_fake_script() -- Frame_2.BlurController 
+	local script = Instance.new('LocalScript', Frame_2)
+
+	local Lighting          = game:GetService("Lighting")
+	local camera			= workspace.CurrentCamera
+	
+	local BLUR_SIZE         = Vector2.new(10, 10)
+	local PART_SIZE         = 0.01
+	local PART_TRANSPARENCY = 1 - 1e-7
+	local START_INTENSITY	= 1
+	
+	script.Parent:SetAttribute("BlurIntensity", START_INTENSITY)
+	
+	local BLUR_OBJ          = Instance.new("DepthOfFieldEffect")
+	BLUR_OBJ.FarIntensity   = 0
+	BLUR_OBJ.NearIntensity  = script.Parent:GetAttribute("BlurIntensity")
+	BLUR_OBJ.FocusDistance  = 0.25
+	BLUR_OBJ.InFocusRadius  = 0
+	BLUR_OBJ.Parent         = Lighting
+	
+	local PartsList         = {}
+	local BlursList         = {}
+	local BlurObjects       = {}
+	local BlurredGui        = {}
+	
+	BlurredGui.__index      = BlurredGui
+	
+	function rayPlaneIntersect(planePos, planeNormal, rayOrigin, rayDirection)
+		local n = planeNormal
+		local d = rayDirection
+		local v = rayOrigin - planePos
+	
+		local num = n.x*v.x + n.y*v.y + n.z*v.z
+		local den = n.x*d.x + n.y*d.y + n.z*d.z
+		local a = -num / den
+	
+		return rayOrigin + a * rayDirection, a
+	end
+	
+	function rebuildPartsList()
+		PartsList = {}
+		BlursList = {}
+		for blurObj, part in pairs(BlurObjects) do
+			table.insert(PartsList, part)
+			table.insert(BlursList, blurObj)
+		end
+	end
+	
+	function BlurredGui.new(frame, shape)
+		local blurPart        = Instance.new("Part")
+		blurPart.Size         = Vector3.new(1, 1, 1) * 0.01
+		blurPart.Anchored     = true
+		blurPart.CanCollide   = false
+		blurPart.CanTouch     = false
+		blurPart.Material     = Enum.Material.Glass
+		blurPart.Transparency = PART_TRANSPARENCY
+		blurPart.Parent       = workspace.CurrentCamera
+	
+		local mesh
+		if (shape == "Rectangle") then
+			mesh        = Instance.new("BlockMesh")
+			mesh.Parent = blurPart
+		elseif (shape == "Oval") then
+			mesh          = Instance.new("SpecialMesh")
+			mesh.MeshType = Enum.MeshType.Sphere
+			mesh.Parent   = blurPart
+		end
+		
+		local ignoreInset = false
+		local currentObj  = frame
+		
+		while true do
+			currentObj = currentObj.Parent
+	
+			if (currentObj and currentObj:IsA("ScreenGui")) then
+				ignoreInset = currentObj.IgnoreGuiInset
+				break
+			elseif (currentObj == nil) then
+				break
+			end
+		end
+	
+		local new = setmetatable({
+			Frame          = frame;
+			Part           = blurPart;
+			Mesh           = mesh;
+			IgnoreGuiInset = ignoreInset;
+		}, BlurredGui)
+	
+		BlurObjects[new] = blurPart
+		rebuildPartsList()
+	
+		game:GetService("RunService"):BindToRenderStep("...", Enum.RenderPriority.Camera.Value + 1, function()
+			blurPart.CFrame = camera.CFrame * CFrame.new(0,0,0)
+			BlurredGui.updateAll()
+		end)
+		return new
+	end
+	
+	function updateGui(blurObj)
+		if (not blurObj.Frame.Visible) then
+			blurObj.Part.Transparency = 1
+			return
+		end
+		
+		local camera = workspace.CurrentCamera
+		local frame  = blurObj.Frame
+		local part   = blurObj.Part
+		local mesh   = blurObj.Mesh
+		
+		part.Transparency = PART_TRANSPARENCY
+		
+		local corner0 = frame.AbsolutePosition + BLUR_SIZE
+		local corner1 = corner0 + frame.AbsoluteSize - BLUR_SIZE*2
+		local ray0, ray1
+	
+		if (blurObj.IgnoreGuiInset) then
+			ray0 = camera:ViewportPointToRay(corner0.X, corner0.Y, 1)
+			ray1 = camera:ViewportPointToRay(corner1.X, corner1.Y, 1)
+		else
+			ray0 = camera:ScreenPointToRay(corner0.X, corner0.Y, 1)
+			ray1 = camera:ScreenPointToRay(corner1.X, corner1.Y, 1)
+		end
+	
+		local planeOrigin = camera.CFrame.Position + camera.CFrame.LookVector * (0.05 - camera.NearPlaneZ)
+		local planeNormal = camera.CFrame.LookVector
+		local pos0 = rayPlaneIntersect(planeOrigin, planeNormal, ray0.Origin, ray0.Direction)
+		local pos1 = rayPlaneIntersect(planeOrigin, planeNormal, ray1.Origin, ray1.Direction)
+	
+		local pos0 = camera.CFrame:PointToObjectSpace(pos0)
+		local pos1 = camera.CFrame:PointToObjectSpace(pos1)
+	
+		local size   = pos1 - pos0
+		local center = (pos0 + pos1)/2
+	
+		mesh.Offset = center
+		mesh.Scale  = size / PART_SIZE
+	end
+	
+	function BlurredGui.updateAll()
+		BLUR_OBJ.NearIntensity = tonumber(script.Parent:GetAttribute("BlurIntensity"))
+		
+		for i = 1, #BlursList do
+			updateGui(BlursList[i])
+		end
+	
+		local cframes = table.create(#BlursList, workspace.CurrentCamera.CFrame)
+		workspace:BulkMoveTo(PartsList, cframes, Enum.BulkMoveMode.FireCFrameChanged)
+	
+		BLUR_OBJ.FocusDistance = 0.25 - camera.NearPlaneZ
+	end
+	
+	function BlurredGui:Destroy()
+		self.Part:Destroy()
+		BlurObjects[self] = nil
+		rebuildPartsList()
+	end
+	
+	BlurredGui.new(script.Parent, "Rectangle")
+	
+	BlurredGui.updateAll()
+	return BlurredGui
+end
+coroutine.wrap(UTTO_fake_script)()
+local function CHPLDII_fake_script() -- TextButton_2.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_2)
+
+	local parent = script.Parent
+	parent.MouseButton1Click:Connect(function ()
+		parent.Parent.Parent:Destroy()
+		end)
+end
+coroutine.wrap(CHPLDII_fake_script)()
+local function GJLDTD_fake_script() -- Frame.UIDrag 
+	local script = Instance.new('LocalScript', Frame)
+
+	-- Made by Real_IceyDev (@lceyDex) --
+	-- Simple UI dragger (PC Only/Any device that has a mouse) --
+	
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	local dragToggle = nil
+	local dragSpeed = 0.25
+	local dragStart = nil
+	local startPos = nil
+	
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+end
+coroutine.wrap(GJLDTD_fake_script)()
+local function VPKGH_fake_script() -- Frame.BlurController 
+	local script = Instance.new('LocalScript', Frame)
+
+	local Lighting          = game:GetService("Lighting")
+	local camera			= workspace.CurrentCamera
+	
+	local BLUR_SIZE         = Vector2.new(10, 10)
+	local PART_SIZE         = 0.01
+	local PART_TRANSPARENCY = 1 - 1e-7
+	local START_INTENSITY	= 1
+	
+	script.Parent:SetAttribute("BlurIntensity", START_INTENSITY)
+	
+	local BLUR_OBJ          = Instance.new("DepthOfFieldEffect")
+	BLUR_OBJ.FarIntensity   = 0
+	BLUR_OBJ.NearIntensity  = script.Parent:GetAttribute("BlurIntensity")
+	BLUR_OBJ.FocusDistance  = 0.25
+	BLUR_OBJ.InFocusRadius  = 0
+	BLUR_OBJ.Parent         = Lighting
+	
+	local PartsList         = {}
+	local BlursList         = {}
+	local BlurObjects       = {}
+	local BlurredGui        = {}
+	
+	BlurredGui.__index      = BlurredGui
+	
+	function rayPlaneIntersect(planePos, planeNormal, rayOrigin, rayDirection)
+		local n = planeNormal
+		local d = rayDirection
+		local v = rayOrigin - planePos
+	
+		local num = n.x*v.x + n.y*v.y + n.z*v.z
+		local den = n.x*d.x + n.y*d.y + n.z*d.z
+		local a = -num / den
+	
+		return rayOrigin + a * rayDirection, a
+	end
+	
+	function rebuildPartsList()
+		PartsList = {}
+		BlursList = {}
+		for blurObj, part in pairs(BlurObjects) do
+			table.insert(PartsList, part)
+			table.insert(BlursList, blurObj)
+		end
+	end
+	
+	function BlurredGui.new(frame, shape)
+		local blurPart        = Instance.new("Part")
+		blurPart.Size         = Vector3.new(1, 1, 1) * 0.01
+		blurPart.Anchored     = true
+		blurPart.CanCollide   = false
+		blurPart.CanTouch     = false
+		blurPart.Material     = Enum.Material.Glass
+		blurPart.Transparency = PART_TRANSPARENCY
+		blurPart.Parent       = workspace.CurrentCamera
+	
+		local mesh
+		if (shape == "Rectangle") then
+			mesh        = Instance.new("BlockMesh")
+			mesh.Parent = blurPart
+		elseif (shape == "Oval") then
+			mesh          = Instance.new("SpecialMesh")
+			mesh.MeshType = Enum.MeshType.Sphere
+			mesh.Parent   = blurPart
+		end
+		
+		local ignoreInset = false
+		local currentObj  = frame
+		
+		while true do
+			currentObj = currentObj.Parent
+	
+			if (currentObj and currentObj:IsA("ScreenGui")) then
+				ignoreInset = currentObj.IgnoreGuiInset
+				break
+			elseif (currentObj == nil) then
+				break
+			end
+		end
+	
+		local new = setmetatable({
+			Frame          = frame;
+			Part           = blurPart;
+			Mesh           = mesh;
+			IgnoreGuiInset = ignoreInset;
+		}, BlurredGui)
+	
+		BlurObjects[new] = blurPart
+		rebuildPartsList()
+	
+		game:GetService("RunService"):BindToRenderStep("...", Enum.RenderPriority.Camera.Value + 1, function()
+			blurPart.CFrame = camera.CFrame * CFrame.new(0,0,0)
+			BlurredGui.updateAll()
+		end)
+		return new
+	end
+	
+	function updateGui(blurObj)
+		if (not blurObj.Frame.Visible) then
+			blurObj.Part.Transparency = 1
+			return
+		end
+		
+		local camera = workspace.CurrentCamera
+		local frame  = blurObj.Frame
+		local part   = blurObj.Part
+		local mesh   = blurObj.Mesh
+		
+		part.Transparency = PART_TRANSPARENCY
+		
+		local corner0 = frame.AbsolutePosition + BLUR_SIZE
+		local corner1 = corner0 + frame.AbsoluteSize - BLUR_SIZE*2
+		local ray0, ray1
+	
+		if (blurObj.IgnoreGuiInset) then
+			ray0 = camera:ViewportPointToRay(corner0.X, corner0.Y, 1)
+			ray1 = camera:ViewportPointToRay(corner1.X, corner1.Y, 1)
+		else
+			ray0 = camera:ScreenPointToRay(corner0.X, corner0.Y, 1)
+			ray1 = camera:ScreenPointToRay(corner1.X, corner1.Y, 1)
+		end
+	
+		local planeOrigin = camera.CFrame.Position + camera.CFrame.LookVector * (0.05 - camera.NearPlaneZ)
+		local planeNormal = camera.CFrame.LookVector
+		local pos0 = rayPlaneIntersect(planeOrigin, planeNormal, ray0.Origin, ray0.Direction)
+		local pos1 = rayPlaneIntersect(planeOrigin, planeNormal, ray1.Origin, ray1.Direction)
+	
+		local pos0 = camera.CFrame:PointToObjectSpace(pos0)
+		local pos1 = camera.CFrame:PointToObjectSpace(pos1)
+	
+		local size   = pos1 - pos0
+		local center = (pos0 + pos1)/2
+	
+		mesh.Offset = center
+		mesh.Scale  = size / PART_SIZE
+	end
+	
+	function BlurredGui.updateAll()
+		BLUR_OBJ.NearIntensity = tonumber(script.Parent:GetAttribute("BlurIntensity"))
+		
+		for i = 1, #BlursList do
+			updateGui(BlursList[i])
+		end
+	
+		local cframes = table.create(#BlursList, workspace.CurrentCamera.CFrame)
+		workspace:BulkMoveTo(PartsList, cframes, Enum.BulkMoveMode.FireCFrameChanged)
+	
+		BLUR_OBJ.FocusDistance = 0.25 - camera.NearPlaneZ
+	end
+	
+	function BlurredGui:Destroy()
+		self.Part:Destroy()
+		BlurObjects[self] = nil
+		rebuildPartsList()
+	end
+	
+	BlurredGui.new(script.Parent, "Rectangle")
+	
+	BlurredGui.updateAll()
+	return BlurredGui
+end
+coroutine.wrap(VPKGH_fake_script)()
