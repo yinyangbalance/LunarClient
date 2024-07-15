@@ -3,12 +3,15 @@ repeat task.wait() until game:IsLoaded()
 local library = {}
 local spawnConnections = {}
 local utils = {}
-
+local gg
 
 local canLoadAether = true--getgenv().EOIFHEIUFHu0e98fekwjfbnweiurghfueiyrgy9re088ug
-local user = "Developer"
+local user = "Reqgit_A"
 local hurttime = 0
-
+local lp = game.Players.LocalPlayer
+local plyrgui = lp.PlayerGui
+local gg = plyrgui
+if gg then
 if not canLoadAether then return end
 
 Players = game:GetService("Players")
@@ -34,12 +37,12 @@ local ResetCharacterRemote = ReplicatedStorage:WaitForChild("rbxts_include"):Wai
 
 
 local function StopAnim()
-local plr = game.Players.LocalPlayer
+	local plr = game.Players.LocalPlayer
 	plr.Character.Animate.Disabled = false
-    local animtrack = plr.Character.Humanoid:GetPlayingAnimationTracks()
-    for i, track in pairs (animtrack) do
-        track:Stop()
-    end
+	local animtrack = plr.Character.Humanoid:GetPlayingAnimationTracks()
+	for i, track in pairs (animtrack) do
+		track:Stop()
+	end
 end
 
 local config = {
@@ -121,11 +124,11 @@ utils.onGround = function()
 	return Humanoid.FloorMaterial ~= Enum.Material.Air
 end
 utils.isMoving = function()
-	
+
 	if onMobile then
 		return Humanoid.MoveDirection ~= Vector3.zero
 	end
-	
+
 	return UserInputService:IsKeyDown("W") or UserInputService:IsKeyDown("A") or UserInputService:IsKeyDown("S") or UserInputService:IsKeyDown("D")
 end
 
@@ -175,23 +178,23 @@ local sort = Instance.new("UIListLayout",arrayListFrame)
 sort.SortOrder = Enum.SortOrder.LayoutOrder
 sort.HorizontalAlignment = Enum.HorizontalAlignment.Right
 
-	
-	label = Instance.new("TextLabel",ScreenGui)
-	label.Text = Key
-	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	label.BorderSizePixel = 0
-	label.TextColor3 = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
-	label.BackgroundTransparency = 1
-	label.Size = UDim2.fromScale(0.335,0.105)
-	label.Position = UDim2.fromScale(-0.008,0.01)
-	label.Name = "Mark"
-    label.Font = 25
-    label.ZIndex = 0
-    label.TextScaled = true
-    local stroke = Instance.new("UIStroke",label)
-    stroke.Thickness = 2
 
-    local rgb = true
+label = Instance.new("TextLabel",ScreenGui)
+label.Text = Key
+label.BackgroundColor3 = Color3.fromRGB(0,0,0)
+label.BorderSizePixel = 0
+label.TextColor3 = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
+label.BackgroundTransparency = 1
+label.Size = UDim2.fromScale(0.335,0.105)
+label.Position = UDim2.fromScale(-0.008,0.01)
+label.Name = "Mark"
+label.Font = 25
+label.ZIndex = 0
+label.TextScaled = true
+local stroke = Instance.new("UIStroke",label)
+stroke.Thickness = 2
+
+local rgb = true
 
 local imageId = "http://www.roblox.com/asset/?id=5857213084"
 local arrayItems = {}
@@ -205,7 +208,7 @@ local arraylist = {
 		item.BackgroundColor3 = Color3.fromRGB(0,0,0)
 		item.Size = UDim2.new(0,0,0,0)
 		item.TextColor3 = Color3.fromRGB(255,255,255)
-        item.Font = 14
+		item.Font = 14
 		local glow = Instance.new("ImageLabel",item)
 		glow.Size = UDim2.fromScale(4,4)
 		glow.BackgroundTransparency = 1
@@ -214,7 +217,7 @@ local arraylist = {
 		glow.Position = UDim2.fromScale(-1,-1.5)
 		glow.ZIndex = -10
 
-		
+
 		if library.Array.Rounded then
 			local round = Instance.new("UICorner",item)
 		end
@@ -310,10 +313,10 @@ library.NewWindow = function(name)
 	textlabel.Text = name
 	textlabel.Name = name
 	textlabel.BorderSizePixel = 2
-    textlabel.TextSize = 15
+	textlabel.TextSize = 15
 	textlabel.BackgroundColor3 = Color3.fromRGB(35,35,35)
 	textlabel.TextColor3 = Color3.fromRGB(255,255,255)
-    textlabel.Font = 11
+	textlabel.Font = 11
 	textlabel.ZIndex = 2
 
 	local modules = Instance.new("Frame", textlabel)
@@ -363,15 +366,15 @@ library.NewWindow = function(name)
 		textbutton.Position = UDim2.fromScale(0,0)
 		textbutton.BackgroundColor3 = Color3.fromRGB(60,60,60)
 		textbutton.BorderSizePixel = 1
-        textbutton.TextSize = 14
+		textbutton.TextSize = 14
 		textbutton.Text = Table.Name
 		textbutton.Name = Table.Name
-        textbutton.Font = 11
+		textbutton.Font = 11
 		textbutton.TextColor3 = Color3.fromRGB(255,255,255)
 
 		local dropdown = Instance.new("Frame", textbutton)
 		dropdown.Position = UDim2.fromScale(0,1)
-        dropdown.Name = "DropDown"
+		dropdown.Name = "DropDown"
 		dropdown.Size = UDim2.fromScale(1,5)
 		dropdown.BackgroundTransparency = 1
 		dropdown.Visible = false
@@ -420,7 +423,7 @@ library.NewWindow = function(name)
 			textbutton2.Text = v.Name
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 11
+			textbutton2.Font = 11
 
 			local v2 = {}
 			v2.Enabled = Enabled
@@ -466,7 +469,7 @@ library.NewWindow = function(name)
 			textbutton2.Text = v.Name.." - "..v.Options[1]
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 11
+			textbutton2.Font = 11
 
 			local v2 = {
 				Option = v.Options[1]
@@ -509,7 +512,7 @@ library.NewWindow = function(name)
 			return v2
 		end
 
-        lib2.NewToggle = function(v)
+		lib2.NewToggle = function(v)
 			local Enabled = false
 
 			if config.Toggles[v.Name.."_"..Table.Name] == nil then 
@@ -524,7 +527,7 @@ library.NewWindow = function(name)
 			textbutton2.Text = v.Name
 			textbutton2.Name = v.Name
 			textbutton2.TextColor3 = Color3.fromRGB(255,255,255)
-            textbutton2.Font = 11
+			textbutton2.Font = 11
 
 			local v2 = {}
 			v2.Enabled = Enabled
@@ -556,18 +559,18 @@ library.NewWindow = function(name)
 		end
 
 
-			local Box = Instance.new("TextBox", dropdown)
-			Box.Size = UDim2.fromScale(1, 0.15)
-			Box.Position = UDim2.fromScale(0,0)
-			Box.BackgroundColor3 = Color3.fromRGB(110,80,180)
-			Box.BorderSizePixel = 0
-			Box.Text = ""
-            Box.PlaceholderText = "Keybind"
-            Box.Visible = false
-			Box.Name = "KeybindBox"
-			Box.TextColor3 = Color3.fromRGB(255,255,255)
-           Box.Font = 11
-		
+		local Box = Instance.new("TextBox", dropdown)
+		Box.Size = UDim2.fromScale(1, 0.15)
+		Box.Position = UDim2.fromScale(0,0)
+		Box.BackgroundColor3 = Color3.fromRGB(110,80,180)
+		Box.BorderSizePixel = 0
+		Box.Text = ""
+		Box.PlaceholderText = "Keybind"
+		Box.Visible = false
+		Box.Name = "KeybindBox"
+		Box.TextColor3 = Color3.fromRGB(255,255,255)
+		Box.Font = 11
+
 
 
 		textbutton.MouseButton1Down:Connect(function()
@@ -615,13 +618,13 @@ if onMobile then
 	tglbtn.Position = UDim2.fromScale(0, 0.99)
 	tglbtn.Size = UDim2.fromScale(0.05, 0.03)
 	tglbtn.BorderSizePixel = 0
-    tglbtn.TextScaled = true
+	tglbtn.TextScaled = true
 	tglbtn.BackgroundColor3 = library.Color
 	tglbtn.Name = "ToggleUi"
-    tglbtn.Draggable = true
-	tglbtn.Text = "Aether"
-    tglbtn.Font = 23
-	
+	tglbtn.Draggable = true
+	tglbtn.Text = "Lunar"
+	tglbtn.Font = 23
+
 
 	local corner = Instance.new("UICorner", tglbtn)
 
@@ -702,30 +705,30 @@ local function getNearestPlayer(range)
 end
 
 local function getNearestWallPlayer(range)
-    local nearest
-    local nearestDist = 9e9
-    for i,v in pairs(game.Players:GetPlayers()) do
-        pcall(function()
-            if v == LocalPlayer or v.Team == LocalPlayer.Team then return end
-            local character = v.Character
-            if character and character.Humanoid.health > 0 then
-                local direction = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Unit
-                local raycastResult = workspace:Raycast(LocalPlayer.Character.PrimaryPart.Position, direction * range, {IgnoreType = Enum.IgnoreType.Part})
-                if raycastResult and raycastResult.Instance then
-                    local hitPart = raycastResult.Instance
-                    if hitPart:IsA("BasePart") and hitPart.CanCollide then
-                        -- If the raycast hits a solid object, ignore this player
-                        return
-                    end
-                end
-                if (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude < nearestDist and (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= range then
-                    nearest = v
-                    nearestDist = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
-                end
-            end
-        end)
-    end
-    return nearest
+	local nearest
+	local nearestDist = 9e9
+	for i,v in pairs(game.Players:GetPlayers()) do
+		pcall(function()
+			if v == LocalPlayer or v.Team == LocalPlayer.Team then return end
+			local character = v.Character
+			if character and character.Humanoid.health > 0 then
+				local direction = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Unit
+				local raycastResult = workspace:Raycast(LocalPlayer.Character.PrimaryPart.Position, direction * range, {IgnoreType = Enum.IgnoreType.Part})
+				if raycastResult and raycastResult.Instance then
+					local hitPart = raycastResult.Instance
+					if hitPart:IsA("BasePart") and hitPart.CanCollide then
+						-- If the raycast hits a solid object, ignore this player
+						return
+					end
+				end
+				if (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude < nearestDist and (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude <= range then
+					nearest = v
+					nearestDist = (character.PrimaryPart.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+				end
+			end
+		end)
+	end
+	return nearest
 end
 
 local function getRemote(name)
@@ -810,11 +813,11 @@ local auraAnimations = {
 		{CFrame = CFrame.new(0.69, -2, 0.1) * CFrame.Angles(math.rad(-72), math.rad(21), math.rad(-35)), Timer = 0.07},
 		{CFrame = CFrame.new(0.69, -0.6, 0.1) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Timer = 0.07},
 	},
-    ["Astral"] = {
-        {CFrame = CFrame.new(0.8, -0.6, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0},
-        {CFrame = CFrame.new(0.8, -0.6, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.10},
-        {CFrame = CFrame.new(0.96, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.20}
-    },
+	["Astral"] = {
+		{CFrame = CFrame.new(0.8, -0.6, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0},
+		{CFrame = CFrame.new(0.8, -0.6, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.10},
+		{CFrame = CFrame.new(0.96, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.20}
+	},
 	["Other Spin"] = {
 		{CFrame = CFrame.new(0.69, -2, 0.1) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(90)), Timer = 0.1},
 		{CFrame = CFrame.new(0.16, -0.1, -1) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(180)), Timer = 0.1},
@@ -849,7 +852,7 @@ Killaura = Combat.NewButton({
 
 				if nearest ~= nil then
 					if DragonAnimation.Enabled then
-				 game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
 					end
 					local nearestCharacter = nearest.Character
 					local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
@@ -998,8 +1001,8 @@ ToolCheck = Killaura.NewToggle({
 	Function = function() end
 })
 DragonAnimation = Killaura.NewToggle({
-Name = "DragonAnimation", 
-Function = function() end
+	Name = "DragonAnimation", 
+	Function = function() end
 })
 
 
@@ -1081,7 +1084,7 @@ ImageESPStyle = ImageESP.NewPicker({
 local infFlyPart
 InfiniteFly = Motion.NewButton({
 	Name = "InfiniteFly",
-    Keybind = Enum.KeyCode.H,
+	Keybind = Enum.KeyCode.H,
 	Function = function(callback)
 		if callback then
 			infFlyPart = Instance.new("Part",workspace)
@@ -1089,11 +1092,11 @@ InfiniteFly = Motion.NewButton({
 			infFlyPart.CanCollide = true
 			infFlyPart.CFrame = PrimaryPart.CFrame
 			infFlyPart.Size = Vector3.new(.5 ,.5, .5)
-            if RootPartShow.Enabled then
-                infFlyPart.Transparency = 0
-            elseif not RootPartShow.Enabled then
-			    infFlyPart.Transparency = 1
-            end
+			if RootPartShow.Enabled then
+				infFlyPart.Transparency = 0
+			elseif not RootPartShow.Enabled then
+				infFlyPart.Transparency = 1
+			end
 			PrimaryPart.CFrame += Vector3.new(0,1000000,0)
 			CurrentCamera.CameraSubject = infFlyPart
 			repeat task.wait()
@@ -1134,11 +1137,11 @@ local box2 = ScreenGui.Motion.Frame.InfiniteFly.DropDown.KeybindBox
 box2.Visible = true
 box2.Text = config.Keybinds.InfiniteFly
 box2.Changed:Connect(function()
-if box2.Text ~= nil then
-    local uptext = box2.Text:upper()
-    box2.Text = uptext
-  library.Modules.InfiniteFly.Keybind = Enum.KeyCode[box2.Text]
-end
+	if box2.Text ~= nil then
+		local uptext = box2.Text:upper()
+		box2.Text = uptext
+		library.Modules.InfiniteFly.Keybind = Enum.KeyCode[box2.Text]
+	end
 end)
 
 
@@ -1150,7 +1153,7 @@ TargetInfo = Visuals.NewButton({
 			task.spawn(function()
 				repeat task.wait()
 					local nearest = getNearestPlayer(22)
-					
+
 					if nearest ~= nil then
 						local isWinning = function()
 							if nearest.Character.Humanoid.Health > Humanoid.Health then
@@ -1158,11 +1161,11 @@ TargetInfo = Visuals.NewButton({
 							end
 							return true
 						end
-						
+
 						if targetInfo == nil then
 							targetInfo = Instance.new("TextLabel",ScreenGui)
 						end
-						
+
 						if TargetIntoStyle.Option == "Simple" then
 							pcall(function()
 								TweenService:Create(targetInfo,TweenInfo.new(1),{
@@ -1178,7 +1181,7 @@ TargetInfo = Visuals.NewButton({
 								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
 							end)	
 						end
-						
+
 						if TargetIntoStyle.Option == "Aether" then
 							pcall(function()
 								targetInfo.Size = UDim2.fromScale(.12, .05)
@@ -1189,7 +1192,7 @@ TargetInfo = Visuals.NewButton({
 								targetInfo.TextColor3 = Color3.fromRGB(255,255,255)
 								targetInfo.Text = "  "..nearest.DisplayName.. " - IsWinning: ".. tostring(isWinning())
 								targetInfo.TextXAlignment = Enum.TextXAlignment.Left
-								
+
 								local hp = Instance.new("Frame", targetInfo)
 								TweenService:Create(hp,TweenInfo.new(1),{
 									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
@@ -1199,7 +1202,7 @@ TargetInfo = Visuals.NewButton({
 								hp.BorderSizePixel = 0
 							end)	
 						end
-						
+
 					else
 						pcall(function()
 							targetInfo:Remove()
@@ -1213,7 +1216,7 @@ TargetInfo = Visuals.NewButton({
 			pcall(function()
 				targetInfo:Remove()
 			end)
-			
+
 			targetInfo = nil
 		end
 	end,
@@ -1298,7 +1301,7 @@ HUDScreen.ResetOnSpawn = false
 local HUDS = {}
 
 HUDS[1] = function()
-	local text = "Aether V1.0"
+	local text = "Lunar V1.0"
 	local id = "http://www.roblox.com/asset/?id=7498352732"
 	local lplr = game.Players.LocalPlayer
 	label = Instance.new("TextLabel",HUDScreen)
@@ -1450,7 +1453,7 @@ Fly = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			flycon = RunService.Heartbeat:Connect(function()
-            flying = true
+				flying = true
 				local velo = PrimaryPart.Velocity
 				PrimaryPart.Velocity = Vector3.new(velo.X, 2.04, velo.Z)
 
@@ -1464,7 +1467,7 @@ Fly = Motion.NewButton({
 
 		else
 			pcall(function()
-            flying = false
+				flying = false
 				flycon:Disconnect()
 			end)
 
@@ -1475,11 +1478,11 @@ local box = ScreenGui.Motion.Frame.Fly.DropDown.KeybindBox
 box.Visible = true
 box.Text = config.Keybinds.Fly
 box.Changed:Connect(function()
-if box.Text ~= nil then
-    local uptext = box.Text:upper()
-    box.Text = uptext
-  library.Modules.Fly.Keybind = Enum.KeyCode[box.Text]
-end
+	if box.Text ~= nil then
+		local uptext = box.Text:upper()
+		box.Text = uptext
+		library.Modules.Fly.Keybind = Enum.KeyCode[box.Text]
+	end
 end)
 
 
@@ -1533,7 +1536,7 @@ Speed = Motion.NewButton({
 						speed = 0
 					end
 				end
-				
+
 				if SpeedMode.Option == "HeatseekerTeleport" then
 					Humanoid.WalkSpeed = 10
 					if tickxd > 275 then
@@ -1562,9 +1565,9 @@ NoSlowDown = Motion.NewButton({
 	Function = function(callback)
 		if callback then
 			repeat task.wait()
-            if not Speed.Enabled then
-				Humanoid.WalkSpeed = 23
-            end
+				if not Speed.Enabled then
+					Humanoid.WalkSpeed = 23
+				end
 			until not NoSlowDown.Enabled
 		end
 	end,
@@ -1778,7 +1781,7 @@ AutoPot = Player.NewButton({
 	end
 })
 
-local msgs = {".gg/aetherclient Get AetherClient Now!","Even without AetherClient i wouldve still won.","AetherClient On Top⭐","Imagine being legit in 2024","Get AetherClient to win lol!",".gg/aetherclient to become good"}
+local msgs = {"Get Lunar kids","Even without Exploits i wouldve still won.","Womp Womp","Imagine being legit in 2024","Get Exploits to win lol!","get gud"}
 Chatspammer = Misc.NewButton({
 	Name = "Chatspammer",
 	Function = function(callback)
@@ -1846,6 +1849,9 @@ Skybox = Visuals.NewButton({
 			if SkyboxStyle.Option == "Furry" then
 				assetId = "http://www.roblox.com/asset/?id=14831068996"
 			end
+			if SkyboxStyle.Option == "You" then
+				assetId = "http://www.roblox.com/asset/?id=14339422616"
+			end
 			for i,v in pairs(oldskybox) do
 				Lighting.Sky[i] = assetId
 			end
@@ -1859,7 +1865,7 @@ Skybox = Visuals.NewButton({
 
 SkyboxStyle = Skybox.NewPicker({
 	Name = "Style",
-	Options = {"Sus", "Springs","Damc", "Xylex","Alsploit","Matrix","Covid","Space","Windows","Trol","Cat","Furry"}
+	Options = {"Sus", "Springs","Damc", "Xylex","Alsploit","Matrix","Covid","Space","Windows","Trol","Cat","Furry", "You"}
 })
 
 
@@ -1937,7 +1943,7 @@ Scaffold = Misc.NewButton({
 						Sprint.ToggleButton(false)
 						sprintController:stopSprinting()
 					elseif ScaffoldMode2.Option == "Sprint" and not Sprint.Enabled then
-							Sprint.ToggleButton(true)
+						Sprint.ToggleButton(true)
 					end
 				end)
 			end)
@@ -1968,11 +1974,11 @@ local box4 = ScreenGui.Misc.Frame.Scaffold.DropDown.KeybindBox
 box4.Visible = true
 box4.Text = config.Keybinds.Scaffold
 box4.Changed:Connect(function()
-if box4.Text ~= nil then
-    local uptext = box4.Text:upper()
-    box4.Text = uptext
-  library.Modules.Scaffold.Keybind = Enum.KeyCode[box4.Text]
-end
+	if box4.Text ~= nil then
+		local uptext = box4.Text:upper()
+		box4.Text = uptext
+		library.Modules.Scaffold.Keybind = Enum.KeyCode[box4.Text]
+	end
 end)
 
 
@@ -2018,11 +2024,11 @@ AntiHit = Motion.NewButton({
 		if callback then
 			local lastHit = tick()
 			repeat
-				
+
 				local nearest = getNearestPlayer(14)
-				
+
 				if (hurttime <= 50) and nearest then
-					
+
 					if (AntiHitSafe and tick() - lastHit > 0.4) then
 						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6+ Vector3.new(0,2,0)
 
@@ -2030,7 +2036,7 @@ AntiHit = Motion.NewButton({
 					else
 						PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -6 + Vector3.new(0,2,0)
 					end
-					
+
 				end
 
 				lastHP = Humanoid.Health
@@ -2058,7 +2064,7 @@ AutoDip = Misc.NewButton({
 					InfiniteFly.ToggleButton(true)
 					wasDisabled = true
 				end
-				
+
 				if Humanoid.Health > 50 and InfiniteFly.Enabled and wasDisabled then
 					wasDisabled = false
 					InfiniteFly.ToggleButton(false)
@@ -2077,23 +2083,23 @@ AltDetector = Player.NewButton({
 		if callback then
 			AltDetectorcon = game.Players.PlayerAdded:Connect(function(plr)
 				if plr.AccountAge < 16 then
-                    	label = Instance.new("TextLabel",ScreenGui)
+					label = Instance.new("TextLabel",ScreenGui)
 
-	label.Text = plr.Name .. " is an alt account."
-	label.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	label.BorderSizePixel = 0
-	label.TextColor3 = Color3.fromRGB(155,39,45)
-	label.BackgroundTransparency = 1
-	label.Size = UDim2.fromScale(0.335,0.105)
-	label.Position = UDim2.fromScale(-0.005,0.04)
-	label.TextScaled = true
-	label.Name = "Alt"
-    label.ZIndex = 0
-    local stroke = Instance.new("UIStroke",label)
+					label.Text = plr.Name .. " is an alt account."
+					label.BackgroundColor3 = Color3.fromRGB(0,0,0)
+					label.BorderSizePixel = 0
+					label.TextColor3 = Color3.fromRGB(155,39,45)
+					label.BackgroundTransparency = 1
+					label.Size = UDim2.fromScale(0.335,0.105)
+					label.Position = UDim2.fromScale(-0.005,0.04)
+					label.TextScaled = true
+					label.Name = "Alt"
+					label.ZIndex = 0
+					local stroke = Instance.new("UIStroke",label)
 
 					print(plr.Name .. " is an alt account.")
-                    task.wait(3)
-                    label:Destroy()
+					task.wait(3)
+					label:Destroy()
 				end
 			end)
 		else
@@ -2107,7 +2113,7 @@ AltDetector = Player.NewButton({
 local function getGroupRank(plr:Player)
 	return plr:GetRankInGroup(5774246)
 end
- 
+
 local staffdetectorcon
 StaffDetector = Player.NewButton({
 	Name = "StaffDetector",
@@ -2135,28 +2141,28 @@ RemoteTrollage = Exploit.NewButton({
 	Name = "RemoteTrollage",
 	Function = function(callback)
 		if callback then
-           task.spawn(function()
-              TrollageConnection = RunService.Heartbeat:Connect(function()
-                    task.wait()
-                    if DragonSound.Enabled then
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
-                end
-                    if PartyPopper.Enabled then
-                        game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
-                    end
-                    if YuziDash.Enabled then
-                        game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
-                    end
-                end)
-            end)
+			task.spawn(function()
+				TrollageConnection = RunService.Heartbeat:Connect(function()
+					task.wait()
+					if DragonSound.Enabled then
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.DragonBreath:FireServer("")
+					end
+					if PartyPopper.Enabled then
+						game:GetService("ReplicatedStorage")["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
+					end
+					if YuziDash.Enabled then
+						game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dash")
+					end
+				end)
+			end)
 		else
-            pcall(function()
-                if TrollageConnection then
-                    TrollageConnection:Disconnect()
-                    TrollageConnection = nil
-                end
-           end)
-     end
+			pcall(function()
+				if TrollageConnection then
+					TrollageConnection:Disconnect()
+					TrollageConnection = nil
+				end
+			end)
+		end
 	end,
 })
 DragonSound = RemoteTrollage.NewToggle({
@@ -2299,9 +2305,9 @@ Camera = Visuals.NewButton({
 			CameraModificationCon = RunService.Heartbeat:Connect(function()
 				CurrentCamera.FieldOfView = 120
 			end)
-            if CameraZoom.Enabled then
-                game.Players.LocalPlayer.CameraMaxZoomDistance = 15
-            end
+			if CameraZoom.Enabled then
+				game.Players.LocalPlayer.CameraMaxZoomDistance = 15
+			end
 		else
 			CameraModificationCon:Disconnect()
 			CurrentCamera.FieldOfView = oldFOV
@@ -2460,11 +2466,11 @@ local RunService = game:GetService("RunService")
 
 local humanoid = lplr.Character and lplr.Character:FindFirstChildOfClass("Humanoid")
 lplr.CharacterAdded:Connect(function(character)
-task.wait(.5)
-Character = character
-    PrimaryPart = character.PrimaryPart
-    Humanoid =  character:FindFirstChild("Humanoid")
-    humanoid = character:FindFirstChild("Humanoid")
+	task.wait(.5)
+	Character = character
+	PrimaryPart = character.PrimaryPart
+	Humanoid =  character:FindFirstChild("Humanoid")
+	humanoid = character:FindFirstChild("Humanoid")
 end)
 
 AutoForge = Misc.NewButton({
@@ -2480,11 +2486,11 @@ AutoForge = Misc.NewButton({
 					}
 					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SetForgeSelectMechanic"):FireServer(unpack(args))
 				end
-				
+
 				repeat
 					task.wait(1)
 					local weapon = weaponmode.Option
-					
+
 					if weapon == "Swords" then
 						sendForgeRequest(0)
 					elseif weapon == "Daggers" then
@@ -2504,162 +2510,162 @@ AutoForge = Misc.NewButton({
 
 weaponmode = AutoForge.NewPicker({
 	Name = "Weapon",
-    Options = {"Swords", "Daggers", "Scythes", "GreatHammers", "Gauntlets"}
+	Options = {"Swords", "Daggers", "Scythes", "GreatHammers", "Gauntlets"}
 })
 
 Disabler = Exploit.NewButton({
-    Name = "Disabler",
-    Function = function(callback)
-        if callback then
-            task.spawn(function()
-                DisablerConnection = RunService.Heartbeat:Connect(function()
-                    if humanoid then
-                        if DisablerMethod.Option == "State" then
-                            humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Landed)
-                        elseif DisablerMethod.Option == "State2" then
-                            humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-                            humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                            humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
-                            humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                        elseif DisablerMethod.Option == "State3" then
-                            humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
-                            task.wait(0.025)
-                            humanoid:ChangeState(Enum.HumanoidStateType.Landed)
-                        end
-                    end
-                end)
-            end)
-        else
-            if DisablerConnection then
-                DisablerConnection:Disconnect()
-                DisablerConnection = nil
-            end
-        end
-    end,
+	Name = "Disabler",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()
+				DisablerConnection = RunService.Heartbeat:Connect(function()
+					if humanoid then
+						if DisablerMethod.Option == "State" then
+							humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+							humanoid:ChangeState(Enum.HumanoidStateType.Running)
+							humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+							humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+						elseif DisablerMethod.Option == "State2" then
+							humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+							humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+							humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+							humanoid:ChangeState(Enum.HumanoidStateType.Running)
+							humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+							humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
+							humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+							humanoid:ChangeState(Enum.HumanoidStateType.Running)
+						elseif DisablerMethod.Option == "State3" then
+							humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+							task.wait(0.025)
+							humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+						end
+					end
+				end)
+			end)
+		else
+			if DisablerConnection then
+				DisablerConnection:Disconnect()
+				DisablerConnection = nil
+			end
+		end
+	end,
 })
 DisablerMethod = Disabler.NewPicker({
-    Name = "StateBypassMethod",
-    Options = {"State", "State2", "State3"}
+	Name = "StateBypassMethod",
+	Options = {"State", "State2", "State3"}
 })
 
 local plr = game.Players.LocalPlayer
 local humanoid = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
 local AnimPacks = Player.NewButton({
-    Name = "AnimationPack",
-    Function = function(callback)
-        if callback then
-            task.spawn(function()     
-                    if humanoid then
-                        if Animation.Option == "Vampire" then
-                         	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-    
-                            elseif Animation.Option == "Toy" then
-                                	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782845736"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=782843345"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=782842708"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=782847020"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=782843869"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=782846423"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-    elseif Animation.Option == "Levitation" then
-	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-        elseif Animation.Option == "Ninja" then
-	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=656117400"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=656118341"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=656121766"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=656118852"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=656117878"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=656114359"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=656115606"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-    elseif Animation.Option == "Mage" then
-        	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=707742142"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=707855907"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=707897309"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=707861613"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=707853694"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=707826056"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-    elseif Animation.Option == "Pirate" then
-        	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-    elseif Animation.Option == "Elderly" then
-	local Animate = plr.Character.Animate
-	Animate.Disabled = true
-	StopAnim()
-	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
-	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
-	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
-	plr.Character.Humanoid:ChangeState(3)
-	Animate.Disabled = false
-                                end
-                            end
-                    
-                    end)
-                    end
-                    
-            end,
+	Name = "AnimationPack",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()     
+				if humanoid then
+					if Animation.Option == "Vampire" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+
+					elseif Animation.Option == "Toy" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782845736"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=782843345"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=782842708"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=782847020"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=782843869"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=782846423"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					elseif Animation.Option == "Levitation" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					elseif Animation.Option == "Ninja" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=656117400"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=656118341"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=656121766"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=656118852"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=656117878"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=656114359"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=656115606"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					elseif Animation.Option == "Mage" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=707742142"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=707855907"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=707897309"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=707861613"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=707853694"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=707826056"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					elseif Animation.Option == "Pirate" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					elseif Animation.Option == "Elderly" then
+						local Animate = plr.Character.Animate
+						Animate.Disabled = true
+						StopAnim()
+						Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
+						Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
+						Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
+						Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
+						Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
+						Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
+						Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
+						plr.Character.Humanoid:ChangeState(3)
+						Animate.Disabled = false
+					end
+				end
+
+			end)
+		end
+
+	end,
 })
 Animation = AnimPacks.NewPicker({
-    Name = "Animation",
-    Options = {"Vampire","Toy","Levitation","Ninja","Mage","Pirate","Elderly"}
+	Name = "Animation",
+	Options = {"Vampire","Toy","Levitation","Ninja","Mage","Pirate","Elderly"}
 })
 
 local animtab = {
@@ -2793,29 +2799,29 @@ local box3 = ScreenGui.Motion.Frame.LongJump.DropDown.KeybindBox
 box3.Visible = true
 box3.Text = config.Keybinds.LongJump
 box3.Changed:Connect(function()
-if box3.Text ~= nil then
-    local uptext = box3.Text:upper()
-    box3.Text = uptext
-  library.Modules.LongJump.Keybind = Enum.KeyCode[box3.Text]
-end
+	if box3.Text ~= nil then
+		local uptext = box3.Text:upper()
+		box3.Text = uptext
+		library.Modules.LongJump.Keybind = Enum.KeyCode[box3.Text]
+	end
 end)
 
 
 
 BridgeInstant = Exploit.NewButton({
-    Name = "BridgeInstaWin",
-    Function = function(callback)
-        if callback then
-            repeat
-                task.wait(.1)
-                for i,v in workspace:GetDescendants() do
-                    if v:IsA('TouchTransmitter') then
-                        firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, v.Parent, 1)
-                    end
-                end
-                until not BridgeInstant.Enabled
-        end
-    end,
+	Name = "BridgeInstaWin",
+	Function = function(callback)
+		if callback then
+			repeat
+				task.wait(.1)
+				for i,v in workspace:GetDescendants() do
+					if v:IsA('TouchTransmitter') then
+						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, v.Parent, 1)
+					end
+				end
+			until not BridgeInstant.Enabled
+		end
+	end,
 })
 
 
@@ -2920,19 +2926,19 @@ end
 Nuke = Exploit.NewButton({
 	Name = "BedNuker",
 	Function = function(callback)
-         task.spawn(function()
-            repeat
+		task.spawn(function()
+			repeat
 				task.wait(0.1)
 
 				if IsAlive(LocalPlayer) then
 					local NearestBed = FindNearestBed(35) or nil
-						if NearestBed then
-							Nuker(NearestBed)
-						end
+					if NearestBed then
+						Nuker(NearestBed)
+					end
 				end
-            until not Nuke.Enabled
-    end)
-end
+			until not Nuke.Enabled
+		end)
+	end
 })
 
 
@@ -2968,11 +2974,11 @@ local function RecallPlayerTweenToNearestPlayer()
 end
 
 function RecallPlayer()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
-    
-    task.wait(6.3)     
-    
-    RecallPlayerTweenToNearestPlayer()
+	game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
+
+	task.wait(6.3)     
+
+	RecallPlayerTweenToNearestPlayer()
 end
 
 
@@ -2980,44 +2986,44 @@ RecallTp = Combat.NewButton({
 	Name = "RecallPlrTP",
 	Function = function(callback)
 		if callback then
-RecallPlayer()
+			RecallPlayer()
 		end
 	end,
 })
-	
+
 FastFall = Misc.NewButton({
 	Name = "FastFall",
 	Function = function(callback)
 		if Character and PrimaryPart then
-            if callback then
-                if FallMode.Option == "Velocity" then
-                    PrimaryPart.Velocity = Vector3.new(0, -999, 0)
-                elseif FallMode.Option == "Gravity" then
-                    workspace.Gravity = 999
-                end
-            else
-                workspace.Gravity = 196.2
-            end
+			if callback then
+				if FallMode.Option == "Velocity" then
+					PrimaryPart.Velocity = Vector3.new(0, -999, 0)
+				elseif FallMode.Option == "Gravity" then
+					workspace.Gravity = 999
+				end
+			else
+				workspace.Gravity = 196.2
+			end
 		end
 	end,
 })
 LocalPlayer.CharacterAdded:Connect(function(newCharacter)
-    Character = newCharacter
-    PrimaryPart = newCharacter:WaitForChild("PrimaryPart")
-    if not FastFall.Enabled then
-        workspace.Gravity = 196.2
-    end
+	Character = newCharacter
+	PrimaryPart = newCharacter:WaitForChild("PrimaryPart")
+	if not FastFall.Enabled then
+		workspace.Gravity = 196.2
+	end
 end)
 
 LocalPlayer.CharacterRemoving:Connect(function()
-    Character = nil
-    PrimaryPart = nil
-    workspace.Gravity = 196.2
+	Character = nil
+	PrimaryPart = nil
+	workspace.Gravity = 196.2
 end)
 
 FallMode = FastFall.NewPicker({
-    Name = "Mode",
-    Options = {"Velocity", "Gravity"}
+	Name = "Mode",
+	Options = {"Velocity", "Gravity"}
 })
 
 
@@ -3032,9 +3038,9 @@ AntiDeath = Misc.NewButton({
 				local nearest = getNearestPlayer(9e9)
 				if Humanoid.Health > 0 and Humanoid.Health < 30 and nearest.Character.Humanoid.Health > Humanoid.Health and canjump == true then
 					LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 300, 0)
-                    canjump = false
-                    task.wait(6)
-                    canjump = true
+					canjump = false
+					task.wait(6)
+					canjump = true
 				end
 			until not AntiDeath.Enabled
 		end
@@ -3046,7 +3052,7 @@ Uninject = Misc.NewButton({
 	Function = function(callback)
 		if callback then
 			ScreenGui:Destroy(library.Modules)
-            Uninject.ToggleButton(false)
+			Uninject.ToggleButton(false)
 		end
 	end,
 })
@@ -3154,18 +3160,18 @@ Toxic = Misc.NewButton({
 	Name = "AutoToxic",
 	Function = function(callback)
 		if callback then
-                toxic = true
-            else
-            toxic = false
+			toxic = true
+		else
+			toxic = false
 		end
 	end,
 })
 
 LocalPlayer.leaderstats:FindFirstChild("Kills").Changed:Connect(function()
-if toxic == true then
-    local msgs = {"Dying in a BLOCK game is sad","Why bother when AetherClient exists","LOL HOW DO YOU LOSE IN A BED GAME","AetherClient IS JUST BETTER","IVE NEVER LOST WITH AetherClient LOL"}
+	if toxic == true then
+		local msgs = {"Why not exploit?","Why bother when LunarClient exists","LOL HOW DO YOU LOSE IN A BED GAME","LunarClient IS JUST BETTER","IVE NEVER LOST WITH LunarClient LOL"}
 		newChat(msgs[math.random(1,5)])
-    end
+	end
 end)
 
 
@@ -3178,65 +3184,65 @@ Music = Player.NewButton({
 	Name = "MusicPlayer",
 	Function = function(callback)
 		if callback then
-            local sound = Instance.new("Sound")
-            sound.Volume = 0
-            if Loop.Enabled then
-                sound.Looped = true
-            else
-                sound.Looped = false
-            end
-            local Music = sound:Clone()
-            Music.Parent = game.Workspace
-            Music.Name = "Music"
+			local sound = Instance.new("Sound")
+			sound.Volume = 0
+			if Loop.Enabled then
+				sound.Looped = true
+			else
+				sound.Looped = false
+			end
+			local Music = sound:Clone()
+			Music.Parent = game.Workspace
+			Music.Name = "Music"
 
-            if Song.Option == "Simulator" then
-                Music.SoundId = "rbxassetid://1841647093"
-                Music:Play()
-            elseif Song.Option == "Beat" then
-                Music.SoundId = "rbxassetid://1836965951"
-                Music:Play()
-            elseif Song.Option == "Beat2" then
-                Music.SoundId = "rbxassetid://1840843086"      
-                Music:Play()        
-            elseif Song.Option == "Goofy" then
-                Music.SoundId = "rbxassetid://1846332554"
-                Music:Play()
-            elseif Song.Option == "CrabRave" then
-                Music.SoundId = "rbxassetid://5410086218"
-                Music:Play()
-            elseif Song.Option == "SkibidiRizz" then
-                Music.SoundId = "rbxassetid://16190757458"
-                Music:Play()
-            elseif Song.Option == "Uptown" then
-                Music.SoundId = "rbxassetid://1845554017"
-                Music:Play()
-            elseif Song.Option == "PLAY" then
-                Music.SoundId = "rbxassetid://5410085763"
-                Music:Play()
-            elseif Song.Option == "RainingTacos" then
-                Music.SoundId = "rbxassetid://142376088"
-                Music:Play()
-            end
-                
-            if Volume.Option == "Low" then 
-                Music.Volume = 0.5
-            elseif Volume.Option == "Mid" then 
-                    Music.Volume = 1.5
-            elseif Volume.Option == "High" then 
-                Music.Volume = 5
-            end
-        else
-            game.Workspace.Music:Destroy()
-        end
+			if Song.Option == "Simulator" then
+				Music.SoundId = "rbxassetid://1841647093"
+				Music:Play()
+			elseif Song.Option == "Beat" then
+				Music.SoundId = "rbxassetid://1836965951"
+				Music:Play()
+			elseif Song.Option == "Beat2" then
+				Music.SoundId = "rbxassetid://1840843086"      
+				Music:Play()        
+			elseif Song.Option == "Goofy" then
+				Music.SoundId = "rbxassetid://1846332554"
+				Music:Play()
+			elseif Song.Option == "CrabRave" then
+				Music.SoundId = "rbxassetid://5410086218"
+				Music:Play()
+			elseif Song.Option == "SkibidiRizz" then
+				Music.SoundId = "rbxassetid://16190757458"
+				Music:Play()
+			elseif Song.Option == "Uptown" then
+				Music.SoundId = "rbxassetid://1845554017"
+				Music:Play()
+			elseif Song.Option == "RelaxedScene" then
+				Music.SoundId = "rbxassetid://1848354536"
+				Music:Play()
+			elseif Song.Option == "RainingTacos" then
+				Music.SoundId = "rbxassetid://142376088"
+				Music:Play()
+			end
+
+			if Volume.Option == "Low" then 
+				Music.Volume = 0.5
+			elseif Volume.Option == "Mid" then 
+				Music.Volume = 1.5
+			elseif Volume.Option == "High" then 
+				Music.Volume = 3
+			end
+		else
+			game.Workspace.Music:Destroy()
+		end
 	end,
 })
 Song = Music.NewPicker({
-    Name = "Song",
-    Options = {"Simulator","Beat","Beat2","Goofy","CrabRave", "SkibidiRizz", "Uptown", "PLAY", "RainingTacos"}
+	Name = "Song",
+	Options = {"Simulator","Beat","Beat2","Goofy","CrabRave", "SkibidiRizz", "Uptown", "PLAY", "RainingTacos"}
 })
 Volume = Music.NewPicker({
-    Name = "Volume",
-    Options = {"Low","Mid","High"}
+	Name = "Volume",
+	Options = {"Low","Mid","High"}
 })
 Loop = Music.NewToggle({
 	Name = "LoopMusic",
@@ -3247,15 +3253,15 @@ Godmode = Combat.NewButton({
 	Name = "MelodyGodMode",
 	Function = function(callback)
 		if callback then
-            repeat
-            task.wait(.1)
-local args = {
-    [1] = {
-        ["healTarget"] = game.Players.LocalPlayer
-    }
-}
-game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
-until not Godmode.Enabled
+			repeat
+				task.wait(.1)
+				local args = {
+					[1] = {
+						["healTarget"] = game.Players.LocalPlayer
+					}
+				}
+				game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlayGuitar"):FireServer(unpack(args))
+			until not Godmode.Enabled
 		end
 	end,
 })
@@ -3294,188 +3300,188 @@ AllProjectiles = Projectileaura.NewToggle({
 })
 
 local function Buystonesword()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["ignoredByKit"] = {
-                    [1] = "barbarian",
-                    [2] = "dasher",
-                    [3] = "frost_hammer_kit",
-                    [4] = "tinker"
-                },
-                ["itemType"] = "stone_sword",
-                ["price"] = 70,
-                ["superiorItems"] = {
-                    [1] = "iron_sword",
-                },
-                ["currency"] = "iron",
-                ["amount"] = 1,
-                ["lockAfterPurchase"] = true,
-                ["category"] = "Combat",
-                ["disabledInQueue"] = {
-                    [1] = "tnt_wars"
-                }
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["ignoredByKit"] = {
+					[1] = "barbarian",
+					[2] = "dasher",
+					[3] = "frost_hammer_kit",
+					[4] = "tinker"
+				},
+				["itemType"] = "stone_sword",
+				["price"] = 70,
+				["superiorItems"] = {
+					[1] = "iron_sword",
+				},
+				["currency"] = "iron",
+				["amount"] = 1,
+				["lockAfterPurchase"] = true,
+				["category"] = "Combat",
+				["disabledInQueue"] = {
+					[1] = "tnt_wars"
+				}
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 local function Buyironsword()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["ignoredByKit"] = {
-                    [1] = "barbarian",
-                    [2] = "dasher",
-                    [3] = "frost_hammer_kit",
-                    [4] = "tinker"
-                },
-                ["itemType"] = "iron_sword",
-                ["price"] = 70,
-                ["superiorItems"] = {
-                    [1] = "diamond_sword",
-                },
-                ["currency"] = "iron",
-                ["amount"] = 1,
-                ["lockAfterPurchase"] = true,
-                ["category"] = "Combat",
-                ["disabledInQueue"] = {
-                    [1] = "tnt_wars"
-                }
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["ignoredByKit"] = {
+					[1] = "barbarian",
+					[2] = "dasher",
+					[3] = "frost_hammer_kit",
+					[4] = "tinker"
+				},
+				["itemType"] = "iron_sword",
+				["price"] = 70,
+				["superiorItems"] = {
+					[1] = "diamond_sword",
+				},
+				["currency"] = "iron",
+				["amount"] = 1,
+				["lockAfterPurchase"] = true,
+				["category"] = "Combat",
+				["disabledInQueue"] = {
+					[1] = "tnt_wars"
+				}
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 local function BuyDiamondsword()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["ignoredByKit"] = {
-                    [1] = "barbarian",
-                    [2] = "dasher",
-                    [3] = "frost_hammer_kit",
-                    [4] = "tinker"
-                },
-                ["itemType"] = "diamond_sword",
-                ["price"] = 70,
-                ["superiorItems"] = {
-                    [1] = "emerald_sword",
-                },
-                ["currency"] = "emerald",
-                ["amount"] = 1,
-                ["lockAfterPurchase"] = true,
-                ["category"] = "Combat",
-                ["disabledInQueue"] = {
-                    [1] = "tnt_wars"
-                }
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["ignoredByKit"] = {
+					[1] = "barbarian",
+					[2] = "dasher",
+					[3] = "frost_hammer_kit",
+					[4] = "tinker"
+				},
+				["itemType"] = "diamond_sword",
+				["price"] = 70,
+				["superiorItems"] = {
+					[1] = "emerald_sword",
+				},
+				["currency"] = "emerald",
+				["amount"] = 1,
+				["lockAfterPurchase"] = true,
+				["category"] = "Combat",
+				["disabledInQueue"] = {
+					[1] = "tnt_wars"
+				}
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 local function BuyleatherArmor()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["lockAfterPurchase"] = true,
-                ["itemType"] = "leather_chestplate",
-                ["price"] = 50,
-                ["customDisplayName"] = "Leather Armor",
-                ["superiorItems"] = {
-                    [1] = "iron_chestplate"
-                },
-                ["currency"] = "iron",
-                ["amount"] = 1,
-                ["category"] = "Combat",
-                ["ignoredByKit"] = {
-                    [1] = "bigman",
-                    [2] = "tinker"
-                },
-                ["spawnWithItems"] = {
-                    [1] = "leather_helmet",
-                    [2] = "leather_chestplate",
-                    [3] = "leather_boots"
-                },
-                ["nextTier"] = "iron_chestplate"
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["lockAfterPurchase"] = true,
+				["itemType"] = "leather_chestplate",
+				["price"] = 50,
+				["customDisplayName"] = "Leather Armor",
+				["superiorItems"] = {
+					[1] = "iron_chestplate"
+				},
+				["currency"] = "iron",
+				["amount"] = 1,
+				["category"] = "Combat",
+				["ignoredByKit"] = {
+					[1] = "bigman",
+					[2] = "tinker"
+				},
+				["spawnWithItems"] = {
+					[1] = "leather_helmet",
+					[2] = "leather_chestplate",
+					[3] = "leather_boots"
+				},
+				["nextTier"] = "iron_chestplate"
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 local function BuyIronArmor()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["lockAfterPurchase"] = true,
-                ["itemType"] = "iron_chestplate",
-                ["price"] = 120,
-                ["prevTier"] = "leather_chestplate",
-                ["customDisplayName"] = "Iron Armor",
-                ["currency"] = "iron",
-                ["ignoredByKit"] = {
-                    [1] = "bigman",
-                    [2] = "tinker"
-                },
-                ["category"] = "Combat",
-                ["tiered"] = true,
-                ["nextTier"] = "diamond_chestplate",
-                ["spawnWithItems"] = {
-                    [1] = "iron_helmet",
-                    [2] = "iron_chestplate",
-                    [3] = "iron_boots"
-                },
-                ["amount"] = 1
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["lockAfterPurchase"] = true,
+				["itemType"] = "iron_chestplate",
+				["price"] = 120,
+				["prevTier"] = "leather_chestplate",
+				["customDisplayName"] = "Iron Armor",
+				["currency"] = "iron",
+				["ignoredByKit"] = {
+					[1] = "bigman",
+					[2] = "tinker"
+				},
+				["category"] = "Combat",
+				["tiered"] = true,
+				["nextTier"] = "diamond_chestplate",
+				["spawnWithItems"] = {
+					[1] = "iron_helmet",
+					[2] = "iron_chestplate",
+					[3] = "iron_boots"
+				},
+				["amount"] = 1
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 local function BuyDiamondArmor()
-    local args = {
-        [1] = {
-            ["shopItem"] = {
-                ["lockAfterPurchase"] = true,
-                ["itemType"] = "Diamond_chestplate",
-                ["price"] = 8,
-                ["customDisplayName"] = "Diamond Armor",
-                ["superiorItems"] = {
-                    [1] = "iron_chestplate"
-                },
-                ["currency"] = "iron",
-                ["amount"] = 1,
-                ["category"] = "Combat",
-                ["ignoredByKit"] = {
-                    [1] = "bigman",
-                    [2] = "tinker"
-                },
-                ["spawnWithItems"] = {
-                    [1] = "diamond_helmet",
-                    [2] = "diamond_chestplate",
-                    [3] = "diamond_boots"
-                },
-                ["nextTier"] = "diamond_chestplate"
-            },
-            ["shopId"] = "1_item_shop"
-        }
-    }
-    
-    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
+	local args = {
+		[1] = {
+			["shopItem"] = {
+				["lockAfterPurchase"] = true,
+				["itemType"] = "Diamond_chestplate",
+				["price"] = 8,
+				["customDisplayName"] = "Diamond Armor",
+				["superiorItems"] = {
+					[1] = "iron_chestplate"
+				},
+				["currency"] = "iron",
+				["amount"] = 1,
+				["category"] = "Combat",
+				["ignoredByKit"] = {
+					[1] = "bigman",
+					[2] = "tinker"
+				},
+				["spawnWithItems"] = {
+					[1] = "diamond_helmet",
+					[2] = "diamond_chestplate",
+					[3] = "diamond_boots"
+				},
+				["nextTier"] = "diamond_chestplate"
+			},
+			["shopId"] = "1_item_shop"
+		}
+	}
+
+	game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem"):InvokeServer(unpack(args))
 end
 
 AutoBuy = Player.NewButton({
@@ -3487,18 +3493,18 @@ AutoBuy = Player.NewButton({
 					if hasItem("wood_sword") then
 						Buystonesword()
 					end
-                    if hasItem("stone_sword") and not hasItem("iron_chestplate") and not hasItem("diamond_chestplate") and not hasItem("emerald_chestplate") then
-                        BuyleatherArmor()
-                    end
-                    if hasItem("leather_chestplate") then
-				        BuyIronArmor()
-			        end
-                    if hasItem("iron_sword") or hasItem("stone_sword") or hasItem("wood_sword") then
-				        BuyDiamondsword()
-			        end
-                    if hasItem("iron_chestplate") then
-				        BuyDiamondArmor()
-			        end
+					if hasItem("stone_sword") and not hasItem("iron_chestplate") and not hasItem("diamond_chestplate") and not hasItem("emerald_chestplate") then
+						BuyleatherArmor()
+					end
+					if hasItem("leather_chestplate") then
+						BuyIronArmor()
+					end
+					if hasItem("iron_sword") or hasItem("stone_sword") or hasItem("wood_sword") then
+						BuyDiamondsword()
+					end
+					if hasItem("iron_chestplate") then
+						BuyDiamondArmor()
+					end
 				until not AutoBuy.Enabled
 			end)
 		end
@@ -3510,84 +3516,84 @@ AutoBuy = Player.NewButton({
 local ESPboxes = {}
 
 local function isVisible(targetPos)
-    local targetScreenPos, onScreen = CurrentCamera:WorldToScreenPoint(targetPos)
-    return onScreen and targetScreenPos.Z > 0
+	local targetScreenPos, onScreen = CurrentCamera:WorldToScreenPoint(targetPos)
+	return onScreen and targetScreenPos.Z > 0
 end
 
 local function CreateOutline(Player)
-    local BillBoard = Instance.new("BillboardGui")
+	local BillBoard = Instance.new("BillboardGui")
 
-    BillBoard.Size = UDim2.new(4, 0, 4, 0)
-    BillBoard.AlwaysOnTop = true
-    BillBoard.Name = "Esp"
+	BillBoard.Size = UDim2.new(4, 0, 4, 0)
+	BillBoard.AlwaysOnTop = true
+	BillBoard.Name = "Esp"
 
-    local Frame = Instance.new("Frame")
+	local Frame = Instance.new("Frame")
 
-    Frame.Size = UDim2.new(1, 0, 1.5, 0)
-    Frame.Position = UDim2.new(0, 0, -Player.Character.LowerTorso.Size.Y / 2 or -Player.PrimaryPart.Size.Y / 2, 0)
-    Frame.BackgroundTransparency = 1
+	Frame.Size = UDim2.new(1, 0, 1.5, 0)
+	Frame.Position = UDim2.new(0, 0, -Player.Character.LowerTorso.Size.Y / 2 or -Player.PrimaryPart.Size.Y / 2, 0)
+	Frame.BackgroundTransparency = 1
 
-    local Stroke = Instance.new("UIStroke")
+	local Stroke = Instance.new("UIStroke")
 
-    Stroke.Thickness = 2.5
-    Stroke.Color = Color3.new(1, 0.666667, 0)
-    Stroke.Transparency = 0
+	Stroke.Thickness = 2.5
+	Stroke.Color = Color3.new(1, 0.666667, 0)
+	Stroke.Transparency = 0
 
-    task.spawn(function()
-        repeat
-            task.wait(0.001)
-            Stroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-        until not Stroke
-    end)
+	task.spawn(function()
+		repeat
+			task.wait(0.001)
+			Stroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+		until not Stroke
+	end)
 
-    local UICorner = Instance.new("UICorner")
+	local UICorner = Instance.new("UICorner")
 
-    UICorner.Parent = Frame
-    UICorner.CornerRadius = UDim.new(0, 3)
+	UICorner.Parent = Frame
+	UICorner.CornerRadius = UDim.new(0, 3)
 
-    Stroke.Parent = Frame
-    Frame.Parent = BillBoard
-    BillBoard.Parent = Player.Character.PrimaryPart
+	Stroke.Parent = Frame
+	Frame.Parent = BillBoard
+	BillBoard.Parent = Player.Character.PrimaryPart
 
-    ESPboxes[Player] = BillBoard
+	ESPboxes[Player] = BillBoard
 end
 
 local function RemoveOutline(Player)
-    if ESPboxes[Player] then
-        ESPboxes[Player]:Destroy()
-        ESPboxes[Player] = nil
-    end
+	if ESPboxes[Player] then
+		ESPboxes[Player]:Destroy()
+		ESPboxes[Player] = nil
+	end
 end
 
 local function updateESP()
-    for _, player in pairs(game.Players:GetPlayers()) do
-        if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-            local targetPosition = player.Character.HumanoidRootPart.Position
-            if isVisible(targetPosition) then
-                if not ESPboxes[player] then
-                    CreateOutline(player)
-                end
-            else
-                RemoveOutline(player)
-            end
-        else
-            RemoveOutline(player)
-        end
-    end
+	for _, player in pairs(game.Players:GetPlayers()) do
+		if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+			local targetPosition = player.Character.HumanoidRootPart.Position
+			if isVisible(targetPosition) then
+				if not ESPboxes[player] then
+					CreateOutline(player)
+				end
+			else
+				RemoveOutline(player)
+			end
+		else
+			RemoveOutline(player)
+		end
+	end
 end
 
 ESP = Visuals.NewButton({
-    Name = "BoxESP",
-    Function = function(callback)
-        if callback then
-            RunService:BindToRenderStep("ESPUpdate", Enum.RenderPriority.Camera.Value + 1, updateESP)
-        else
-            RunService:UnbindFromRenderStep("ESPUpdate")
-            for _, player in pairs(game.Players:GetPlayers()) do
-                RemoveOutline(player)
-            end
-        end
-    end,
+	Name = "BoxESP",
+	Function = function(callback)
+		if callback then
+			RunService:BindToRenderStep("ESPUpdate", Enum.RenderPriority.Camera.Value + 1, updateESP)
+		else
+			RunService:UnbindFromRenderStep("ESPUpdate")
+			for _, player in pairs(game.Players:GetPlayers()) do
+				RemoveOutline(player)
+			end
+		end
+	end,
 })
 
 
@@ -3595,27 +3601,27 @@ AutoUpgradeEra = Player.NewButton({
 	Name = "AutoUpgradeEra",
 	Function = function(callback)
 		if callback then
-				repeat task.wait(0.1)
-                    local args = {
-                        [1] = {
-                            ["era"] = "iron_era"
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
-                    local args = {
-                        [1] = {
-                            ["era"] = "diamond_era"
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
+			repeat task.wait(0.1)
+				local args = {
+					[1] = {
+						["era"] = "iron_era"
+					}
+				}
+				game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
+				local args = {
+					[1] = {
+						["era"] = "diamond_era"
+					}
+				}
+				game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
 
-                    local args = {
-                        [1] = {
-                            ["era"] = "emerald_era"
-                        }
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
-				until not AutoUpgradeEra.Enabled
+				local args = {
+					[1] = {
+						["era"] = "emerald_era"
+					}
+				}
+				game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("RequestPurchaseEra"):InvokeServer(unpack(args))
+			until not AutoUpgradeEra.Enabled
 		end
 	end,
 })
@@ -3623,60 +3629,60 @@ AutoUpgradeEra = Player.NewButton({
 
 
 ScytheDisabler = Exploit.NewButton({
-    Name = "ScytheDisabler",
-    Function = function(callback)
-        if callback then
-            local Bypassmode = Bypassmode.Value
-            task.spawn(function()
-                repeat task.wait()
-                    if Bypassmode == "Heatseeker" then
-                        local args = {
-                            [1] = {
-                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
-                            }
-                        }
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
+	Name = "ScytheDisabler",
+	Function = function(callback)
+		if callback then
+			local Bypassmode = Bypassmode.Value
+			task.spawn(function()
+				repeat task.wait()
+					if Bypassmode == "Heatseeker" then
+						local args = {
+							[1] = {
+								["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+							}
+						}
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 40
 
-                        task.wait(0.15)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.15)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.15)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.15)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18.5
-                        
-                        task.wait(0.175)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.175)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.175)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                        
-                        task.wait(0.175)
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                    elseif Bypassmode == "CFrame" then
-                        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 28
-                        local args = {
-                            [1] = {
-                                ["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
-                            }
-                        }
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                    end
-                until not ScytheDisabler.Enabled
-                resetSpeed()
-            end)
-        end
-    end,
+						task.wait(0.15)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.15)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.15)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.15)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 18.5
+
+						task.wait(0.175)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.175)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.175)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+
+						task.wait(0.175)
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+					elseif Bypassmode == "CFrame" then
+						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 28
+						local args = {
+							[1] = {
+								["direction"] = Vector3.new(0.46722307801246643, -1.769954627306447e-09, -0.8841394782066345)
+							}
+						}
+						game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+					end
+				until not ScytheDisabler.Enabled
+				resetSpeed()
+			end)
+		end
+	end,
 })
 Bypassmode = ScytheDisabler.NewPicker({
 	Name = "Mode",
@@ -3687,11 +3693,11 @@ Bypassmode = ScytheDisabler.NewPicker({
 local cloneref = cloneref or function(data: userdata) return data end;
 local enchanttoggled  = false;
 local getservice = function(service: string)
-    return cloneref(game:FindService(service));
+	return cloneref(game:FindService(service));
 end;
 
 local getrandomvalue = function(tab: table)
-    return #tab > 0 and tab[math.random(1, #tab)] or ''
+	return #tab > 0 and tab[math.random(1, #tab)] or ''
 end;
 
 local replicatedstorage = getservice('ReplicatedStorage');
@@ -3699,61 +3705,61 @@ local lplr = getservice('Players').LocalPlayer;
 local inputservice = getservice('UserInputService');
 local remote = replicatedstorage:WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneDoubleDown');
 local effects = {
-    'fire_3', 'forest_3', 'cloud_3', 'void_3', 'static_3', 'updraft_2', 
-    'shield_gen_3', 'anti_knockback_2', 'rapid_regen_3', 'execute_3', 
-    'wind_3', 'plunder_2', 'critical_strike_3', 'volley_3', 
-    'grounded_3', 'clingy_3', 'life_steal_3', 'fortune_1'
+	'fire_3', 'forest_3', 'cloud_3', 'void_3', 'static_3', 'updraft_2', 
+	'shield_gen_3', 'anti_knockback_2', 'rapid_regen_3', 'execute_3', 
+	'wind_3', 'plunder_2', 'critical_strike_3', 'volley_3', 
+	'grounded_3', 'clingy_3', 'life_steal_3', 'fortune_1'
 }
 
 if renderexploit then 
-    pcall(task.cancel, renderexploit)
+	pcall(task.cancel, renderexploit)
 end;
 
 renderexploit = task.spawn(function()
-    repeat 
-        task.wait()
-        if not enchanttoggled then 
-            continue
-        end;
-        for i,v in effects do 
-            remote:FireServer({statusEffectType = v})
-        end
-        task.wait(0.8)
-    until false;
+	repeat 
+		task.wait()
+		if not enchanttoggled then 
+			continue
+		end;
+		for i,v in effects do 
+			remote:FireServer({statusEffectType = v})
+		end
+		task.wait(0.8)
+	until false;
 end);
 
 DupeExploit = Exploit.NewButton({
 	Name = "FortuneExploit",
 	Function = function(callback)
 		if callback then
-            DupeExploit.Enabled = true
-            enchanttoggled = callback
-            task.spawn(function()
-                repeat
-                    task.wait(0.1)
-                    
-                    local cloneref = cloneref or function(data)
-                        return data
-                    end
-                    
-                    local getservice = function(service)
-                        return cloneref(game:FindService(service))
-                    end
-                    
-                    local getrandomvalue = function(tab)
-                        return #tab > 0 and tab[math.random(1, #tab)] or ''
-                    end
-                    
-                    local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut')
-                    remote:FireServer({
-                        statusEffectType = 'fortune_1',
-                        fortuneStacks = getrandomvalue({999999, 9e9})
-                    })
-                until not DupeExploit.Enabled
-            end)
-        else
-        end
-    end,
+			DupeExploit.Enabled = true
+			enchanttoggled = callback
+			task.spawn(function()
+				repeat
+					task.wait(0.1)
+
+					local cloneref = cloneref or function(data)
+						return data
+					end
+
+					local getservice = function(service)
+						return cloneref(game:FindService(service))
+					end
+
+					local getrandomvalue = function(tab)
+						return #tab > 0 and tab[math.random(1, #tab)] or ''
+					end
+
+					local remote = getservice('ReplicatedStorage'):WaitForChild('rbxts_include'):WaitForChild('node_modules'):WaitForChild('@rbxts'):WaitForChild('net'):WaitForChild('out'):WaitForChild('_NetManaged'):WaitForChild('RequestFortuneCashOut')
+					remote:FireServer({
+						statusEffectType = 'fortune_1',
+						fortuneStacks = getrandomvalue({999999, 9e9})
+					})
+				until not DupeExploit.Enabled
+			end)
+		else
+		end
+	end,
 })
 
 jellyfishExploit = Exploit.NewButton({
@@ -3761,13 +3767,13 @@ jellyfishExploit = Exploit.NewButton({
 	Function = function(callback)
 		if callback then
 			task.spawn(function()
-				
+
 				repeat task.wait(0.2)
 					local args = {
-                        [1] = "electrify_jellyfish"
-                    }
-                    
-                    game:GetService("ReplicatedStorage"):WaitForChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"):WaitForChild("useAbility"):FireServer(unpack(args))
+						[1] = "electrify_jellyfish"
+					}
+
+					game:GetService("ReplicatedStorage"):WaitForChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"):WaitForChild("useAbility"):FireServer(unpack(args))
 				until (not jellyfishExploit.Enabled)
 			end)
 		end
@@ -3775,56 +3781,56 @@ jellyfishExploit = Exploit.NewButton({
 })
 
 local function teleportToRandomPlayer()
-    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-    wait(0.2)
+	game.Players.LocalPlayer.Character.Humanoid.Health = 0
+	wait(0.2)
 
-    local Players = game:GetService("Players")
-    local TweenService = game:GetService("TweenService")
-    local lplr = Players.LocalPlayer
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+	local lplr = Players.LocalPlayer
 
-    local function checkHealth()
-        repeat
-            wait()
-        until lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health >= 100
+	local function checkHealth()
+		repeat
+			wait()
+		until lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health >= 100
 
-        local availablePlayers = {}
+		local availablePlayers = {}
 
-        for _, player in pairs(Players:GetPlayers()) do
-            if player.TeamColor ~= lplr.TeamColor then
-                table.insert(availablePlayers, player)
-            end
-        end
+		for _, player in pairs(Players:GetPlayers()) do
+			if player.TeamColor ~= lplr.TeamColor then
+				table.insert(availablePlayers, player)
+			end
+		end
 
-        if #availablePlayers > 0 then
-            local selectedPlayer = availablePlayers[math.random(1, #availablePlayers)]
-            local part = selectedPlayer.Character.PrimaryPart
-            local duration = 0.4 
+		if #availablePlayers > 0 then
+			local selectedPlayer = availablePlayers[math.random(1, #availablePlayers)]
+			local part = selectedPlayer.Character.PrimaryPart
+			local duration = 0.4 
 
-            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
-            local tween = TweenService:Create(lplr.Character.PrimaryPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
-            tween:Play()
-            tween.Completed:Wait()
-        else
-        end
-    end
+			local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+			local tween = TweenService:Create(lplr.Character.PrimaryPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
+			tween:Play()
+			tween.Completed:Wait()
+		else
+		end
+	end
 
-    checkHealth()
+	checkHealth()
 end
 
 
 DeathPlayerTp = Combat.NewButton({
-    Name = "DeathPlayerTp",
-    Function = function(callback)
-        if callback then
-            
-            task.spawn(function()
-                    task.wait()
+	Name = "DeathPlayerTp",
+	Function = function(callback)
+		if callback then
 
-                    teleportToRandomPlayer()
-            end)
-        else   
-        end
-    end,
+			task.spawn(function()
+				task.wait()
+
+				teleportToRandomPlayer()
+			end)
+		else   
+		end
+	end,
 })
 
 BlockingAnimation = Visuals.NewButton({
@@ -3848,46 +3854,46 @@ SemiAura = Legit.NewButton({
 	Name = "SilentAura",
 	Function = function(callback)
 		if callback then
-            auraConnection2 = RunService.Heartbeat:Connect(function()
-                local nearest = getNearestWallPlayer(10)
+			auraConnection2 = RunService.Heartbeat:Connect(function()
+				local nearest = getNearestWallPlayer(10)
 
-                if nearest ~= nil then
-                    local nearestCharacter = nearest.Character
-                    local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
-                    local selfPrimaryPartPosition = PrimaryPart.Position
-                    local weapon = getBestWeapon()
-                    
-                    if ToolCheck.Enabled then
+				if nearest ~= nil then
+					local nearestCharacter = nearest.Character
+					local nearestPrimaryPartPosition = nearestCharacter.PrimaryPart.Position
+					local selfPrimaryPartPosition = PrimaryPart.Position
+					local weapon = getBestWeapon()
 
-                    else
-                        spoofHand(weapon.Name)
-                    end
+					if ToolCheck.Enabled then
 
-                    task.spawn(function()
-                        for i = 1, 1 do
-                            AuraRemote:FireServer({
-                                chargedAttack = {
-                                    chargeRatio = 0
-                                },
-                                entityInstance = nearestCharacter,
-                                validate = {
-                                    raycast = {
-                                        cameraPosition = CurrentCamera,
-                                        cursorDirection = CFrame.LookVector
-                                    },
-                                    targetPosition = {
-                                        value = nearestPrimaryPartPosition
-                                    },
-                                    selfPosition = {
-                                        value = selfPrimaryPartPosition
-                                    },
-                                },
-                                weapon = weapon
-                            })
-                        end
-                    end)
-                end
-            end)
+					else
+						spoofHand(weapon.Name)
+					end
+
+					task.spawn(function()
+						for i = 1, 1 do
+							AuraRemote:FireServer({
+								chargedAttack = {
+									chargeRatio = 0
+								},
+								entityInstance = nearestCharacter,
+								validate = {
+									raycast = {
+										cameraPosition = CurrentCamera,
+										cursorDirection = CFrame.LookVector
+									},
+									targetPosition = {
+										value = nearestPrimaryPartPosition
+									},
+									selfPosition = {
+										value = selfPrimaryPartPosition
+									},
+								},
+								weapon = weapon
+							})
+						end
+					end)
+				end
+			end)
 
 			task.spawn(function()
 				repeat task.wait(.8)
@@ -3942,7 +3948,7 @@ SemiAura = Legit.NewButton({
 								hp.Position = UDim2.fromScale(0, .9)
 								hp.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 								hp.BorderSizePixel = 0
-								
+
 								TweenService:Create(hp,TweenInfo.new(1),{
 									Size = UDim2.fromScale(0.01 * nearest.Character.Humanoid.Health,0.1)
 								}):Play()
@@ -4010,18 +4016,18 @@ AutoReset = Legit.NewButton({
 	Name = "AutoReset",
 	Function = function(callback)
 		if callback then
-            repeat
-            task.wait()
-            if Speed.Option == "Fast" then
-                if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= 0 then 
-                    game.Players.LocalPlayer.Character.Humanoid.Health = 0    
-                end
-                elseif Speed.Option == "Delayed" then 
-                    if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= -35 then 
-                    game.Players.LocalPlayer.Character.Humanoid.Health = 0    
-                end   
-                end
-            until not AutoReset.Enabled
+			repeat
+				task.wait()
+				if Speed.Option == "Fast" then
+					if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= 0 then 
+						game.Players.LocalPlayer.Character.Humanoid.Health = 0    
+					end
+				elseif Speed.Option == "Delayed" then 
+					if game.Players.LocalPlayer.Character.PrimaryPart.CFrame.Y <= -35 then 
+						game.Players.LocalPlayer.Character.Humanoid.Health = 0    
+					end   
+				end
+			until not AutoReset.Enabled
 		end
 	end,
 })
@@ -4032,39 +4038,39 @@ Speed = AutoReset.NewPicker({
 
 
 function setCameraToPlayer(target)
-    local player = game.Players.LocalPlayer
-    local camera = game.Workspace.CurrentCamera
-    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-        local targetPosition = target.Character.HumanoidRootPart.Position
-        camera.CFrame = CFrame.new(camera.CFrame.Position, targetPosition)
-    end
+	local player = game.Players.LocalPlayer
+	local camera = game.Workspace.CurrentCamera
+	if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+		local targetPosition = target.Character.HumanoidRootPart.Position
+		camera.CFrame = CFrame.new(camera.CFrame.Position, targetPosition)
+	end
 end
 
 AimAssist = Combat.NewButton({
 	Name = "AimAssist",
-    Keybind = Enum.KeyCode.B,
+	Keybind = Enum.KeyCode.B,
 	Function = function(callback)
 		if callback then
-            task.spawn(function()
-                repeat task.wait(0)
-                    local Entity = getNearestPlayer(20)
-                    if Entity then
-                        setCameraToPlayer(Entity)
-                    end
-                until (not AimAssist.Enabled)
-            end)
-        end
-    end,
+			task.spawn(function()
+				repeat task.wait(0)
+					local Entity = getNearestPlayer(20)
+					if Entity then
+						setCameraToPlayer(Entity)
+					end
+				until (not AimAssist.Enabled)
+			end)
+		end
+	end,
 })
 local box6 = ScreenGui.Combat.Frame.AimAssist.DropDown.KeybindBox
 box6.Visible = true
 box6.Text = config.Keybinds.AimAssist
 box6.Changed:Connect(function()
-if box6.Text ~= nil then
-    local uptext = box6.Text:upper()
-    box6.Text = uptext
-  library.Modules.AimAssist.Keybind = Enum.KeyCode[box6.Text]
-end
+	if box6.Text ~= nil then
+		local uptext = box6.Text:upper()
+		box6.Text = uptext
+		library.Modules.AimAssist.Keybind = Enum.KeyCode[box6.Text]
+	end
 end)
 
 
@@ -4072,22 +4078,22 @@ Gravity = Player.NewButton({
 	Name = "Gravity",
 	Function = function(callback)
 		if callback then
-            repeat 
-            task.wait(2)
-            if GravMode.Option == "1" then 
-                workspace.Gravity = 120
-                elseif GravMode.Option == "2" then 
-                workspace.Gravity = 90
-                elseif GravMode.Option == "3" then 
-                workspace.Gravity = 40
-                elseif GravMode.Option == "4" then 
-                workspace.Gravity = 250
-            end
-            until not Gravity.Enabled
-            else
-            workspace.Gravity = 196.2
-        end
-    end,
+			repeat 
+				task.wait(2)
+				if GravMode.Option == "1" then 
+					workspace.Gravity = 120
+				elseif GravMode.Option == "2" then 
+					workspace.Gravity = 90
+				elseif GravMode.Option == "3" then 
+					workspace.Gravity = 40
+				elseif GravMode.Option == "4" then 
+					workspace.Gravity = 250
+				end
+			until not Gravity.Enabled
+		else
+			workspace.Gravity = 196.2
+		end
+	end,
 })
 GravMode = Gravity.NewPicker({
 	Name = "Mode",
@@ -4100,12 +4106,12 @@ AntiGodmode = Combat.NewButton({
 	Name = "AirHit",
 	Function = function(callback)
 		if callback then
-            repeat
-		PrimaryPart.Velocity += Vector3.new(0, 150, 0)
-        task.wait(.4)
-        PrimaryPart.Velocity += Vector3.new(0, -250, 0)
-        task.wait(.2)
-        until not AntiGodmode.Enabled
+			repeat
+				PrimaryPart.Velocity += Vector3.new(0, 150, 0)
+				task.wait(.4)
+				PrimaryPart.Velocity += Vector3.new(0, -250, 0)
+				task.wait(.2)
+			until not AntiGodmode.Enabled
 		end
 	end,
 })
@@ -4140,15 +4146,15 @@ CustomHotbar = Visuals.NewButton({
 
 			local stroke = Instance.new("UIStroke",CustomHotbarPart)
 			stroke.Thickness = 7
-            if theme.Option == "Retro" then 
-                CustomHotbarPart.BackgroundColor3 = Color3.fromRGB(80,220,70)
-                elseif theme.Option == "Modern" then 
-                			stroke.Thickness = 5
-                CustomHotbarPart.BackgroundColor3 = Color3.new(0.243137, 0.098039, 0.639216)
-                elseif theme.Option == "Ocean" then 
-			stroke.Thickness = 8
-            CustomHotbarPart.BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000)
-            end
+			if theme.Option == "Retro" then 
+				CustomHotbarPart.BackgroundColor3 = Color3.fromRGB(80,220,70)
+			elseif theme.Option == "Modern" then 
+				stroke.Thickness = 5
+				CustomHotbarPart.BackgroundColor3 = Color3.new(0.243137, 0.098039, 0.639216)
+			elseif theme.Option == "Ocean" then 
+				stroke.Thickness = 8
+				CustomHotbarPart.BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000)
+			end
 		else
 			pcall(function()
 				CustomHotbarPart:Destroy()
@@ -4194,3 +4200,4 @@ FakeLag = Legit.NewButton({
 		end
 	end,
 })
+end
